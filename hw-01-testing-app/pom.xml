@@ -18,6 +18,7 @@
         <checkstyle.version>10.9.1</checkstyle.version>
         <junit.jupiter.version>5.9.2</junit.jupiter.version>
         <junit.platform.version>1.9.2</junit.platform.version>
+        <opencsv.version>5.7.1</opencsv.version>
         <checkstyle.config.url>https://raw.githubusercontent.com/OtusTeam/Spring/master/checkstyle.xml</checkstyle.config.url>
     </properties>
 
@@ -57,6 +58,11 @@
             <artifactId>junit-platform-suite</artifactId>
             <version>${junit.platform.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
         </dependency>
     </dependencies>
 </project>
