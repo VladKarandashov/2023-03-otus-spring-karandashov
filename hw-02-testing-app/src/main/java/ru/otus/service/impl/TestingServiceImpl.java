@@ -68,7 +68,7 @@ public class TestingServiceImpl implements TestingService {
     }
 
     private void printResult(List<Question> questionList) {
-        ioService.printString("---------------------------------------------------");
+        ioService.printString("Result");
         ioService.printString("you answered "+successCount+" questions out of "+questionList.size()+" correctly");
         ioService.printString("you had to correctly answer "+needSuccessCount+" questions");
         ioService.printString(successCount<needSuccessCount ? "You didn't pass the test" : "you passed the test");
