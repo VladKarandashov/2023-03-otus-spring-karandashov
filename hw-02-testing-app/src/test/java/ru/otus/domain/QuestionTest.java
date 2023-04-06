@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-
 public class QuestionTest {
 
     private static final List<String> testAnswers = List.of("1", "2", "3", "4");

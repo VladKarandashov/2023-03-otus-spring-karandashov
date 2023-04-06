@@ -3,6 +3,9 @@ package ru.otus.dao;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Repository;
 import ru.otus.domain.Answer;
 import ru.otus.domain.Question;
 
@@ -15,18 +18,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Repository
 public class QuestionDaoImpl implements QuestionDao {
 
-    private final String nameFile;
+    private final Resource questionFile;
 
-    public QuestionDaoImpl(String nameFile) {
-        this.nameFile = nameFile;
+    public QuestionDaoImpl(@Value("classpath:${questions.fileName}") Resource questionFile) {
+        this.questionFile = questionFile;
     }
 
     @Override
     public List<Question> getQuestionList() {
-        System.out.println(nameFile);
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(nameFile)) {
+        try (InputStream inputStream = questionFile.getInputStream()) {
             return readLinesItems(inputStream).stream()
                     .skip(1)
                     .map(item -> {
