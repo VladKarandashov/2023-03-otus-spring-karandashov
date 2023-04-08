@@ -32,7 +32,7 @@ public class TestingServiceImpl implements TestingService {
 
     @Override
     public void testing() {
-        List<Question> questionList = questionDao.getQuestionList();
+        List<Question> questionList = questionDao.getAll();
         successCount = 0;
 
         greeting(questionList);

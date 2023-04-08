@@ -4,28 +4,34 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.core.io.Resource;
+import ru.otus.exception.MissingQuestionsException;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class QuestionDaoImplTest {
 
     @Test
-    void getQuestionListTest() throws IOException {
-        InputStream inputStream = Mockito.mock(InputStream.class);
+    void getAllTest() throws IOException {
         Resource resource = Mockito.mock(Resource.class);
-        Mockito.when(resource.getInputStream()).thenReturn(inputStream);
+        InputStream inputStreamIn = new ByteArrayInputStream(
+                ("id,title,question,answer,option1,option2,option3\n" +
+                 "1,HEAD,BODY,ANSWER,WRONG_ANSWER,ANSWER,NOT_ANSWER").getBytes()
+        );
+        Mockito.when(resource.getInputStream()).thenReturn(inputStreamIn);
 
         QuestionDao questionDao = new QuestionDaoImpl(resource);
-        questionDao.getQuestionList();
+        var result = questionDao.getAll();
+        Assertions.assertEquals(1, result.size());
     }
 
     @Test
-    void getQuestionListThrowTest() throws IOException {
+    void getAllThrowMissingQuestionsExceptionTest() throws IOException {
         Resource resource = Mockito.mock(Resource.class);
         Mockito.when(resource.getInputStream()).thenReturn(null);
 
         QuestionDao questionDao = new QuestionDaoImpl(resource);
-        Assertions.assertThrows(RuntimeException.class, questionDao::getQuestionList);
+        Assertions.assertThrows(MissingQuestionsException.class, questionDao::getAll);
     }
 }

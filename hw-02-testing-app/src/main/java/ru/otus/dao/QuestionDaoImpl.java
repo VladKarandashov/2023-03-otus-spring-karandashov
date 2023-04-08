@@ -2,12 +2,12 @@ package ru.otus.dao;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 import ru.otus.domain.Answer;
 import ru.otus.domain.Question;
+import ru.otus.exception.MissingQuestionsException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,18 +17,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
 @Repository
 public class QuestionDaoImpl implements QuestionDao {
 
     private final Resource questionFile;
 
-    public QuestionDaoImpl(@Value("classpath:${questions.fileName}") Resource questionFile) {
+    public QuestionDaoImpl(@Value("${questions.fileName}") Resource questionFile) {
         this.questionFile = questionFile;
     }
 
     @Override
-    public List<Question> getQuestionList() {
+    public List<Question> getAll() {
         try (InputStream inputStream = questionFile.getInputStream()) {
             return readLinesItems(inputStream).stream()
                     .skip(1)
@@ -47,7 +46,7 @@ public class QuestionDaoImpl implements QuestionDao {
                             }
                     ).collect(Collectors.toList());
         } catch (Exception e) {
-            throw new RuntimeException("Missing list of questions", e);
+            throw new MissingQuestionsException("Missing list of questions", e);
         }
 
     }
@@ -60,7 +59,7 @@ public class QuestionDaoImpl implements QuestionDao {
                 records.add(Arrays.asList(values));
             }
         } catch (CsvValidationException | IOException e) {
-            throw new RuntimeException("Wrong file structure");
+            throw new RuntimeException("Wrong file structure", e);
         }
         return records;
     }

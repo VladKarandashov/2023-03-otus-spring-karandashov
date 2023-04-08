@@ -1,12 +1,14 @@
 package ru.otus.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class Question {
     private final Long id;
