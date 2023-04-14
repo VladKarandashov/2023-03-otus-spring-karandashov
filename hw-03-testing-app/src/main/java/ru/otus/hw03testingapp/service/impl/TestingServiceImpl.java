@@ -6,6 +6,7 @@ import ru.otus.hw03testingapp.dao.QuestionDao;
 import ru.otus.hw03testingapp.domain.Question;
 import ru.otus.hw03testingapp.props.QuestionsProps;
 import ru.otus.hw03testingapp.service.IOService;
+import ru.otus.hw03testingapp.service.LocalizedService;
 import ru.otus.hw03testingapp.service.TestingService;
 
 import java.util.List;
@@ -21,13 +22,17 @@ public class TestingServiceImpl implements TestingService {
 
     private final IOService ioService;
 
+    private final LocalizedService localizedService;
+
     @Autowired
-    public TestingServiceImpl(QuestionsProps questionsProps,
+    public TestingServiceImpl(LocalizedService localizedService,
+                              QuestionsProps questionsProps,
                               QuestionDao questionDao,
                               IOService ioService) {
         this.needSuccessCount = questionsProps.getNeedCountOfQuestionForSuccess();
         this.questionDao = questionDao;
         this.ioService = ioService;
+        this.localizedService = localizedService;
     }
 
     @Override
@@ -41,9 +46,9 @@ public class TestingServiceImpl implements TestingService {
     }
 
     private void greeting(List<Question> questionList) {
-        ioService.printStringByLocale("greetings");
-        ioService.printStringByLocale("countQuestions", new Integer[]{questionList.size()});
-        ioService.printStringByLocale("needAnswer", new Integer[]{needSuccessCount});
+        ioService.printLn(localizedService.getLocalizedString("greetings"));
+        ioService.printLn(localizedService.getLocalizedString("countQuestions", new Integer[]{questionList.size()}));
+        ioService.printLn(localizedService.getLocalizedString("needAnswer", new Integer[]{needSuccessCount}));
     }
 
     private void testingQuestions(List<Question> questionList) {
@@ -51,14 +56,14 @@ public class TestingServiceImpl implements TestingService {
     }
 
     private void testingQuestion(Question question) {
-        ioService.printString("\n№"+question.getId());
-        ioService.printStringByLocale(question.getTitle());
-        ioService.printStringByLocale(question.getText());
-        ioService.printStringByLocale("answer");
-        question.getAnswersValue().forEach(ioService::printString);
-        ioService.printStringByLocale("enterAnswer");
-        String answer = ioService.readString();
-        ioService.printStringByLocale(String.valueOf(check(answer, question)));
+        ioService.printLn("\n№"+question.getId());
+        ioService.printLn(localizedService.getLocalizedString(question.getTitle()));
+        ioService.printLn(localizedService.getLocalizedString(question.getText()));
+        ioService.printLn(localizedService.getLocalizedString("answer"));
+        question.getAnswersValue().forEach(ioService::printLn);
+        ioService.printLn(localizedService.getLocalizedString("enterAnswer"));
+        String answer = ioService.readLn();
+        ioService.printLn(localizedService.getLocalizedString(String.valueOf(check(answer, question))));
     }
 
     private boolean check(String answer, Question question) {
@@ -70,12 +75,14 @@ public class TestingServiceImpl implements TestingService {
     }
 
     private void printResult(List<Question> questionList) {
-        ioService.printStringByLocale("result");
-        ioService.printStringByLocale("statistic", new Integer[]{successCount, questionList.size()});
+        ioService.printLn(localizedService.getLocalizedString("result"));
+        ioService.printLn(
+                localizedService.getLocalizedString("statistic", new Integer[]{successCount, questionList.size()})
+        );
         if (successCount < needSuccessCount) {
-            ioService.printStringByLocale("notPass");
+            ioService.printLn(localizedService.getLocalizedString("notPass"));
         } else {
-            ioService.printStringByLocale("pass");
+            ioService.printLn(localizedService.getLocalizedString("pass"));
         }
     }
 }

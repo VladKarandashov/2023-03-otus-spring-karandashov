@@ -7,6 +7,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 import ru.otus.hw03testingapp.domain.Answer;
 import ru.otus.hw03testingapp.domain.Question;
+import ru.otus.hw03testingapp.exception.InvalidFileStructureException;
 import ru.otus.hw03testingapp.exception.MissingQuestionsException;
 import ru.otus.hw03testingapp.props.QuestionsProps;
 
@@ -60,7 +61,7 @@ public class QuestionDaoImpl implements QuestionDao {
                 records.add(Arrays.asList(values));
             }
         } catch (CsvValidationException | IOException e) {
-            throw new RuntimeException("Wrong file structure", e);
+            throw new InvalidFileStructureException("Wrong file structure", e);
         }
         return records;
     }

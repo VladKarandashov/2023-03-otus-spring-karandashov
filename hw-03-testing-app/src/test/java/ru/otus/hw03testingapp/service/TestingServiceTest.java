@@ -10,6 +10,7 @@ import ru.otus.hw03testingapp.dao.QuestionDaoImpl;
 import ru.otus.hw03testingapp.props.ApplicationProps;
 import ru.otus.hw03testingapp.props.QuestionsProps;
 import ru.otus.hw03testingapp.service.impl.IOServiceStreams;
+import ru.otus.hw03testingapp.service.impl.LocalizedServiceImpl;
 import ru.otus.hw03testingapp.service.impl.TestingServiceImpl;
 
 
@@ -26,16 +27,17 @@ public class TestingServiceTest {
         QuestionsProps questionsProps = prepareQuestionProps(resource);
         ApplicationProps applicationProps = prepareApplicationProps();
         MessageSource messageSource = prepareMessageSource();
+        LocalizedService localizedService = prepareLocalizedService(messageSource, applicationProps);
 
         // Заготавливаем подменные потоки ввода-вывода
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(outputStream);
         InputStream inputStream = new ByteArrayInputStream("ANSWER".getBytes());
-        IOService ioService = new IOServiceStreams(printStream, inputStream,messageSource,applicationProps);
+        IOService ioService = new IOServiceStreams(printStream, inputStream);
 
         // Тестируем
         QuestionDao questionDao = new QuestionDaoImpl(questionsProps);
-        TestingService testingService = new TestingServiceImpl(questionsProps, questionDao, ioService);
+        TestingService testingService = new TestingServiceImpl(localizedService, questionsProps, questionDao, ioService);
         testingService.testing();
 
         // Получаем из output результат вывода
@@ -79,5 +81,7 @@ public class TestingServiceTest {
         return questionsProps;
     }
 
-
+    private static LocalizedService prepareLocalizedService(MessageSource messageSource, ApplicationProps props) {
+        return new LocalizedServiceImpl(messageSource, props);
+    }
 }
