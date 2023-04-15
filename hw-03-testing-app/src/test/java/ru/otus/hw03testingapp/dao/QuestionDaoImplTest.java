@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.core.io.Resource;
 import ru.otus.hw03testingapp.exception.MissingQuestionsException;
-import ru.otus.hw03testingapp.props.QuestionsProps;
+import ru.otus.hw03testingapp.props.QuestionProvider;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class QuestionDaoImplTest {
         );
         Resource resource = Mockito.mock(Resource.class);
         Mockito.when(resource.getInputStream()).thenReturn(inputStreamIn);
-        QuestionsProps questionsProps = Mockito.mock(QuestionsProps.class);
+        QuestionProvider questionsProps = Mockito.mock(QuestionProvider.class);
         Mockito.when(questionsProps.getFile()).thenReturn(resource);
 
         QuestionDao questionDao = new QuestionDaoImpl(questionsProps);
@@ -33,7 +33,7 @@ public class QuestionDaoImplTest {
     void getAllThrowMissingQuestionsExceptionTest() throws IOException {
         Resource resource = Mockito.mock(Resource.class);
         Mockito.when(resource.getInputStream()).thenReturn(null);
-        QuestionsProps questionsProps = Mockito.mock(QuestionsProps.class);
+        QuestionProvider questionsProps = Mockito.mock(QuestionProvider.class);
         Mockito.when(questionsProps.getFile()).thenReturn(resource);
 
         QuestionDao questionDao = new QuestionDaoImpl(questionsProps);

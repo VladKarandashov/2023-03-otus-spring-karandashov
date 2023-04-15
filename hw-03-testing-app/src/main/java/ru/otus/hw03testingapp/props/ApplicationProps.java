@@ -1,14 +1,23 @@
 package ru.otus.hw03testingapp.props;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
-@Data
-@ConfigurationProperties(prefix = "application")
-public class ApplicationProps {
+@Getter
+@Component
+public class ApplicationProps implements LocaleProvider, QuestionProvider {
 
-    private final Locale locale;
+    @Value("${questions.file}")
+    private Resource file;
+
+    @Value("${questions.needCountOfQuestionForSuccess}")
+    private Integer needCountOfQuestionForSuccess;
+
+    @Value("${application.locale}")
+    private Locale locale;
 
 }

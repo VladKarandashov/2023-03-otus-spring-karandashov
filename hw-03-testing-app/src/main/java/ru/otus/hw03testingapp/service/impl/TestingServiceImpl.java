@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.otus.hw03testingapp.dao.QuestionDao;
 import ru.otus.hw03testingapp.domain.Question;
-import ru.otus.hw03testingapp.props.QuestionsProps;
+import ru.otus.hw03testingapp.props.QuestionProvider;
 import ru.otus.hw03testingapp.service.IOService;
 import ru.otus.hw03testingapp.service.LocalizedService;
 import ru.otus.hw03testingapp.service.TestingService;
@@ -26,7 +26,7 @@ public class TestingServiceImpl implements TestingService {
 
     @Autowired
     public TestingServiceImpl(LocalizedService localizedService,
-                              QuestionsProps questionsProps,
+                              QuestionProvider questionsProps,
                               QuestionDao questionDao,
                               IOService ioService) {
         this.needSuccessCount = questionsProps.getNeedCountOfQuestionForSuccess();

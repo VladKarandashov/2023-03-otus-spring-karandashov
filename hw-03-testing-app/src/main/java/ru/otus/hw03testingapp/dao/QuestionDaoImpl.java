@@ -9,7 +9,7 @@ import ru.otus.hw03testingapp.domain.Answer;
 import ru.otus.hw03testingapp.domain.Question;
 import ru.otus.hw03testingapp.exception.InvalidFileStructureException;
 import ru.otus.hw03testingapp.exception.MissingQuestionsException;
-import ru.otus.hw03testingapp.props.QuestionsProps;
+import ru.otus.hw03testingapp.props.QuestionProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,8 +24,8 @@ public class QuestionDaoImpl implements QuestionDao {
 
     private final Resource questionFile;
 
-    public QuestionDaoImpl(QuestionsProps questionsProps) {
-        this.questionFile = questionsProps.getFile();
+    public QuestionDaoImpl(QuestionProvider questionProvider) {
+        this.questionFile = questionProvider.getFile();
     }
 
     @Override

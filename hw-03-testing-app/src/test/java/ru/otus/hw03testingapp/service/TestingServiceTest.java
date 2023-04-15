@@ -8,7 +8,7 @@ import org.springframework.core.io.Resource;
 import ru.otus.hw03testingapp.dao.QuestionDao;
 import ru.otus.hw03testingapp.dao.QuestionDaoImpl;
 import ru.otus.hw03testingapp.props.ApplicationProps;
-import ru.otus.hw03testingapp.props.QuestionsProps;
+import ru.otus.hw03testingapp.props.QuestionProvider;
 import ru.otus.hw03testingapp.service.impl.IOServiceStreams;
 import ru.otus.hw03testingapp.service.impl.LocalizedServiceImpl;
 import ru.otus.hw03testingapp.service.impl.TestingServiceImpl;
@@ -24,7 +24,7 @@ public class TestingServiceTest {
     void testingTest() throws IOException {
         // Выполняем приготовления (заготавливаем mock-и)
         var resource = prepareResource();
-        QuestionsProps questionsProps = prepareQuestionProps(resource);
+        QuestionProvider questionsProps = prepareQuestionProps(resource);
         ApplicationProps applicationProps = prepareApplicationProps();
         MessageSource messageSource = prepareMessageSource();
         LocalizedService localizedService = prepareLocalizedService(messageSource, applicationProps);
@@ -75,10 +75,10 @@ public class TestingServiceTest {
         return applicationProps;
     }
 
-    private static QuestionsProps prepareQuestionProps(Resource resource) {
-        QuestionsProps questionsProps = Mockito.mock(QuestionsProps.class);
-        Mockito.when(questionsProps.getFile()).thenReturn(resource);
-        return questionsProps;
+    private static QuestionProvider prepareQuestionProps(Resource resource) {
+        QuestionProvider questionProvider = Mockito.mock(QuestionProvider.class);
+        Mockito.when(questionProvider.getFile()).thenReturn(resource);
+        return questionProvider;
     }
 
     private static LocalizedService prepareLocalizedService(MessageSource messageSource, ApplicationProps props) {
