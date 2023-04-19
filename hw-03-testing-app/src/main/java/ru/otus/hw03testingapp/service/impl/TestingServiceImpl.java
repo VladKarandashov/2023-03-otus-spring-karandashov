@@ -46,9 +46,9 @@ public class TestingServiceImpl implements TestingService {
     }
 
     private void greeting(List<Question> questionList) {
-        ioService.printLn(localizedService.getLocalizedString("greetings"));
-        ioService.printLn(localizedService.getLocalizedString("countQuestions", new Integer[]{questionList.size()}));
-        ioService.printLn(localizedService.getLocalizedString("needAnswer", new Integer[]{needSuccessCount}));
+        ioService.printLn(localizedService.getMessage("greetings"));
+        ioService.printLn(localizedService.getMessage("countQuestions", new Integer[]{questionList.size()}));
+        ioService.printLn(localizedService.getMessage("needAnswer", new Integer[]{needSuccessCount}));
     }
 
     private void testingQuestions(List<Question> questionList) {
@@ -57,13 +57,13 @@ public class TestingServiceImpl implements TestingService {
 
     private void testingQuestion(Question question) {
         ioService.printLn("\n№"+question.getId());
-        ioService.printLn(localizedService.getLocalizedString(question.getTitle()));
-        ioService.printLn(localizedService.getLocalizedString(question.getText()));
-        ioService.printLn(localizedService.getLocalizedString("answer"));
+        ioService.printLn(question.getTitle());
+        ioService.printLn(question.getText());
+        ioService.printLn(localizedService.getMessage("answer"));
         question.getAnswersValue().forEach(ioService::printLn);
-        ioService.printLn(localizedService.getLocalizedString("enterAnswer"));
+        ioService.printLn(localizedService.getMessage("enterAnswer"));
         String answer = ioService.readLn();
-        ioService.printLn(localizedService.getLocalizedString(String.valueOf(check(answer, question))));
+        ioService.printLn(localizedService.getMessage(String.valueOf(check(answer, question))));
     }
 
     private boolean check(String answer, Question question) {
@@ -75,14 +75,14 @@ public class TestingServiceImpl implements TestingService {
     }
 
     private void printResult(List<Question> questionList) {
-        ioService.printLn(localizedService.getLocalizedString("result"));
+        ioService.printLn(localizedService.getMessage("result"));
         ioService.printLn(
-                localizedService.getLocalizedString("statistic", new Integer[]{successCount, questionList.size()})
+                localizedService.getMessage("statistic", new Integer[]{successCount, questionList.size()})
         );
         if (successCount < needSuccessCount) {
-            ioService.printLn(localizedService.getLocalizedString("notPass"));
+            ioService.printLn(localizedService.getMessage("notPass"));
         } else {
-            ioService.printLn(localizedService.getLocalizedString("pass"));
+            ioService.printLn(localizedService.getMessage("pass"));
         }
     }
 }

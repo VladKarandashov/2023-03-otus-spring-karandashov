@@ -1,5 +1,6 @@
 questions:
-  file: questions.csv
+  file: questions_ru_RU.csv
+#  file: questions_en_US.csv
   needCountOfQuestionForSuccess: 3
 
 spring:

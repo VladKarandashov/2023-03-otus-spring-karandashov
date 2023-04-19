@@ -20,22 +20,22 @@ public class LocalizedServiceImpl implements LocalizedService {
     }
 
     @Override
-    public String getLocalizedString(String code) {
+    public String getMessage(String code) {
         return messageSource.getMessage(code, null, applicationProps.getLocale());
     }
 
     @Override
-    public String getLocalizedString(String code, Locale locale) {
+    public String getMessage(String code, Locale locale) {
         return messageSource.getMessage(code, null, locale);
     }
 
     @Override
-    public String getLocalizedString(String code, Object[] args) {
+    public String getMessage(String code, Object[] args) {
         return messageSource.getMessage(code, args, applicationProps.getLocale());
     }
 
     @Override
-    public String getLocalizedString(String code, Object[] args, Locale locale) {
+    public String getMessage(String code, Object[] args, Locale locale) {
         return messageSource.getMessage(code, args, locale);
     }
 }

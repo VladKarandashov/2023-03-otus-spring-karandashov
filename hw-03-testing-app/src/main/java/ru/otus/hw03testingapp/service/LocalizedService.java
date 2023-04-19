@@ -4,11 +4,11 @@ import java.util.Locale;
 
 public interface LocalizedService {
 
-    String getLocalizedString(String code);
+    String getMessage(String code);
 
-    String getLocalizedString(String code, Locale locale);
+    String getMessage(String code, Locale locale);
 
-    String getLocalizedString(String code, Object[] args);
+    String getMessage(String code, Object[] args);
 
-    String getLocalizedString(String code, Object[] args, Locale locale);
+    String getMessage(String code, Object[] args, Locale locale);
 }
