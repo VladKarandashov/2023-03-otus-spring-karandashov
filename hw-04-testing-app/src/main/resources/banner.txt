@@ -1,0 +1,27 @@
+${AnsiBackground.MAGENTA}
+${AnsiBackground.DEFAULT}
+BBBBBBBBBBBBBBBBB                                        iiii
+B::::::::::::::::B                                      i::::i
+B::::::BBBBBB:::::B                                      iiii
+BB:::::B     B:::::B
+  B::::B     B:::::B  aaaaaaaaaaaaa   zzzzzzzzzzzzzzzzziiiiiiinnnn  nnnnnnnn       ggggggggg   ggggg aaaaaaaaaaaaa
+  B::::B     B:::::B  a::::::::::::a  z:::::::::::::::zi:::::in:::nn::::::::nn    g:::::::::ggg::::g a::::::::::::a
+  B::::BBBBBB:::::B   aaaaaaaaa:::::a z::::::::::::::z  i::::in::::::::::::::nn  g:::::::::::::::::g aaaaaaaaa:::::a
+  B:::::::::::::BB             a::::a zzzzzzzz::::::z   i::::inn:::::::::::::::ng::::::ggggg::::::gg          a::::a
+  B::::BBBBBB:::::B     aaaaaaa:::::a       z::::::z    i::::i  n:::::nnnn:::::ng:::::g     g:::::g    aaaaaaa:::::a
+  B::::B     B:::::B  aa::::::::::::a      z::::::z     i::::i  n::::n    n::::ng:::::g     g:::::g  aa::::::::::::a
+  B::::B     B:::::B a::::aaaa::::::a     z::::::z      i::::i  n::::n    n::::ng:::::g     g:::::g a::::aaaa::::::a
+  B::::B     B:::::Ba::::a    a:::::a    z::::::z       i::::i  n::::n    n::::ng::::::g    g:::::ga::::a    a:::::a
+BB:::::BBBBBB::::::Ba::::a    a:::::a   z::::::zzzzzzzzi::::::i n::::n    n::::ng:::::::ggggg:::::ga::::a    a:::::a
+B:::::::::::::::::B a:::::aaaa::::::a  z::::::::::::::zi::::::i n::::n    n::::n g::::::::::::::::ga:::::aaaa::::::a
+B::::::::::::::::B   a::::::::::aa:::az:::::::::::::::zi::::::i n::::n    n::::n  gg::::::::::::::g a::::::::::aa:::a
+BBBBBBBBBBBBBBBBB     aaaaaaaaaa  aaaazzzzzzzzzzzzzzzzziiiiiiii nnnnnn    nnnnnn    gggggggg::::::g  aaaaaaaaaa  aaaa
+                                                                                            g:::::g
+                                                                                gggggg      g:::::g
+                                                                                g:::::gg   gg:::::g
+                                                                                 g::::::ggg:::::::g
+                                                                                  gg:::::::::::::g      ${AnsiBackground.GREEN}${spring-boot.version}${AnsiBackground.DEFAULT}
+                                                                                    ggg::::::ggg
+                                                                                       gggggg
+${AnsiBackground.MAGENTA}
+${AnsiBackground.DEFAULT}
