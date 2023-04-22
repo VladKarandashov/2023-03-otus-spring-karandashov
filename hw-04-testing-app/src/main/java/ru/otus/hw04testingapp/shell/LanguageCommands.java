@@ -20,7 +20,7 @@ public class LanguageCommands {
         this.localeProvider = localeProvider;
     }
 
-    @ShellMethod(value = "change testing language", key = {"l", "language"})
+    @ShellMethod(value = "change testing language (en_US or ru_RU)", key = {"l", "language"})
     public void changeTestingLanguage(@ShellOption Locale locale) {
         localeProvider.setLocale(locale);
     }

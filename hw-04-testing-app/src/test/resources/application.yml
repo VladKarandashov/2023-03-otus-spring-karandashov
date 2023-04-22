@@ -10,6 +10,8 @@ spring:
   shell:
     interactive:
       enabled: false
+  main:
+    allow-bean-definition-overriding: true
 
 application:
   locale: ru_RU
