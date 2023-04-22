@@ -20,4 +20,8 @@ public class ApplicationProps implements LocaleProvider, QuestionProvider {
     @Value("${application.locale}")
     private Locale locale;
 
+    @Override
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 }
