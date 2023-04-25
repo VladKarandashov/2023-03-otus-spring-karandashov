@@ -4,12 +4,10 @@ import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.stereotype.Component;
 import ru.otus.hw04testingapp.props.LocaleProvider;
 
 import java.util.Locale;
 
-@Component
 @ShellComponent
 @ShellCommandGroup("language settings")
 public class LanguageCommands {
