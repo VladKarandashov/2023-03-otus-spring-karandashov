@@ -1,0 +1,12 @@
+application:
+  locale: ru_RU
+#  locale: en_US
+questions:
+  file: questions_ru_RU.csv
+#  file: questions_en_US.csv
+  needCountOfQuestionForSuccess: 3
+
+spring:
+  messages:
+    basename: "i18n/appmessages"
+    encoding: "UTF-8"
