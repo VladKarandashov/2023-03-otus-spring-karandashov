@@ -1,12 +1,12 @@
-INSERT INTO author(name) VALUES ('author1');
-INSERT INTO author(name) VALUES ('author2');
-INSERT INTO author(name) VALUES ('author3');
-INSERT INTO author(name) VALUES ('author4');
+INSERT INTO author(author_id, name) VALUES (1, 'author1');
+INSERT INTO author(author_id, name) VALUES (2, 'author2');
+INSERT INTO author(author_id, name) VALUES (3, 'author3');
+INSERT INTO author(author_id, name) VALUES (4, 'author4');
 
-INSERT INTO genre (title) VALUES ('genre1');
-INSERT INTO genre (title) VALUES ('genre2');
-INSERT INTO genre (title) VALUES ('genre3');
-INSERT INTO genre (title) VALUES ('genre4');
+INSERT INTO genre (genre_id, title) VALUES (1, 'genre1');
+INSERT INTO genre (genre_id, title) VALUES (2, 'genre2');
+INSERT INTO genre (genre_id, title) VALUES (3, 'genre3');
+INSERT INTO genre (genre_id, title) VALUES (4, 'genre4');
 
 INSERT INTO book(author_id, genre_id, title) VALUES (1, 1, 'book1');
 INSERT INTO book(author_id, genre_id, title) VALUES (1, 2, 'book2');

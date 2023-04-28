@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import ru.otus.hw05booksapp.entity.Author;
 import ru.otus.hw05booksapp.entity.Book;
 import ru.otus.hw05booksapp.entity.Genre;
+import ru.otus.hw05booksapp.exception.NotFoundException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,6 +60,6 @@ public class BookServiceTest {
         assertThatCode(() -> bookService.insert(BOOK_CANT_BE_INSERTED.getAuthor().getId(),
                 BOOK_CANT_BE_INSERTED.getGenre().getId(),
                 BOOK_CANT_BE_INSERTED.getTitle()))
-                .isInstanceOf(EmptyResultDataAccessException.class);
+                .isInstanceOf(NotFoundException.class);
     }
 }

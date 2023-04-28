@@ -1,12 +1,12 @@
-INSERT INTO author(name) VALUES ('Михаил Булгаков');
-INSERT INTO author(name) VALUES ('Антуан де Сент-Экзюпери');
-INSERT INTO author(name) VALUES ('Александр Дюма');
-INSERT INTO author(name) VALUES ('Аркадий и Борис Стругацкие');
+INSERT INTO author(author_id, name) VALUES (1, 'Михаил Булгаков');
+INSERT INTO author(author_id, name) VALUES (2, 'Антуан де Сент-Экзюпери');
+INSERT INTO author(author_id, name) VALUES (3, 'Александр Дюма');
+INSERT INTO author(author_id, name) VALUES (4, 'Аркадий и Борис Стругацкие');
 
-INSERT INTO genre (title) VALUES ('Роман');
-INSERT INTO genre (title) VALUES ('Проза');
-INSERT INTO genre (title) VALUES ('Фантастика');
-INSERT INTO genre (title) VALUES ('Приключения');
+INSERT INTO genre (genre_id, title) VALUES (1, 'Роман');
+INSERT INTO genre (genre_id, title) VALUES (2, 'Проза');
+INSERT INTO genre (genre_id, title) VALUES (3, 'Фантастика');
+INSERT INTO genre (genre_id, title) VALUES (4, 'Приключения');
 
 INSERT INTO book(author_id, genre_id, title) VALUES (1, 1, 'Мастер и Маргарита');
 INSERT INTO book(author_id, genre_id, title) VALUES (1, 2, 'Белая гвардия');

@@ -4,27 +4,27 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
-import ru.otus.hw05booksapp.dao.impl.AuthorDaoJdbc;
-import ru.otus.hw05booksapp.entity.Author;
+import ru.otus.hw05booksapp.dao.impl.JdbcGenreDao;
+import ru.otus.hw05booksapp.entity.Genre;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @JdbcTest
-@Import(AuthorDaoJdbc.class)
-public class AuthorDaoJdbcTest {
+@Import(JdbcGenreDao.class)
+public class JdbcGenreDaoTest {
 
-    private final Author AUTHOR_ONE = new Author(1, "author1");
+    private final Genre GENRE_ONE = new Genre(1, "genre1");
 
     @Autowired
-    AuthorDao authorDao;
+    GenreDao genreDao;
 
     @Test
     void findByIdTest() {
-        assertEquals(AUTHOR_ONE, authorDao.findById(AUTHOR_ONE.getId()));
+        assertEquals(GENRE_ONE, genreDao.findById(GENRE_ONE.getId()));
     }
 
     @Test
     void findByNameTest() {
-        assertEquals(AUTHOR_ONE, authorDao.findByName(AUTHOR_ONE.getName()));
+        assertEquals(GENRE_ONE, genreDao.findByTitle(GENRE_ONE.getTitle()));
     }
 }

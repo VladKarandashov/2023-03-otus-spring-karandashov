@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
-import ru.otus.hw05booksapp.dao.impl.BookDaoJdbc;
+import ru.otus.hw05booksapp.dao.impl.JdbcBookDao;
 import ru.otus.hw05booksapp.entity.Author;
 import ru.otus.hw05booksapp.entity.Book;
 import ru.otus.hw05booksapp.entity.Genre;
@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @JdbcTest
-@Import(BookDaoJdbc.class)
-class BookDaoJdbcTest {
+@Import(JdbcBookDao.class)
+class JdbcBookDaoTest {
 
     private final int EXPECTED_BOOKS_COUNT = 10;
 

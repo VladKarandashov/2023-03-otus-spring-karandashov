@@ -57,7 +57,8 @@ public class BookCommands {
     @ShellMethod(value = "Update book title by ID (bookId, newTitle)", key = {"u", "update"})
     @ShellMethodAvailability(value = "isAuthorized")
     public String updateById(@ShellOption long id, @ShellOption String newTitle) {
-        return bookService.updateTitleById(id, newTitle).toString();
+        bookService.updateTitleById(id, newTitle);
+        return "Update success";
     }
 
 
