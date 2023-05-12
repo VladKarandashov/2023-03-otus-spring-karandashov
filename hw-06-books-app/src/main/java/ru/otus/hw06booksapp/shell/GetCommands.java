@@ -27,28 +27,28 @@ public class GetCommands {
     private final NoteService notesService;
 
 
-    @ShellMethod(value = "get author", key = {"getA"})
+    @ShellMethod(value = "get author by id", key = {"getA"})
     public Author getAuthorById(@ShellOption(defaultValue = "1") long id) {
         return authorService.getById(id);
     }
 
 
-    @ShellMethod(value = "get all all Authors", key = {"getAs"})
+    @ShellMethod(value = "get all Authors", key = {"getAs"})
     public List<Author> getAuthors() {
         return authorService.getAll();
     }
 
-    @ShellMethod(value = "get genre by ID", key = {"getG"})
+    @ShellMethod(value = "get genre by id", key = {"getG"})
     public Genre getGenreById(@ShellOption(defaultValue = "1") long id) {
         return genreService.getGenreById(id);
     }
 
-    @ShellMethod(value = "get all all Authors", key = {"getGs"})
+    @ShellMethod(value = "get all Genres", key = {"getGs"})
     public List<Genre> getAllGenres() {
          return genreService.getGenres();
     }
 
-    @ShellMethod(value = "get book", key = {"getB"})
+    @ShellMethod(value = "get book by id", key = {"getB"})
     public Book getBookById(@ShellOption(defaultValue = "1") long id) {
         return bookService.getBookById(id);
     }
@@ -58,7 +58,7 @@ public class GetCommands {
         return bookService.getAllBooks();
     }
 
-    @ShellMethod(value = "get Note by ID", key = {"getN"})
+    @ShellMethod(value = "get Note by id", key = {"getN"})
     public Note getNoteById(@ShellOption(defaultValue = "1") long id) {
         return notesService.getNoteById(id);
     }
