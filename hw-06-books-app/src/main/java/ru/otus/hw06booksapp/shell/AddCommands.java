@@ -38,7 +38,7 @@ public class AddCommands {
     public void addBook(@ShellOption(defaultValue = "new Title") String title,
                         @ShellOption(defaultValue = "1") long authorId,
                         @ShellOption(defaultValue = "1") long genreId) {
-        Book book = new Book(0L, authorService.getById(authorId), genreService.getGenreById(genreId), title);
+        Book book = new Book(null, authorService.getById(authorId), genreService.getGenreById(genreId), title);
         bookService.saveBook(book);
     }
 

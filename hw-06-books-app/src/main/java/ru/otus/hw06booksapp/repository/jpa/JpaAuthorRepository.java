@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
-public class AuthorRepositoryJpa implements AuthorRepository {
+public class JpaAuthorRepository implements AuthorRepository {
 
     @PersistenceContext
     private final EntityManager em;
@@ -30,7 +30,7 @@ public class AuthorRepositoryJpa implements AuthorRepository {
 
     @Override
     public Author save(Author author) {
-        if (author.getId() == 0) {
+        if (author.getId() == null) {
             em.persist(author);
             return author;
         }

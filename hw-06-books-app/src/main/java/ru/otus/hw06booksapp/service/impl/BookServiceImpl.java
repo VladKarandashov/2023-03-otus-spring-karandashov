@@ -1,11 +1,13 @@
 package ru.otus.hw06booksapp.service.impl;
 
+import jakarta.persistence.TransactionRequiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw06booksapp.entity.Book;
 import ru.otus.hw06booksapp.entity.Note;
 import ru.otus.hw06booksapp.exception.DaoException;
+import ru.otus.hw06booksapp.exception.NotFoundException;
 import ru.otus.hw06booksapp.repository.BookRepository;
 import ru.otus.hw06booksapp.repository.NoteRepository;
 import ru.otus.hw06booksapp.service.BookService;
@@ -63,10 +65,15 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public Book saveBook(Book book) {
-        if (book != null) {
-            return bookRepository.saveBook(book);
-        } else {
+        if (book == null) {
             throw new DaoException(BOOK_NOT_EXIST, new RuntimeException());
+        }
+        try {
+            return bookRepository.saveBook(book);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundException("Book not found", e);
+        } catch (TransactionRequiredException e) {
+            throw new DaoException("Transaction exception during book insertion.", e);
         }
     }
 

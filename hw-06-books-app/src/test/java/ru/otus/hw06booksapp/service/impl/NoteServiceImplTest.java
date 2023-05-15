@@ -11,8 +11,8 @@ import ru.otus.hw06booksapp.entity.Book;
 import ru.otus.hw06booksapp.entity.Genre;
 import ru.otus.hw06booksapp.entity.Note;
 import ru.otus.hw06booksapp.repository.NoteRepository;
-import ru.otus.hw06booksapp.repository.jpa.BookRepositoryJpa;
-import ru.otus.hw06booksapp.repository.jpa.NoteRepositoryJpa;
+import ru.otus.hw06booksapp.repository.jpa.JpaBookRepository;
+import ru.otus.hw06booksapp.repository.jpa.JpaNoteRepository;
 
 import java.util.Optional;
 
@@ -23,17 +23,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("ORM JPA Genres repository testing.")
 @DataJpaTest
-@Import({NoteRepositoryJpa.class, BookRepositoryJpa.class})
+@Import({JpaNoteRepository.class, JpaBookRepository.class})
 class NoteServiceImplTest {
 
     private final static int EXPECTED_NOTES_COUNT = 27;
     private final static long NOTE_ONE_ID = 1L;
     private final static String NOTE_ONE_CONTEXT = "Note-01.1 - Master";
     private final static String NOTE_ONE_CONTEXT_NEW = "Note-01.1 - Master - New";
-    private final static Author AUTHOR_ONE = new Author(1, "Михаил Булгаков");
-    private final static Genre GENRE_ONE = new Genre(1, "Roman");
+    private final static Author AUTHOR_ONE = new Author(1L, "Михаил Булгаков");
+    private final static Genre GENRE_ONE = new Genre(1L, "Roman");
     private final static String BOOK_ONE_NAME = "MasterTest";
-    private final static Book BOOK_ONE = new Book(1, AUTHOR_ONE, GENRE_ONE, BOOK_ONE_NAME);
+    private final static Book BOOK_ONE = new Book(1L, AUTHOR_ONE, GENRE_ONE, BOOK_ONE_NAME);
 
     @Autowired
     private NoteRepository noteRepository;

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw06booksapp.entity.Genre;
-import ru.otus.hw06booksapp.repository.jpa.GenreRepositoryJpa;
+import ru.otus.hw06booksapp.repository.jpa.JpaGenreRepository;
 
 import java.util.Optional;
 
@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("ORM JPA Genres repository testing.")
 @DataJpaTest
-@Import(GenreRepositoryJpa.class)
-class GenreRepositoryJPATest {
+@Import(JpaGenreRepository.class)
+class JpaGenreRepositoryTest {
 
     private final static int EXPECTED_GENRES_COUNT = 4;
     private final static long GENRE_ONE_ID = 1L;
@@ -26,12 +26,12 @@ class GenreRepositoryJPATest {
     private final static String GENRE_ONE_NAME_NEW = "Roman - New";
 
     @Autowired
-    private GenreRepositoryJpa genreRepositoryJpa;
+    private JpaGenreRepository jpaGenreRepository;
 
     @DisplayName("Should get correct Genre")
     @Test
     void shouldGetCorrectGenre() {
-        Optional<Genre> genre = genreRepositoryJpa.getGenreById(GENRE_ONE_ID);
+        Optional<Genre> genre = jpaGenreRepository.getGenreById(GENRE_ONE_ID);
         assertEquals(GENRE_ONE_ID, genre.get().getId());
         assertEquals(GENRE_ONE_NAME, genre.get().getName());
     }
@@ -39,7 +39,7 @@ class GenreRepositoryJPATest {
     @DisplayName("Should find all Genres")
     @Test
     void ShouldGetAllGenres() {
-        val genres = genreRepositoryJpa.getAllGenres();
+        val genres = jpaGenreRepository.getAllGenres();
         assertThat(genres).isNotNull().hasSize(EXPECTED_GENRES_COUNT)
                 .allMatch(s -> s.getId() > 0)
                 .allMatch(s -> !s.getName().equals(""));
@@ -48,11 +48,11 @@ class GenreRepositoryJPATest {
     @DisplayName("Should be able to delete a Genre:")
     @Test
     void shouldDeletefirstGenre() {
-        Genre genre = genreRepositoryJpa.getGenreById(GENRE_ONE_ID).get();
+        Genre genre = jpaGenreRepository.getGenreById(GENRE_ONE_ID).get();
         assertEquals(GENRE_ONE_NAME, genre.getName());
         // DELETE:
-        genreRepositoryJpa.delete(genre);
-        Optional<Genre> GenreOptional = genreRepositoryJpa.getGenreById(GENRE_ONE_ID);
+        jpaGenreRepository.delete(genre);
+        Optional<Genre> GenreOptional = jpaGenreRepository.getGenreById(GENRE_ONE_ID);
         assertEquals(Optional.empty(), GenreOptional);
     }
     
@@ -60,7 +60,7 @@ class GenreRepositoryJPATest {
     @Test
     void shouldAddNewGenre() {
         Genre genre = new Genre(0L, GENRE_ONE_NAME_NEW);
-        Genre savedGenre = genreRepositoryJpa.save(genre);
+        Genre savedGenre = jpaGenreRepository.save(genre);
         assertThat(savedGenre.getId()).isGreaterThan(0);
         assertEquals(GENRE_ONE_NAME_NEW, savedGenre.getName());
     }

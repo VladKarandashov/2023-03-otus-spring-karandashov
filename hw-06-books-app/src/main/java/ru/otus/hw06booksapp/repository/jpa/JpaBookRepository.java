@@ -6,7 +6,6 @@ import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.otus.hw06booksapp.entity.Book;
-import ru.otus.hw06booksapp.exception.DaoException;
 import ru.otus.hw06booksapp.repository.BookRepository;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
-public class BookRepositoryJpa implements BookRepository {
+public class JpaBookRepository implements BookRepository {
 
     @PersistenceContext
     private final EntityManager em;
@@ -50,15 +49,11 @@ public class BookRepositoryJpa implements BookRepository {
 
     @Override
     public Book saveBook(Book newBook) {
-        try {
-            if (newBook.getId() == 0) {
-                em.persist(newBook);
-                return newBook;
-            }
-            return em.merge(newBook);
-        } catch (Exception e) {
-            throw new DaoException("Unexpected exception during book insertion.", e);
+        if (newBook.getId() == null) {
+            em.persist(newBook);
+            return newBook;
         }
+        return em.merge(newBook);
     }
 
 }

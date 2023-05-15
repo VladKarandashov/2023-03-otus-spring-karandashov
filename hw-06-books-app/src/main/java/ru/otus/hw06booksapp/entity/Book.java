@@ -13,10 +13,14 @@ import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
 @Entity(name = "Book")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,7 +33,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @ManyToOne(optional = false, targetEntity = Author.class, cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false, referencedColumnName = "id")
@@ -44,5 +48,32 @@ public class Book {
     @Column(name = "title")
     private String title;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Book book)) {
+            return false;
+        }
+        return Objects.equals(getId(), book.getId()) &&
+                Objects.equals(getAuthor(), book.getAuthor()) &&
+                Objects.equals(getGenre(), book.getGenre()) &&
+                Objects.equals(getTitle(), book.getTitle());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getAuthor(), getGenre(), getTitle());
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", author=" + author +
+                ", genre=" + genre +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

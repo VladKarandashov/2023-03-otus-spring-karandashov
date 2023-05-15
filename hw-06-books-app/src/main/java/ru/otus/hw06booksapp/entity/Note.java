@@ -11,13 +11,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
-@EqualsAndHashCode(exclude = "book")
+import java.util.Objects;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Note")
@@ -27,7 +29,7 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
@@ -38,4 +40,28 @@ public class Note {
     @Column(name = "note")
     private String note;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Note note1)) {
+            return false;
+        }
+        return Objects.equals(getId(), note1.getId()) && Objects.equals(getNote(), note1.getNote());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNote());
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", book=" + book +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

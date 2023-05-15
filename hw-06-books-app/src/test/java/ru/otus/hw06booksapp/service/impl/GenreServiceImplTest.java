@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw06booksapp.entity.Genre;
-import ru.otus.hw06booksapp.repository.jpa.GenreRepositoryJpa;
+import ru.otus.hw06booksapp.repository.jpa.JpaGenreRepository;
 import ru.otus.hw06booksapp.service.GenreService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("ORM JPA Genres repository testing.")
 @DataJpaTest
-@Import({GenreServiceImpl.class, GenreRepositoryJpa.class})
+@Import({GenreServiceImpl.class, JpaGenreRepository.class})
 class GenreServiceImplTest {
 
     private final static int EXPECTED_GENRES_COUNT = 4;

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
-public class GenreRepositoryJpa implements GenreRepository {
+public class JpaGenreRepository implements GenreRepository {
 
     @PersistenceContext
     private final EntityManager em;
@@ -30,7 +30,7 @@ public class GenreRepositoryJpa implements GenreRepository {
 
     @Override
     public Genre save(Genre genre) {
-        if (genre.getId() == 0) {
+        if (genre.getId() == null) {
             em.persist(genre);
             return genre;
         }

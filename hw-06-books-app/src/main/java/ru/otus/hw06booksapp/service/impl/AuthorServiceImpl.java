@@ -21,7 +21,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     @Override
     public long create(String fullName) {
-        Author author = new Author(0L, fullName);
+        Author author = new Author(null, fullName);
         return authorRepository.save(author).getId();
     }
 

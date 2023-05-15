@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class NoteRepositoryJpa implements NoteRepository {
+public class JpaNoteRepository implements NoteRepository {
 
     @PersistenceContext
     private final EntityManager em;
@@ -38,7 +38,7 @@ public class NoteRepositoryJpa implements NoteRepository {
 
     @Override
     public Note save(Note note) {
-        if (note.getId() == 0) {
+        if (note.getId() == null) {
             em.persist(note);
             return note;
         }

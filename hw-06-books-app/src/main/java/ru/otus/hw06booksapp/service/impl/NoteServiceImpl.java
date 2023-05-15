@@ -33,7 +33,7 @@ public class NoteServiceImpl implements NoteService {
         if (book == null) {
             throw new DaoException(BOOK_NOT_EXIST, new RuntimeException());
         }
-        Note note = new Note(0, book, noteStr);
+        Note note = new Note(null, book, noteStr);
         return noteRepository.save(note).getId();
     }
 

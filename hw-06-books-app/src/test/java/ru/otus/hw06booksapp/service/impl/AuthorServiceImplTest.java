@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.hw06booksapp.entity.Author;
-import ru.otus.hw06booksapp.repository.jpa.AuthorRepositoryJpa;
+import ru.otus.hw06booksapp.repository.jpa.JpaAuthorRepository;
 import ru.otus.hw06booksapp.service.AuthorService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("ORM JPA Authors repository testing.")
 @DataJpaTest
-@Import({AuthorServiceImpl.class, AuthorRepositoryJpa.class})
+@Import({AuthorServiceImpl.class, JpaAuthorRepository.class})
 class AuthorServiceImplTest {
 
     private final static int EXPECTED_AUTHORS_COUNT = 4;

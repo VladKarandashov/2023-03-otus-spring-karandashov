@@ -20,7 +20,7 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public long create(String name) {
-        Genre genre = new Genre(0, name);
+        Genre genre = new Genre(null, name);
         return genreRepository.save(genre).getId();
     }
 
