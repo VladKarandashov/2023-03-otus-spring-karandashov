@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw06booksapp.entity.Book;
 import ru.otus.hw06booksapp.entity.Note;
-import ru.otus.hw06booksapp.exception.DaoException;
+import ru.otus.hw06booksapp.exception.NotFoundException;
 import ru.otus.hw06booksapp.repository.BookRepository;
 import ru.otus.hw06booksapp.repository.NoteRepository;
 import ru.otus.hw06booksapp.service.NoteService;
@@ -24,15 +24,11 @@ public class NoteServiceImpl implements NoteService {
 
     private final NoteRepository noteRepository;
 
-
-
     @Transactional
     @Override
     public long create(Long bookId, String noteStr) {
-        Book book = bookRepository.getBookById(bookId).orElse(null);
-        if (book == null) {
-            throw new DaoException(BOOK_NOT_EXIST, new RuntimeException());
-        }
+        Book book = bookRepository.getBookById(bookId)
+                .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
         Note note = new Note(null, book, noteStr);
         return noteRepository.save(note).getId();
     }
@@ -46,12 +42,8 @@ public class NoteServiceImpl implements NoteService {
     @Transactional(readOnly = true)
     @Override
     public Note getNoteById(long id) {
-        Note note = noteRepository.getNoteById(id).orElse(null);
-        if (note == null) {
-            throw new DaoException(NOTE_NOT_EXIST, new RuntimeException());
-
-        }
-        return note;
+        return noteRepository.getNoteById(id)
+                .orElseThrow(() -> new NotFoundException(NOTE_NOT_EXIST));
     }
 
     @Transactional
@@ -59,7 +51,7 @@ public class NoteServiceImpl implements NoteService {
     public void update(long id, String newNote) {
         Note note = getNoteById(id);
         if (note == null) {
-            throw new DaoException(NOTE_NOT_EXIST, new RuntimeException());
+            throw new NotFoundException(NOTE_NOT_EXIST);
         }
         note.setNote(newNote);
         noteRepository.save(note);
@@ -72,4 +64,9 @@ public class NoteServiceImpl implements NoteService {
         noteRepository.delete(note);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<Note> getNoteByBookId(Long bookId) {
+        return noteRepository.getNoteByBookId(bookId);
+    }
 }

@@ -24,7 +24,6 @@ class GenreServiceImplTest {
     private final static long GENRE_ONE_ID = 1L;
     private final static String GENRE_ONE_NAME = "Roman";
     private final static String GENRE_ONE_NAME_NEW = "Roman - New";
-    private final static Genre GENRE_NEW = new Genre(GENRE_ONE_ID, GENRE_ONE_NAME_NEW);
 
     @Autowired
     private GenreService genreService;

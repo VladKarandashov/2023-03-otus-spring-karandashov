@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw06booksapp.entity.Genre;
-import ru.otus.hw06booksapp.exception.DaoException;
+import ru.otus.hw06booksapp.exception.NotFoundException;
 import ru.otus.hw06booksapp.repository.GenreRepository;
 import ru.otus.hw06booksapp.service.GenreService;
 
@@ -33,20 +33,15 @@ public class GenreServiceImpl implements GenreService {
     @Transactional(readOnly = true)
     @Override
     public Genre getGenreById(long id) {
-        Genre genreById = genreRepository.getGenreById(id).orElse(null);
-        if (genreById != null) {
-            return genreById;
-        }
-        throw new DaoException(GENRE_NOT_EXIST, new RuntimeException());
+        return genreRepository.getGenreById(id)
+                .orElseThrow(() -> new NotFoundException(GENRE_NOT_EXIST));
     }
 
     @Transactional
     @Override
     public void update(long id, String name) {
-        Genre genre = genreRepository.getGenreById(id).orElse(null);
-        if (genre == null) {
-            throw new DaoException(GENRE_NOT_EXIST, new RuntimeException());
-        }
+        Genre genre = genreRepository.getGenreById(id)
+                .orElseThrow(() -> new NotFoundException(GENRE_NOT_EXIST));
         genre.setName(name);
         genreRepository.save(genre);
     }
@@ -54,10 +49,6 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public void delete(long genreId) {
-        Genre genre = genreRepository.getGenreById(genreId).orElse(null);
-        if (genre == null) {
-            throw new DaoException(GENRE_NOT_EXIST, new RuntimeException());
-        }
-        genreRepository.delete(genre);
+        genreRepository.getGenreById(genreId).ifPresent(genreRepository::delete);
     }
 }

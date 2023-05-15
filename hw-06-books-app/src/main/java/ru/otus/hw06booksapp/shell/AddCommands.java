@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.hw06booksapp.entity.Book;
+import ru.otus.hw06booksapp.dto.BookDto;
 import ru.otus.hw06booksapp.service.AuthorService;
 import ru.otus.hw06booksapp.service.BookService;
 import ru.otus.hw06booksapp.service.GenreService;
@@ -38,17 +38,16 @@ public class AddCommands {
     public void addBook(@ShellOption(defaultValue = "new Title") String title,
                         @ShellOption(defaultValue = "1") long authorId,
                         @ShellOption(defaultValue = "1") long genreId) {
-        Book book = new Book(null, authorService.getById(authorId), genreService.getGenreById(genreId), title);
-        bookService.saveBook(book);
+        BookDto bookDto = new BookDto(title, authorId, genreId);
+        bookService.createBook(bookDto);
     }
 
 
     @ShellMethod(value = "add books Note, param: Long bookId, String noteContext", key = {"addN"})
-    public void addNewNote(@ShellOption(defaultValue = "1") long bookId,
-                           @ShellOption(defaultValue = "new note: 'Good Book'") String noteContext) {
+    public String addNewNote(@ShellOption(defaultValue = "1") long bookId,
+                             @ShellOption(defaultValue = "new note: 'Good Book'") String noteContext) {
         notesService.create(bookId, noteContext + " - " + bookId);
-        System.out.println("New note was create.");
-
+        return "New note was create.";
     }
 
 }

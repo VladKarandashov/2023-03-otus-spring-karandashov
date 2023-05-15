@@ -41,7 +41,7 @@ public class ShellAppUpdate {
                                @ShellOption(defaultValue = "new cool book title-1") String newName) {
         Book book = bookService.getBookById(id);
         book.setTitle(newName);
-        bookService.saveBook(book);
+        bookService.createBook(book);
         System.out.println("book updated. New book title: " + book.getTitle());
     }
 

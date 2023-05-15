@@ -25,7 +25,6 @@ class AuthorServiceImplTest {
     private final static String AUTHOR_ONE_NAME = "test";
     private final static String AUTHOR_ONE_NAME_NEW = "Михаил Булгаков - New";
 
-
     @Autowired
     private AuthorService authorService;
 

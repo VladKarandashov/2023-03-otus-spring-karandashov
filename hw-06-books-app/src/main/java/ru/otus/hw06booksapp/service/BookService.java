@@ -1,7 +1,7 @@
 package ru.otus.hw06booksapp.service;
 
+import ru.otus.hw06booksapp.dto.BookDto;
 import ru.otus.hw06booksapp.entity.Book;
-import ru.otus.hw06booksapp.entity.Note;
 
 import java.util.List;
 
@@ -15,10 +15,9 @@ public interface BookService {
 
     void deleteBook(long id);
 
-    Book saveBook(Book book);
+    Book createBook(Book book);
 
-    Book saveBook(Long id, String newTitle);
+    Book createBook(Long id, String newTitle);
 
-    List<Note> getNoteByBookId(Long bookId);
-
+    Book createBook(BookDto bookDto);
 }
