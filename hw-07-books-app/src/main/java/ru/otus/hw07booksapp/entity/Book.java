@@ -35,8 +35,6 @@ public class Book {
 
     @ManyToOne(optional = false, targetEntity = Author.class, cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false, referencedColumnName = "id")
-    //@Fetch(FetchMode.SELECT)
-    //@BatchSize(size = 5)
     private Author author;
 
     @ManyToOne(optional = false, targetEntity = Genre.class, cascade = CascadeType.DETACH, fetch = FetchType.LAZY)

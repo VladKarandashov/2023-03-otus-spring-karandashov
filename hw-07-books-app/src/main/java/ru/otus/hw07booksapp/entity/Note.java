@@ -8,19 +8,29 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Note")
+@NamedEntityGraph(
+        name = "note-book",
+        attributeNodes = @NamedAttributeNode(value = "book", subgraph = "blablabla"),
+        subgraphs = {
+                @NamedSubgraph(name = "blablabla",
+                        attributeNodes = {
+                            @NamedAttributeNode("author"),
+                            @NamedAttributeNode("genre")}) })
 @Table(name = "Note")
 public class Note {
 
@@ -30,8 +40,7 @@ public class Note {
     private Long id;
 
     @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    @ToString.Exclude
+    @JoinColumn(name = "book_id", nullable = false, referencedColumnName = "id")
     private Book book;
 
     @NotBlank
