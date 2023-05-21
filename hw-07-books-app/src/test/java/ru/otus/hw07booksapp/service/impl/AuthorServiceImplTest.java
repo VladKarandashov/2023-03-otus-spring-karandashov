@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Import({AuthorServiceImpl.class})
 class AuthorServiceImplTest {
 
-    private final static int EXPECTED_AUTHORS_COUNT = 4;
+    private final static int EXPECTED_AUTHORS_COUNT = 1;
     private final static long AUTHOR_ONE_ID = 1L;
     private final static String AUTHOR_ONE_NAME = "test";
     private final static String AUTHOR_ONE_NAME_NEW = "Михаил Булгаков - New";

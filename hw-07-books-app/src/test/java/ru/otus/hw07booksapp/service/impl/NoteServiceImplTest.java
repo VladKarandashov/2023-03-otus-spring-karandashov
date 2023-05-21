@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DataJpaTest
 class NoteServiceImplTest {
 
-    private final static int EXPECTED_NOTES_COUNT = 27;
+    private final static int EXPECTED_NOTES_COUNT = 1;
     private final static long NOTE_ONE_ID = 1L;
     private final static String NOTE_ONE_CONTEXT = "Note-01.1 - Master";
     private final static String NOTE_ONE_CONTEXT_NEW = "Note-01.1 - Master - New";

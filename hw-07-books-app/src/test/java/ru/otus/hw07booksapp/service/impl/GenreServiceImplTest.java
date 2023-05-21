@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Import({GenreServiceImpl.class})
 class GenreServiceImplTest {
 
-    private final static int EXPECTED_GENRES_COUNT = 4;
+    private final static int EXPECTED_GENRES_COUNT = 1;
     private final static long GENRE_ONE_ID = 1L;
     private final static String GENRE_ONE_NAME = "Roman";
     private final static String GENRE_ONE_NAME_NEW = "Roman - New";

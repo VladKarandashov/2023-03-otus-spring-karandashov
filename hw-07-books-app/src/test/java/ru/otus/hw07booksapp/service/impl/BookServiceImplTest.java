@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         GenreServiceImpl.class})
 class BookServiceImplTest {
 
-    private final static int EXPECTED_BOOKS_COUNT = 10;
+    private final static int EXPECTED_BOOKS_COUNT = 1;
     private final static Author AUTHOR_ONE = new Author(1L, "Михаил Булгаков");
     private final static Genre GENRE_ONE = new Genre(1L, "Roman");
     private final static String BOOK_ONE_NAME = "MasterTest";

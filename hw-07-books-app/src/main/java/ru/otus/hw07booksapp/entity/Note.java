@@ -25,9 +25,9 @@ import lombok.Setter;
 @Entity(name = "Note")
 @NamedEntityGraph(
         name = "note-book",
-        attributeNodes = @NamedAttributeNode(value = "book", subgraph = "blablabla"),
+        attributeNodes = @NamedAttributeNode(value = "book", subgraph = "book-author-genre"),
         subgraphs = {
-                @NamedSubgraph(name = "blablabla",
+                @NamedSubgraph(name = "book-author-genre",
                         attributeNodes = {
                             @NamedAttributeNode("author"),
                             @NamedAttributeNode("genre")}) })
