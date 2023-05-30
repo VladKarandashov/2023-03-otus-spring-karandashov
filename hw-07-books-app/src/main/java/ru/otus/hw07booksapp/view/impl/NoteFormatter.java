@@ -11,7 +11,6 @@ public class NoteFormatter implements EntityFormatter<Note> {
         return "Note{" +
                 "id=" + entity.getId() +
                 ", note='" + entity.getNote() + '\'' +
-                ", book='" + entity.getBook().getTitle() + '\'' +
                 '}';
     }
 }
