@@ -12,8 +12,6 @@ public interface NoteService {
 
     Note getNoteById(long id);
 
-    List<Note> getNoteByBookId(Long bookId);
-
     void update(long id, String newNote);
 
     void delete(long id);

@@ -30,7 +30,7 @@ class GenreServiceImplTest {
     @DisplayName("Should get correct Genre")
     @Test
     void shouldGetCorrectGenre() {
-        Genre genre = genreService.getGenreById(GENRE_ONE_ID);
+        Genre genre = genreService.getById(GENRE_ONE_ID);
         assertEquals(GENRE_ONE_ID, genre.getId());
         assertEquals(GENRE_ONE_NAME, genre.getName());
     }
@@ -38,7 +38,7 @@ class GenreServiceImplTest {
     @DisplayName("Should find all Genres")
     @Test
     void ShouldGetAllGenres() {
-        val genres = genreService.getGenres();
+        val genres = genreService.getAll();
         assertThat(genres).isNotNull().hasSize(EXPECTED_GENRES_COUNT)
                 .allMatch(s -> s.getId() > 0)
                 .allMatch(s -> !s.getName().equals(""));
@@ -47,20 +47,20 @@ class GenreServiceImplTest {
     @DisplayName("Should be able to delete a Genre:")
     @Test
     void shouldDeletefirstGenre() {
-        Genre genre = genreService.getGenreById(GENRE_ONE_ID);
+        Genre genre = genreService.getById(GENRE_ONE_ID);
         assertEquals(GENRE_ONE_NAME, genre.getName());
         // DELETE:
-        genreService.delete(GENRE_ONE_ID);
-        assertThatCode(() -> genreService.getGenreById(GENRE_ONE_ID))
+        genreService.deleteById(GENRE_ONE_ID);
+        assertThatCode(() -> genreService.getById(GENRE_ONE_ID))
                 .isInstanceOf(RuntimeException.class);
     }
 
     @DisplayName("Should be able to insert a Genre-1 after deletions")
     @Test
     void shouldAddNewGenre() {
-        long savedGenreId = genreService.create(GENRE_ONE_NAME_NEW);
+        long savedGenreId = genreService.update(GENRE_ONE_NAME_NEW);
         assertThat(savedGenreId).isGreaterThan(0);
-        assertEquals(GENRE_ONE_NAME_NEW, genreService.getGenreById(savedGenreId).getName());
+        assertEquals(GENRE_ONE_NAME_NEW, genreService.getById(savedGenreId).getName());
     }
 
 }

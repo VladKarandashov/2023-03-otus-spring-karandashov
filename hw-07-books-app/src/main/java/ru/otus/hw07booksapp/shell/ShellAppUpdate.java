@@ -23,33 +23,33 @@ public class ShellAppUpdate {
     private final NoteService notesService;
 
     @ShellMethod(value = "update author, param: long id, String newName", key = {"updA"})
-    public void updateAuthorName(@ShellOption(defaultValue = "1") long id,
-                                 @ShellOption(defaultValue = "New authour-1") String newName) {
+    public String updateAuthorName(@ShellOption(defaultValue = "1") long id,
+                                   @ShellOption(defaultValue = "New authour-1") String newName) {
         authorService.update(id, newName);
-        System.out.println("Author updates. New author: ");
+        return "Author updated";
     }
 
     @ShellMethod(value = "update genre, param: long id, String newName", key = {"updG"})
-    public void updateGenreName(@ShellOption(defaultValue = "1") long id,
-                                @ShellOption(defaultValue = "new Genre name-1") String newName) {
+    public String updateGenreName(@ShellOption(defaultValue = "1") long id,
+                                  @ShellOption(defaultValue = "new Genre name-1") String newName) {
         genreService.update(id, newName);
-        System.out.println("Genre updated");
+        return "Genre updated";
     }
 
     @ShellMethod(value = "update book, param: long id, String newName", key = {"updB"})
-    public void updateBookTitle(@ShellOption(defaultValue = "1") long id,
-                               @ShellOption(defaultValue = "new cool book title-1") String newName) {
-        Book book = bookService.getBookById(id);
+    public String updateBookTitle(@ShellOption(defaultValue = "1") long id,
+                                  @ShellOption(defaultValue = "new cool book title-1") String newName) {
+        Book book = bookService.getById(id);
         book.setTitle(newName);
-        bookService.createBook(book);
-        System.out.println("book updated. New book title: " + book.getTitle());
+        bookService.update(book);
+        return "Book updated";
     }
 
     @ShellMethod(value = "update note, param: long id, String newContext", key = {"updN"})
-    public void updateNoteContext(@ShellOption(defaultValue = "1") long id,
+    public String updateNoteContext(@ShellOption(defaultValue = "1") long id,
                                     @ShellOption(defaultValue = "new cool note context-1") String newContext) {
         notesService.update(id, newContext);
-        System.out.println("Note context was updated.");
+        return "Note updated";
     }
 
 }

@@ -36,7 +36,7 @@ class BookServiceImplTest {
     @DisplayName("Should get correct book")
     @Test
     void shouldGetCorrectBook() {
-        Book book = bookService.getBookById(1L);
+        Book book = bookService.getById(1L);
         assertThat(book).isNotNull()
                 .matches(b -> Objects.equals(b.getId(), BOOK_ONE.getId()))
                 .matches(b -> b.getTitle().equals(BOOK_ONE.getTitle()));
@@ -45,24 +45,24 @@ class BookServiceImplTest {
     @DisplayName("Should find all books")
     @Test
     void ShouldFindAllBooks() {
-        List<Book> books = bookService.getAllBooks();
+        List<Book> books = bookService.getAll();
         assertEquals(EXPECTED_BOOKS_COUNT, books.size());
     }
 
     @DisplayName("Should get correct books count")
     @Test
     void ShouldGetCorrectBooksCount() {
-        assertEquals(EXPECTED_BOOKS_COUNT, bookService.getBooksCount());
+        assertEquals(EXPECTED_BOOKS_COUNT, bookService.getCount());
     }
 
     @DisplayName("Should be able to delete a book:")
     @Test
     void shouldDeletefirstBook() {
-        Book book = bookService.getBookById(1L);
+        Book book = bookService.getById(1L);
         assertEquals(BOOK_ONE_NAME, book.getTitle());
         // DELETE:
-        bookService.deleteBook(1L);
-        assertThatCode(() -> bookService.getBookById(1L))
+        bookService.deleteById(1L);
+        assertThatCode(() -> bookService.getById(1L))
                 .isInstanceOf(RuntimeException.class);
     }
 
@@ -70,7 +70,7 @@ class BookServiceImplTest {
     @Test
     void shouldInsertNewBook() {
         Book book = new Book(null, new Author(1L, "Михаил Булгаков"), new Genre(1L, "Roman"), "MasterTest");
-        Book savedBook = bookService.createBook(book);
+        Book savedBook = bookService.update(book);
         assertThat(savedBook.getId()).isGreaterThan(0);
         assertEquals(book.getAuthor(), savedBook.getAuthor());
         assertEquals(book.getGenre(), savedBook.getGenre());

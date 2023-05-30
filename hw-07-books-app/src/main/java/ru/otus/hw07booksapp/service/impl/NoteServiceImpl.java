@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw07booksapp.entity.Book;
 import ru.otus.hw07booksapp.entity.Note;
 import ru.otus.hw07booksapp.exception.NotFoundException;
-import ru.otus.hw07booksapp.repository.BookRepository;
 import ru.otus.hw07booksapp.repository.NoteRepository;
+import ru.otus.hw07booksapp.service.BookService;
 import ru.otus.hw07booksapp.service.NoteService;
 
 import java.util.List;
@@ -18,17 +18,14 @@ public class NoteServiceImpl implements NoteService {
 
     private static final String NOTE_NOT_EXIST = "Wasn't able to find note with this ID.";
 
-    private static final String BOOK_NOT_EXIST = "Wasn't able to find book with this ID.";
-
-    private final BookRepository bookRepository;
+    private final BookService bookService;
 
     private final NoteRepository noteRepository;
 
     @Transactional
     @Override
     public long create(Long bookId, String noteStr) {
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
+        Book book = bookService.getById(bookId);
         Note note = new Note(null, book, noteStr);
         return noteRepository.save(note).getId();
     }
@@ -50,9 +47,6 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void update(long id, String newNote) {
         Note note = getNoteById(id);
-        if (note == null) {
-            throw new NotFoundException(NOTE_NOT_EXIST);
-        }
         note.setNote(newNote);
         noteRepository.save(note);
     }
@@ -60,13 +54,6 @@ public class NoteServiceImpl implements NoteService {
     @Transactional
     @Override
     public void delete(long id) {
-        Note note = getNoteById(id);
-        noteRepository.delete(note);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<Note> getNoteByBookId(Long bookId) {
-        return noteRepository.findAllByBook_Id(bookId);
+        noteRepository.deleteById(id);
     }
 }

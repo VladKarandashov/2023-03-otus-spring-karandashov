@@ -7,17 +7,15 @@ import java.util.List;
 
 public interface BookService {
 
-    Book getBookById(long id);
+    Book getById(long id);
 
-    List<Book> getAllBooks();
+    List<Book> getAll();
 
-    Long getBooksCount();
+    Long getCount();
 
-    void deleteBook(long id);
+    void deleteById(long id);
 
-    Book createBook(Book book);
+    Book update(Book book);
 
-    Book createBook(Long id, String newTitle);
-
-    Book createBook(BookDto bookDto);
+    Book update(BookDto bookDto);
 }

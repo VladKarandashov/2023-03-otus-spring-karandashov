@@ -20,7 +20,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public long create(String fullName) {
+    public long update(String fullName) {
         Author author = new Author(null, fullName);
         return authorRepository.save(author).getId();
     }
@@ -49,7 +49,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public void delete(long authorId) {
-        authorRepository.findById(authorId).ifPresent(authorRepository::delete);
+    public void deleteById(long authorId) {
+        authorRepository.deleteById(authorId);
     }
 }

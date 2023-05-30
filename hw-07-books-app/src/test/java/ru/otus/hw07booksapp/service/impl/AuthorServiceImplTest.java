@@ -54,7 +54,7 @@ class AuthorServiceImplTest {
         Author author = authorService.getById(AUTHOR_ONE_ID);
         assertEquals(AUTHOR_ONE_NAME, author.getName());
         // DELETE:
-        authorService.delete(author.getId());
+        authorService.deleteById(author.getId());
         assertThatCode(() -> authorService.getById(AUTHOR_ONE_ID))
                 .isInstanceOf(RuntimeException.class);
     }
@@ -63,7 +63,7 @@ class AuthorServiceImplTest {
     @DisplayName("Should be able to insert a Author-1 after deletions")
     @Test
     void shouldAddNewAuthor() {
-        long savedAouthorId = authorService.create(AUTHOR_ONE_NAME_NEW);
+        long savedAouthorId = authorService.update(AUTHOR_ONE_NAME_NEW);
         assertThat(savedAouthorId).isGreaterThan(0L);
         assertEquals(AUTHOR_ONE_NAME_NEW, authorService.getById(savedAouthorId).getName());
     }

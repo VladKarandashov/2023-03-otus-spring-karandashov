@@ -29,32 +29,32 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public Book getBookById(long id) {
+    public Book getById(long id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> getAll() {
         return bookRepository.findAllBy();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Long getBooksCount() {
+    public Long getCount() {
         return bookRepository.countBy();
     }
 
     @Transactional
     @Override
-    public void deleteBook(long id) {
-        bookRepository.findById(id).ifPresent(bookRepository::delete);
+    public void deleteById(long id) {
+        bookRepository.deleteById(id);
     }
 
     @Transactional
     @Override
-    public Book createBook(Book book) {
+    public Book update(Book book) {
         if (book == null) {
             throw new NotFoundException(BOOK_NOT_EXIST);
         }
@@ -69,19 +69,10 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book createBook(BookDto bookDto) {
+    public Book update(BookDto bookDto) {
         var author = authorService.getById(bookDto.getAuthorId());
-        var genre = genreService.getGenreById(bookDto.getGenreId());
+        var genre = genreService.getById(bookDto.getGenreId());
         Book book = new Book(null, author, genre, bookDto.getTitle());
-        return createBook(book);
-    }
-
-    @Transactional
-    @Override
-    public Book createBook(Long id, String newTitle) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
-        book.setTitle(newTitle);
-        return createBook(book);
+        return update(book);
     }
 }

@@ -23,27 +23,27 @@ public class DeleteCommands {
 
 
     @ShellMethod(value = "delete author by id", key = {"delA"})
-    public void deleteAuthorById(@ShellOption(defaultValue = "1") long authorId) {
-        authorService.delete(authorId);
-        System.out.println("Author with id=" + authorId + " deleted.");
+    public String deleteAuthorById(@ShellOption(defaultValue = "1") long authorId) {
+        authorService.deleteById(authorId);
+        return "Author with id=" + authorId + " was deleted";
     }
 
     @ShellMethod(value = "delete genre by id", key = {"delG"})
-    public void deleteGenreById(@ShellOption(defaultValue = "1") long genreId) {
-        genreService.delete(genreId);
-        System.out.println("Genre with id = " + genreId + " was deleted");
+    public String deleteGenreById(@ShellOption(defaultValue = "1") long genreId) {
+        genreService.deleteById(genreId);
+        return "Genre with id = " + genreId + " was deleted";
     }
 
     @ShellMethod(value = "delete book by id", key = {"delB"})
-    public void deleteBookById(@ShellOption(defaultValue = "1") long bookId) {
-        bookService.deleteBook(bookId);
-        System.out.println("Book with bookId = " + bookId + " was deleted");
+    public String deleteBookById(@ShellOption(defaultValue = "1") long bookId) {
+        bookService.deleteById(bookId);
+        return "Book with bookId = " + bookId + " was deleted";
     }
 
     @ShellMethod(value = "delete books Note by id", key = {"delN"})
-    public void deleteBooksNote(@ShellOption(defaultValue = "1") long noteId) {
+    public String deleteBooksNote(@ShellOption(defaultValue = "1") long noteId) {
         notesService.delete(noteId);
-        System.out.println("Note with ID = " + noteId + " was deleted.");
+        return "Note with ID = " + noteId + " was deleted.";
     }
 
 }

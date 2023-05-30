@@ -1,19 +1,17 @@
 package ru.otus.hw07booksapp.shell;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.hw07booksapp.entity.Author;
-import ru.otus.hw07booksapp.entity.Book;
-import ru.otus.hw07booksapp.entity.Genre;
-import ru.otus.hw07booksapp.entity.Note;
 import ru.otus.hw07booksapp.service.AuthorService;
 import ru.otus.hw07booksapp.service.BookService;
 import ru.otus.hw07booksapp.service.GenreService;
 import ru.otus.hw07booksapp.service.NoteService;
+import ru.otus.hw07booksapp.view.EntityFormatter;
 
-import java.util.List;
+import java.util.Map;
 
 @ShellComponent
 @RequiredArgsConstructor
@@ -26,46 +24,57 @@ public class GetCommands {
 
     private final NoteService notesService;
 
+    // решение показалось очень красивым ;)
+    private final Map<String, EntityFormatter<Object>> formatters;
 
+    @SneakyThrows
     @ShellMethod(value = "get author by id", key = {"getA"})
-    public Author getAuthorById(@ShellOption(defaultValue = "1") long id) {
-        return authorService.getById(id);
+    public String getAuthorById(@ShellOption(defaultValue = "1") long id) {
+        var formatter = formatters.get("AuthorFormatter");
+        return formatter.format(authorService.getById(id));
     }
 
 
     @ShellMethod(value = "get all Authors", key = {"getAs"})
-    public List<Author> getAuthors() {
-        return authorService.getAll();
+    public String getAuthors() {
+        var formatter = formatters.get("AuthorFormatter");
+        return formatter.format(authorService.getAll());
     }
 
     @ShellMethod(value = "get genre by id", key = {"getG"})
-    public Genre getGenreById(@ShellOption(defaultValue = "1") long id) {
-        return genreService.getGenreById(id);
+    public String getGenreById(@ShellOption(defaultValue = "1") long id) {
+        var formatter = formatters.get("GenreFormatter");
+        return formatter.format(genreService.getById(id));
     }
 
     @ShellMethod(value = "get all Genres", key = {"getGs"})
-    public List<Genre> getAllGenres() {
-         return genreService.getGenres();
+    public String getAllGenres() {
+        var formatter = formatters.get("GenreFormatter");
+        return formatter.format(genreService.getAll());
     }
 
     @ShellMethod(value = "get book by id", key = {"getB"})
-    public Book getBookById(@ShellOption(defaultValue = "1") long id) {
-        return bookService.getBookById(id);
+    public String getBookById(@ShellOption(defaultValue = "1") long id) {
+        var formatter = formatters.get("BookFormatter");
+        return formatter.format(bookService.getById(id));
     }
 
     @ShellMethod(value = "get all books", key = {"getBs"})
-    public List<Book> getBooks()  {
-        return bookService.getAllBooks();
+    public String getBooks()  {
+        var formatter = formatters.get("BookFormatter");
+        return formatter.format(bookService.getAll());
     }
 
     @ShellMethod(value = "get Note by id", key = {"getN"})
-    public Note getNoteById(@ShellOption(defaultValue = "1") long id) {
-        return notesService.getNoteById(id);
+    public String getNoteById(@ShellOption(defaultValue = "1") long id) {
+        var formatter = formatters.get("NoteFormatter");
+        return formatter.format(notesService.getNoteById(id));
     }
 
     @ShellMethod(value = "get all notes", key = {"getNs"})
-    public List<Note> getAllNote()  {
-         return notesService.getAllNote();
+    public String getAllNote()  {
+        var formatter = formatters.get("NoteFormatter");
+        return formatter.format(notesService.getAllNote());
     }
 
 }

@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface GenreService {
 
-    long create(String fullName);
+    long update(String title);
 
-    List<Genre> getGenres();
+    List<Genre> getAll();
 
-    Genre getGenreById(long id);
+    Genre getById(long id);
 
     void update(long id, String title);
 
-    void delete(long id);
+    void deleteById(long id);
 
 }
