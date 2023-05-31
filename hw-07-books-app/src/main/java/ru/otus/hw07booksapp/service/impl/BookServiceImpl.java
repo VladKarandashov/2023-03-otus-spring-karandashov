@@ -9,6 +9,7 @@ import ru.otus.hw07booksapp.entity.Book;
 import ru.otus.hw07booksapp.exception.DaoException;
 import ru.otus.hw07booksapp.exception.NotFoundException;
 import ru.otus.hw07booksapp.repository.BookRepository;
+import ru.otus.hw07booksapp.repository.NoteRepository;
 import ru.otus.hw07booksapp.service.AuthorService;
 import ru.otus.hw07booksapp.service.BookService;
 import ru.otus.hw07booksapp.service.GenreService;
@@ -26,6 +27,8 @@ public class BookServiceImpl implements BookService {
     private final AuthorService authorService;
 
     private final GenreService genreService;
+
+    private final NoteRepository noteRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -49,6 +52,9 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void deleteById(long id) {
+        // удаляем комментарии к книге
+        noteRepository.deleteAllByBook_Id(id);
+        // удаляем саму книгу
         bookRepository.deleteById(id);
     }
 
@@ -69,7 +75,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book update(BookDto bookDto) {
+    public Book create(BookDto bookDto) {
         var author = authorService.getById(bookDto.getAuthorId());
         var genre = genreService.getById(bookDto.getGenreId());
         Book book = new Book(null, author, genre, bookDto.getTitle());

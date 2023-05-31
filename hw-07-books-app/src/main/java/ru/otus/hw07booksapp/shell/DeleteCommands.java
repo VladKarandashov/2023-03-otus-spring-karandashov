@@ -42,7 +42,7 @@ public class DeleteCommands {
 
     @ShellMethod(value = "delete books Note by id", key = {"delN"})
     public String deleteBooksNote(@ShellOption(defaultValue = "1") long noteId) {
-        notesService.delete(noteId);
+        notesService.deleteById(noteId);
         return "Note with ID = " + noteId + " was deleted.";
     }
 

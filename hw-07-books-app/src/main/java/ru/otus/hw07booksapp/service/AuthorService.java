@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AuthorService {
 
-    long update(String name);
+    long create(String name);
 
     Author getById(long id);
 

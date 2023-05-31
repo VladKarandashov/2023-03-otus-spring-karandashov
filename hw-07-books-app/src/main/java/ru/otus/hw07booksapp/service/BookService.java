@@ -17,5 +17,5 @@ public interface BookService {
 
     Book update(Book book);
 
-    Book update(BookDto bookDto);
+    Book create(BookDto bookDto);
 }

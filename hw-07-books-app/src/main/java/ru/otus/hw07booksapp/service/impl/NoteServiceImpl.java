@@ -53,7 +53,12 @@ public class NoteServiceImpl implements NoteService {
 
     @Transactional
     @Override
-    public void delete(long id) {
+    public void deleteById(long id) {
         noteRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByBookId(long bookId) {
+        noteRepository.deleteAllByBook_Id(bookId);
     }
 }

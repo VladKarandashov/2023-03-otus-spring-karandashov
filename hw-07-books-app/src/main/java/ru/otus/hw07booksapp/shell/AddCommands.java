@@ -24,13 +24,13 @@ public class AddCommands {
 
     @ShellMethod(value = "add author, param: String fullName", key = {"addA"})
     public void addAuthor(@ShellOption(defaultValue = "new Author") String fullName) {
-        authorService.update(fullName);
+        authorService.create(fullName);
     }
 
 
     @ShellMethod(value = "add genre, param: String name", key = {"addG"})
     public void addGenre(@ShellOption(defaultValue = "New genre") String name) {
-        genreService.update(name);
+        genreService.create(name);
     }
 
 
@@ -39,7 +39,7 @@ public class AddCommands {
                         @ShellOption(defaultValue = "1") long authorId,
                         @ShellOption(defaultValue = "1") long genreId) {
         BookDto bookDto = new BookDto(title, authorId, genreId);
-        bookService.update(bookDto);
+        bookService.create(bookDto);
     }
 
 

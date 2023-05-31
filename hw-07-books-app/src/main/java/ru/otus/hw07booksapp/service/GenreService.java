@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GenreService {
 
-    long update(String title);
+    long create(String title);
 
     List<Genre> getAll();
 

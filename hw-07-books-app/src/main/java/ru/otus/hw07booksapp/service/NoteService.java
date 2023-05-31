@@ -14,6 +14,7 @@ public interface NoteService {
 
     void update(long id, String newNote);
 
-    void delete(long id);
+    void deleteById(long id);
 
+    void deleteByBookId(long id);
 }
