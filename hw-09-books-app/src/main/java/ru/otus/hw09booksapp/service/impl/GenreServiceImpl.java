@@ -37,6 +37,12 @@ public class GenreServiceImpl implements GenreService {
                 .orElseThrow(() -> new NotFoundException(GENRE_NOT_EXIST));
     }
 
+    @Override
+    public Genre getByName(String name) {
+        return genreRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException(GENRE_NOT_EXIST));
+    }
+
     @Transactional
     @Override
     public void update(long id, String name) {

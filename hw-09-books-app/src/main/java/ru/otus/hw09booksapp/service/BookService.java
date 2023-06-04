@@ -11,6 +11,8 @@ public interface BookService {
 
     List<Book> getAll();
 
+    List<BookDto> getAllDto();
+
     Long getCount();
 
     void deleteById(long id);

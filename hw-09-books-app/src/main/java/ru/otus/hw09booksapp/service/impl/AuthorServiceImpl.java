@@ -41,6 +41,12 @@ public class AuthorServiceImpl implements AuthorService {
                 .orElseThrow(() -> new NotFoundException(AUTHOR_NOT_EXIST));
     }
 
+    @Override
+    public Author getByName(String name) {
+        return authorRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException(AUTHOR_NOT_EXIST));
+    }
+
     @Transactional(readOnly = true)
     @Override
     public List<Author> getAll() {

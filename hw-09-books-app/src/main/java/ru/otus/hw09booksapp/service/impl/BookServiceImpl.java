@@ -45,6 +45,14 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
+    public List<BookDto> getAllDto() {
+        return getAll().stream()
+                .map(book -> new BookDto(book.getId(), book.getTitle(), book.getAuthor().getName(), book.getGenre().getName()))
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public Long getCount() {
         return bookRepository.countBy();
     }
@@ -76,8 +84,8 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public Book create(BookDto bookDto) {
-        var author = authorService.getById(bookDto.getAuthorId());
-        var genre = genreService.getById(bookDto.getGenreId());
+        var author = authorService.getByName(bookDto.getAuthor());
+        var genre = genreService.getByName(bookDto.getGenre());
         Book book = new Book(null, author, genre, bookDto.getTitle());
         return update(book);
     }

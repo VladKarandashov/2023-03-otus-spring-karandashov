@@ -12,6 +12,8 @@ public interface GenreService {
 
     Genre getById(long id);
 
+    Genre getByName(String name);
+
     void update(long id, String title);
 
     void deleteById(long id);
