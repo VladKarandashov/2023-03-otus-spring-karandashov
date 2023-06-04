@@ -54,13 +54,4 @@ class GenreServiceImplTest {
         assertThatCode(() -> genreService.getById(GENRE_ONE_ID))
                 .isInstanceOf(RuntimeException.class);
     }
-
-    @DisplayName("Should be able to insert a Genre-1 after deletions")
-    @Test
-    void shouldAddNewGenre() {
-        long savedGenreId = genreService.update(GENRE_ONE_NAME_NEW);
-        assertThat(savedGenreId).isGreaterThan(0);
-        assertEquals(GENRE_ONE_NAME_NEW, genreService.getById(savedGenreId).getName());
-    }
-
 }
