@@ -6,8 +6,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class BookDto {
-    Long id;
-    String title;
-    String author;
-    String genre;
+    private Long id;
+
+    private String title;
+
+    private String author;
+
+    private String genre;
 }

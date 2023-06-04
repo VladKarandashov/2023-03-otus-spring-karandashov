@@ -18,11 +18,13 @@ import ru.otus.hw09booksapp.service.GenreService;
 public class BookController {
 
     private final AuthorService authorService;
+
     private final GenreService genreService;
+
     private final BookService bookService;
 
 
-    @GetMapping({"/book"})
+    @GetMapping({"/book", "/"})
     public String listBooks(Model model) {
         var books = bookService.getAllDto();
         model.addAttribute("books", books);

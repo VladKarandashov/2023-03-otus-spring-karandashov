@@ -47,7 +47,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> getAllDto() {
         return getAll().stream()
-                .map(book -> new BookDto(book.getId(), book.getTitle(), book.getAuthor().getName(), book.getGenre().getName()))
+                .map(book -> new BookDto(
+                        book.getId(),
+                        book.getTitle(),
+                        book.getAuthor().getName(),
+                        book.getGenre().getName()))
                 .toList();
     }
 
