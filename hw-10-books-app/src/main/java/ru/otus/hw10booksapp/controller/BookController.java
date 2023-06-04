@@ -41,8 +41,7 @@ public class BookController {
 
     @PutMapping
     public void updateBook(@RequestBody Book book) {
-        var books = bookService.update(book);
-        log.info("______________________" + books);
+        bookService.update(book);
     }
 
     @DeleteMapping("/{id}")
