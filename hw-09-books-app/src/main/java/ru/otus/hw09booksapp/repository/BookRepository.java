@@ -15,9 +15,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findById(long id);
 
     @EntityGraph(value = "book-author-genre")
-    List<Book> findAllBy();
+    List<Book> findAll();
 
-    Long countBy();
+    long count();
 
     void delete(Book book);
 

@@ -13,8 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-@DisplayName("ORM JPA Authors repository testing.")
 @DataJpaTest
 @Import({AuthorServiceImpl.class})
 class AuthorServiceImplTest {
@@ -22,7 +20,6 @@ class AuthorServiceImplTest {
     private final static int EXPECTED_AUTHORS_COUNT = 1;
     private final static long AUTHOR_ONE_ID = 1L;
     private final static String AUTHOR_ONE_NAME = "test";
-    private final static String AUTHOR_ONE_NAME_NEW = "Михаил Булгаков - New";
 
     @Autowired
     private AuthorService authorService;
@@ -35,8 +32,6 @@ class AuthorServiceImplTest {
         assertEquals(AUTHOR_ONE_ID, author.getId());
         assertEquals(AUTHOR_ONE_NAME, author.getName());
     }
-
-    //pavel_ignatenko@mail.ru
 
     @DisplayName("Should find all Authors")
     @Test
@@ -53,7 +48,6 @@ class AuthorServiceImplTest {
     void shouldDeletefirstAuthor() {
         Author author = authorService.getById(AUTHOR_ONE_ID);
         assertEquals(AUTHOR_ONE_NAME, author.getName());
-        // DELETE:
         authorService.deleteById(author.getId());
         assertThatCode(() -> authorService.getById(AUTHOR_ONE_ID))
                 .isInstanceOf(RuntimeException.class);

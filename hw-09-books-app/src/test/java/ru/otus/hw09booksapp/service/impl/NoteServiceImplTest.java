@@ -17,8 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
-@DisplayName("ORM JPA Genres repository testing.")
 @DataJpaTest
 class NoteServiceImplTest {
 
@@ -46,7 +44,7 @@ class NoteServiceImplTest {
     @DisplayName("Should find all Note")
     @Test
     void ShouldGetAllGenres() {
-        val genres = noteRepository.findAllBy();
+        val genres = noteRepository.findAll();
         assertThat(genres).isNotNull().hasSize(EXPECTED_NOTES_COUNT)
                 .allMatch(s -> s.getId() > 0)
                 .allMatch(s -> !s.getNote().equals(""));
@@ -58,7 +56,6 @@ class NoteServiceImplTest {
         Optional<Note> note = noteRepository.findById(NOTE_ONE_ID);
         assertNotNull(note.get());
         assertEquals(NOTE_ONE_CONTEXT, note.get().getNote());
-        // DELETE:
         noteRepository.delete(note.get());
         Optional<Note> noteAfterDelete = noteRepository.findById(NOTE_ONE_ID);
         assertEquals(Optional.empty(), noteAfterDelete);
