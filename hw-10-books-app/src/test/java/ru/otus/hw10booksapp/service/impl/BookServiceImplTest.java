@@ -10,15 +10,12 @@ import ru.otus.hw10booksapp.entity.Author;
 import ru.otus.hw10booksapp.entity.Book;
 import ru.otus.hw10booksapp.entity.Genre;
 
-import java.util.List;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-@DisplayName("ORM JPA books repository testing.")
 @DataJpaTest
 @Import({BookServiceImpl.class,
         AuthorServiceImpl.class,
@@ -37,7 +34,7 @@ class BookServiceImplTest {
     @DisplayName("Should get correct book")
     @Test
     void shouldGetCorrectBook() {
-        Book book = bookService.getById(1L);
+        var book = bookService.getById(1L);
         assertThat(book).isNotNull()
                 .matches(b -> Objects.equals(b.getId(), BOOK_ONE.getId()))
                 .matches(b -> b.getTitle().equals(BOOK_ONE.getTitle()));
@@ -46,7 +43,7 @@ class BookServiceImplTest {
     @DisplayName("Should find all books")
     @Test
     void ShouldFindAllBooks() {
-        List<Book> books = bookService.getAll();
+        var books = bookService.getAll();
         assertEquals(EXPECTED_BOOKS_COUNT, books.size());
     }
 
@@ -59,7 +56,7 @@ class BookServiceImplTest {
     @DisplayName("Should be able to delete a book:")
     @Test
     void shouldDeletefirstBook() {
-        Book book = bookService.getById(1L);
+        var book = bookService.getById(1L);
         assertEquals(BOOK_ONE_NAME, book.getTitle());
         // DELETE:
         bookService.deleteById(1L);
@@ -71,10 +68,10 @@ class BookServiceImplTest {
     @Test
     void shouldInsertNewBook() {
         Book book = new Book(null, new Author(1L, "test"), new Genre(1L, "Roman"), "MasterTest");
-        Book savedBook = bookService.create(new BookDto(null, "MasterTest", "test", "Roman"));
+        var savedBook = bookService.create(new BookDto(null, "MasterTest", "test", "Roman"));
         assertThat(savedBook.getId()).isGreaterThan(0);
-        assertEquals(book.getAuthor().getName(), savedBook.getAuthor().getName());
-        assertEquals(book.getGenre().getName(), savedBook.getGenre().getName());
+        assertEquals(book.getAuthor().getName(), savedBook.getAuthor());
+        assertEquals(book.getGenre().getName(), savedBook.getGenre());
         assertEquals(book.getTitle(), savedBook.getTitle());
     }
 

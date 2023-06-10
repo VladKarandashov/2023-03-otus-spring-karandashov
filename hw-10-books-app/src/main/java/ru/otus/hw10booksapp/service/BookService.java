@@ -1,23 +1,25 @@
 package ru.otus.hw10booksapp.service;
 
+import ru.otus.hw10booksapp.dto.BookCompleteDto;
 import ru.otus.hw10booksapp.dto.BookDto;
-import ru.otus.hw10booksapp.entity.Book;
 
 import java.util.List;
 
 public interface BookService {
 
-    Book getById(long id);
+    BookDto getById(long id);
 
-    List<Book> getAll();
+    BookCompleteDto getCompleteById(long id);
 
-    List<BookDto> getAllDto();
+    List<BookDto> getAll();
 
     Long getCount();
 
     void deleteById(long id);
 
-    Book update(Book book);
+    BookDto update(BookDto book);
 
-    Book create(BookDto bookDto);
+    BookDto update(BookCompleteDto bookDto);
+
+    BookDto create(BookDto bookDto);
 }

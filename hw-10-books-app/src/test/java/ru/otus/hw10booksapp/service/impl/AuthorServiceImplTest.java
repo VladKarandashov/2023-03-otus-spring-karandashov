@@ -13,8 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-@DisplayName("ORM JPA Authors repository testing.")
 @DataJpaTest
 @Import({AuthorServiceImpl.class})
 class AuthorServiceImplTest {
@@ -34,8 +32,6 @@ class AuthorServiceImplTest {
         assertEquals(AUTHOR_ONE_ID, author.getId());
         assertEquals(AUTHOR_ONE_NAME, author.getName());
     }
-
-    //pavel_ignatenko@mail.ru
 
     @DisplayName("Should find all Authors")
     @Test

@@ -27,7 +27,7 @@ public class GenreServiceImpl implements GenreService {
     @Transactional(readOnly = true)
     @Override
     public List<Genre> getAll() {
-        return genreRepository.findAllBy();
+        return genreRepository.findAll();
     }
 
     @Transactional(readOnly = true)

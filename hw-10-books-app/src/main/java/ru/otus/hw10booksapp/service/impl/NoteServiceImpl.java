@@ -6,11 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw10booksapp.entity.Book;
 import ru.otus.hw10booksapp.entity.Note;
 import ru.otus.hw10booksapp.exception.NotFoundException;
+import ru.otus.hw10booksapp.repository.BookRepository;
 import ru.otus.hw10booksapp.repository.NoteRepository;
-import ru.otus.hw10booksapp.service.BookService;
 import ru.otus.hw10booksapp.service.NoteService;
 
 import java.util.List;
+
+import static ru.otus.hw10booksapp.service.impl.BookServiceImpl.BOOK_NOT_EXIST;
 
 @Component
 @RequiredArgsConstructor
@@ -18,14 +20,15 @@ public class NoteServiceImpl implements NoteService {
 
     private static final String NOTE_NOT_EXIST = "Wasn't able to find note with this ID.";
 
-    private final BookService bookService;
+    private final BookRepository bookRepository;
 
     private final NoteRepository noteRepository;
 
     @Transactional
     @Override
     public long create(Long bookId, String noteStr) {
-        Book book = bookService.getById(bookId);
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
         Note note = new Note(null, book, noteStr);
         return noteRepository.save(note).getId();
     }
@@ -33,7 +36,7 @@ public class NoteServiceImpl implements NoteService {
     @Transactional(readOnly = true)
     @Override
     public List<Note> getAllNote() {
-        return noteRepository.findAllBy();
+        return noteRepository.findAll();
     }
 
     @Transactional(readOnly = true)

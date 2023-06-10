@@ -44,7 +44,7 @@ public class BookControllerTest {
     @Test
     void shouldReturnCorrectBookList() throws Exception {
         List<BookDto> bookList = List.of(bookDto);
-        given(bookService.getAllDto()).willReturn(bookList);
+        given(bookService.getAll()).willReturn(bookList);
         mvc.perform(get("/book"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(List.of(bookDto))));
@@ -52,28 +52,28 @@ public class BookControllerTest {
 
     @Test
     void shouldReturnCorrectBook() throws Exception {
-        given(bookService.getById(1)).willReturn(book);
+        given(bookService.getById(1)).willReturn(bookDto);
         mvc.perform(get("/book/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(book)));
+                .andExpect(content().json(mapper.writeValueAsString(bookDto)));
     }
 
     @Test
     void shouldCreateBook() throws Exception {
-        given(bookService.create(any())).willReturn(book);
+        given(bookService.create(any())).willReturn(bookDto);
         mvc.perform(post("/book")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(bookDto)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(book)));
+                .andExpect(content().json(mapper.writeValueAsString(bookDto)));
     }
 
     @Test
     void shouldUpdateBook() throws Exception {
-        given(bookService.update(any())).willReturn(book);
+        given(bookService.update(any(BookDto.class))).willReturn(bookDto);
         mvc.perform(put("/book")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(book)))
+                        .content(mapper.writeValueAsString(bookDto)))
                 .andExpect(status().isOk());
     }
 

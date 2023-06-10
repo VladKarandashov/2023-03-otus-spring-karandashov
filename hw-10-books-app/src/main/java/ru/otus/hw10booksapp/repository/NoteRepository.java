@@ -14,11 +14,11 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     Note save(Note note);
 
-    List<Note> findAllBy();
+    List<Note> findAll();
 
     List<Note> findAllByBook_Id(long bookId);
 
-    long countBy();
+    long count();
 
     void delete(Note note);
 
