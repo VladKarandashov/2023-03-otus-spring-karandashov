@@ -14,5 +14,10 @@
         <module>hw-01-testing-app</module>
         <module>hw-02-testing-app</module>
         <module>hw-03-testing-app</module>
+        <module>hw-04-testing-app</module>
+        <module>hw-05-books-app</module>
+        <module>hw-06-books-app</module>
+        <module>hw-07-books-app</module>
+        <module>hw-09-books-app</module>
     </modules>
 </project>
