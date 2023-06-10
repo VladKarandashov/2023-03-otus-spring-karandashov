@@ -4,6 +4,7 @@ import jakarta.persistence.TransactionRequiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.hw09booksapp.dto.BookCompleteDto;
 import ru.otus.hw09booksapp.dto.BookDto;
 import ru.otus.hw09booksapp.entity.Book;
 import ru.otus.hw09booksapp.exception.DaoException;
@@ -13,6 +14,7 @@ import ru.otus.hw09booksapp.repository.NoteRepository;
 import ru.otus.hw09booksapp.service.AuthorService;
 import ru.otus.hw09booksapp.service.BookService;
 import ru.otus.hw09booksapp.service.GenreService;
+import ru.otus.hw09booksapp.utils.DtoConverter;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private static final String BOOK_NOT_EXIST = "Book with this ID doesn't exist.";
+    public static final String BOOK_NOT_EXIST = "Book with this ID doesn't exist.";
 
     private final BookRepository bookRepository;
 
@@ -32,33 +34,37 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public Book getById(long id) {
-        return bookRepository.findById(id)
+    public BookDto getById(long id) {
+        var book = bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
+        return DtoConverter.getBookDto(book);
+    }
+
+    @Override
+    public BookCompleteDto getCompleteById(long id) {
+        var book = bookRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
+        var author = book.getAuthor();
+        var genre = book.getGenre();
+        return new BookCompleteDto(
+                book.getId(),
+                book.getTitle(),
+                DtoConverter.getAuthorDto(author),
+                DtoConverter.getGenreDto(genre));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Book> getAll() {
-        return bookRepository.findAllBy();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<BookDto> getAllDto() {
-        return getAll().stream()
-                .map(book -> new BookDto(
-                        book.getId(),
-                        book.getTitle(),
-                        book.getAuthor().getName(),
-                        book.getGenre().getName()))
+    public List<BookDto> getAll() {
+        return bookRepository.findAll().stream()
+                .map(DtoConverter::getBookDto)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     @Override
     public Long getCount() {
-        return bookRepository.countBy();
+        return bookRepository.count();
     }
 
     @Transactional
@@ -72,6 +78,34 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    public BookDto create(BookDto bookDto) {
+        var author = authorService.getByName(bookDto.getAuthor());
+        var genre = genreService.getByName(bookDto.getGenre());
+        Book book = new Book(null, author, genre, bookDto.getTitle());
+        return DtoConverter.getBookDto(update(book));
+    }
+
+    @Transactional
+    @Override
+    public BookDto update(BookDto bookDto) {
+        var author = authorService.getByName(bookDto.getAuthor());
+        var genre = genreService.getByName(bookDto.getGenre());
+        Book book = new Book(bookDto.getId(), author, genre, bookDto.getTitle());
+        var saveBook = update(book);
+        return DtoConverter.getBookDto(saveBook);
+    }
+
+    @Transactional
+    @Override
+    public BookDto update(BookCompleteDto bookDto) {
+        var author = authorService.getById(bookDto.getAuthor().getId());
+        var genre = genreService.getById(bookDto.getGenre().getId());
+        Book book = new Book(bookDto.getId(), author, genre, bookDto.getTitle());
+        var saveBook = update(book);
+        return DtoConverter.getBookDto(saveBook);
+    }
+
+    @Transactional
     public Book update(Book book) {
         if (book == null) {
             throw new NotFoundException(BOOK_NOT_EXIST);
@@ -83,14 +117,5 @@ public class BookServiceImpl implements BookService {
         } catch (TransactionRequiredException e) {
             throw new DaoException("Transaction exception during book insertion.", e);
         }
-    }
-
-    @Transactional
-    @Override
-    public Book create(BookDto bookDto) {
-        var author = authorService.getByName(bookDto.getAuthor());
-        var genre = genreService.getByName(bookDto.getGenre());
-        Book book = new Book(null, author, genre, bookDto.getTitle());
-        return update(book);
     }
 }
