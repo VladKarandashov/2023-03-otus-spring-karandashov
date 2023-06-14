@@ -124,10 +124,18 @@
                     console.log('Book added');
                     location.reload(); // перезагрузка страницы
                 } else {
-                    console.error('Error adding book');
+                    throw new Error(response.status);
                 }
             })
-            .catch(error => console.error(error));
+            .catch(
+                error => {
+                    if (error.message === '400') {
+                        alert('Wrong title');
+                    } else {
+                        console.error('Error adding book:', error);
+                    }
+                }
+            );
     });
 </script>
 

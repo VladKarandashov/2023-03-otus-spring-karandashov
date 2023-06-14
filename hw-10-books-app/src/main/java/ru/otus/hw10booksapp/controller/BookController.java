@@ -1,5 +1,6 @@
 package ru.otus.hw10booksapp.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,12 +35,12 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDto create(@RequestBody BookDto book) {
+    public BookDto create(@Valid @RequestBody BookDto book) {
         return bookService.create(book);
     }
 
     @PutMapping
-    public void updateBook(@RequestBody BookDto book) {
+    public void update(@Valid @RequestBody BookDto book) {
         bookService.update(book);
     }
 
