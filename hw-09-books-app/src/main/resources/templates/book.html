@@ -10,7 +10,7 @@
     <input id="id" readonly="readonly" th:field="*{id}"/>
     <div>
         <label for="title">Title:</label>
-        <input type="text" id="title" th:field="*{title}"/>
+        <input type="text" id="title" pattern="^[a-zA-Zа-яА-Я\s]{1,256}$" th:field="*{title}" required/>
     </div>
     <div>
         <label for="author">Author:</label>

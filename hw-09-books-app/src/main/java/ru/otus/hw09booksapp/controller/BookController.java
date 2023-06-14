@@ -1,5 +1,6 @@
 package ru.otus.hw09booksapp.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping({"/book", "/"})
-    public String listBooks(Model model) {
+    public String list(Model model) {
         var books = bookService.getAll();
         model.addAttribute("books", books);
         model.addAttribute("authors", authorService.getAll());
@@ -33,7 +34,7 @@ public class BookController {
     }
 
     @GetMapping("/book/{id}")
-    public String editBook(@PathVariable(value = "id") long id, Model model) {
+    public String edit(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("book", bookService.getCompleteById(id));
         model.addAttribute("authors", authorService.getAll());
         model.addAttribute("genres", genreService.getAll());
@@ -41,7 +42,7 @@ public class BookController {
     }
 
     @PostMapping("/book/{id}")
-    public String saveBook(BookCompleteDto book) {
+    public String save(@Valid BookCompleteDto book) {
         var saveBook = bookService.update(book);
         return "redirect:/book/" + saveBook.getId();
     }
@@ -53,7 +54,7 @@ public class BookController {
     }
 
     @PostMapping("/book/create")
-    public String create(BookDto book) {
+    public String create(@Valid BookDto book) {
         bookService.create(book);
         return "redirect:/book";
     }

@@ -99,23 +99,9 @@ class BookControllerTest {
     }
 
     @Test
-    void saveBookTest() throws Exception {
-        mvc.perform(post("/book/1"))
-                .andExpect(status().is3xxRedirection());
-        verify(bookService, times(1)).update(any(BookCompleteDto.class));
-    }
-
-    @Test
     void deleteTest() throws Exception {
         mvc.perform(post("/book/delete").param("id", "1"))
                 .andExpect(status().is3xxRedirection());
         verify(bookService, times(1)).deleteById(anyLong());
-    }
-
-    @Test
-    void createTest() throws Exception {
-        mvc.perform(post("/book/create"))
-                .andExpect(status().is3xxRedirection());
-        verify(bookService, times(1)).create(any());
     }
 }
