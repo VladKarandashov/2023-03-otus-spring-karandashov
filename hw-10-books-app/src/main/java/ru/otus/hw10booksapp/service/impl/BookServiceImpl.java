@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw10booksapp.dto.BookCompleteDto;
 import ru.otus.hw10booksapp.dto.BookDto;
+import ru.otus.hw10booksapp.dto.request.UpdateRequest;
 import ru.otus.hw10booksapp.entity.Book;
 import ru.otus.hw10booksapp.exception.NotFoundException;
 import ru.otus.hw10booksapp.repository.AuthorRepository;
@@ -80,10 +81,10 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public BookDto update(BookDto bookDto) {
-        var author = authorRepository.findByName(bookDto.getAuthor()).orElse(null);
-        var genre = genreRepository.findByName(bookDto.getGenre()).orElse(null);
-        Book book = new Book(bookDto.getId(), author, genre, bookDto.getTitle());
+    public BookDto update(UpdateRequest request) {
+        var author = authorRepository.findByName(request.getAuthor()).orElse(null);
+        var genre = genreRepository.findByName(request.getGenre()).orElse(null);
+        Book book = new Book(request.getId(), author, genre, request.getTitle());
         var saveBook = bookRepository.save(book);
         return DtoConverter.getBookDto(saveBook);
     }

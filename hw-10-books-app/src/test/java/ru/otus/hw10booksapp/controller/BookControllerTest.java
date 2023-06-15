@@ -8,6 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.otus.hw10booksapp.dto.BookDto;
+import ru.otus.hw10booksapp.dto.request.UpdateRequest;
 import ru.otus.hw10booksapp.entity.Author;
 import ru.otus.hw10booksapp.entity.Book;
 import ru.otus.hw10booksapp.entity.Genre;
@@ -64,13 +65,13 @@ public class BookControllerTest {
         mvc.perform(post("/book")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(bookDto)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().json(mapper.writeValueAsString(bookDto)));
     }
 
     @Test
     void shouldUpdateBook() throws Exception {
-        given(bookService.update(any(BookDto.class))).willReturn(bookDto);
+        given(bookService.update(any(UpdateRequest.class))).willReturn(bookDto);
         mvc.perform(put("/book")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(bookDto)))
@@ -80,6 +81,6 @@ public class BookControllerTest {
     @Test
     void shouldDeleteBook() throws Exception {
         mvc.perform(delete("/book/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }
