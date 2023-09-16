@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Edit Book</title>
+</head>
+<body>
+<h1>Edit Book</h1>
+<form th:method="post" th:action="@{/book/{id}(id=${book.id})}" th:object="${book}">
+    <label for="id"></label>
+    <input id="id" readonly="readonly" th:field="*{id}"/>
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" pattern="^[a-zA-Zа-яА-Я\s]{1,256}$" th:field="*{title}" required/>
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <select id="author" th:field="*{author.id}">
+            <option th:each="author : ${authors}"
+                    th:value="${author.id}"
+                    th:text="${author.name}"
+                    th:selected="${author.id == book.author.id}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="genre">Genre:</label>
+        <select id="genre" th:field="*{genre.id}">
+            <option th:each="genre : ${genres}"
+                    th:value="${genre.id}"
+                    th:text="${genre.name}"
+                    th:selected="${genre.id == book.genre.id}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+<button><a href="/book">Books</a></button>
+</body>
+</html>

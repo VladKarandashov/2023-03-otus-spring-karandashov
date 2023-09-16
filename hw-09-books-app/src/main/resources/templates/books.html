@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>List of Books</title>
+</head>
+<body>
+<button><a href="/">Menu</a></button>
+
+<h1>List of Books</h1>
+<table BORDER="LTR">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.genre}"></td>
+        <td>
+            <button><a th:href="@{/book/{id}(id=${book.id})}">View</a></button>
+            <form th:action="@{/book/delete}" method="post">
+                <input type="hidden" th:name="id" th:value="${book.id}"/>
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>Create Book</h1>
+<form th:method="post" th:action="@{/book/create}">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" pattern="^[a-zA-Zа-яА-Я\s]{1,256}$" name="title" required/>
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <select id="author" name="author">
+            <option th:each="author : ${authors}"
+                    th:value="${author.name}"
+                    th:text="${author.name}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre">
+            <option th:each="genre : ${genres}"
+                    th:value="${genre.name}"
+                    th:text="${genre.name}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+</body>
+</html>
