@@ -11,7 +11,7 @@ import ru.otus.hw08booksapp.service.AuthorService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DisplayName("ORM JPA Authors repository testing.")
+@DisplayName("ORM MONGO Authors repository testing.")
 @DataMongoTest
 @Import({AuthorServiceImpl.class})
 class AuthorServiceImplTest {

@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DisplayName("ORM JPA books repository testing.")
+@DisplayName("ORM MONGO books repository testing.")
 @DataMongoTest
 @Import({BookServiceImpl.class,
         AuthorServiceImpl.class})
