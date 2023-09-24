@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import ru.otus.hw07booksapp.dto.BookDto;
 import ru.otus.hw07booksapp.entity.Author;
 import ru.otus.hw07booksapp.entity.Book;
 import ru.otus.hw07booksapp.entity.Genre;
@@ -69,12 +70,11 @@ class BookServiceImplTest {
     @DisplayName("Should be able to insert new book-1")
     @Test
     void shouldInsertNewBook() {
-        Book book = new Book(null, new Author(1L, "Михаил Булгаков"), new Genre(1L, "Roman"), "MasterTest");
-        Book savedBook = bookService.update(book);
+        Book savedBook = bookService.create(new BookDto("MasterTest", 1L, 1L));
         assertThat(savedBook.getId()).isGreaterThan(0);
-        assertEquals(book.getAuthor(), savedBook.getAuthor());
-        assertEquals(book.getGenre(), savedBook.getGenre());
-        assertEquals(book.getTitle(), savedBook.getTitle());
+        assertEquals(1L, savedBook.getAuthor().getId());
+        assertEquals(1L, savedBook.getGenre().getId());
+        assertEquals("MasterTest", savedBook.getTitle());
     }
 
 }
