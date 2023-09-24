@@ -1,0 +1,11 @@
+spring:
+  mongodb:
+    host: 45.82.15.217
+  data:
+    mongodb:
+      host: 45.82.15.217
+      port: 27017
+      database: default_db
+      username: gen_user
+      password: verystrongpassword
+      authentication-database: admin
