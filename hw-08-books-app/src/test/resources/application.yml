@@ -2,12 +2,10 @@ spring:
   shell:
     interactive:
       enabled: false
-
   data:
     mongodb:
-      database: test
-      host: localhost
-      port: 27017
+      database: company
+      port: 0
 
 de:
   flapdoodle:
