@@ -42,9 +42,11 @@ CREATE TABLE security_user (
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE user_role (
+CREATE TABLE security_user_roles (
+    id BIGINT PRIMARY KEY,
     user_id BIGINT NOT NULL,
-    role_id BIGINT NOT NULL,
+    roles_id BIGINT NOT NULL,
+    CONSTRAINT user_role_pk PRIMARY KEY (id)
 );
-ALTER TABLE user_role ADD CONSTRAINT user_fk_01 FOREIGN KEY (user_id) REFERENCES security_user(id);
-ALTER TABLE user_role ADD CONSTRAINT role_fk_02 FOREIGN KEY (role_id) REFERENCES security_role(id);
+ALTER TABLE security_user_roles ADD CONSTRAINT user_fk_01 FOREIGN KEY (user_id) REFERENCES security_user(id);
+ALTER TABLE security_user_roles ADD CONSTRAINT role_fk_02 FOREIGN KEY (roles_id) REFERENCES security_role(id);

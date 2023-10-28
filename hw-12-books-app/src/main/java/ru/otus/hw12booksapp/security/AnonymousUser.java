@@ -8,9 +8,12 @@ import java.util.Collection;
 import java.util.Set;
 
 public class AnonymousUser implements UserDetails {
+
+    private static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(new Role("ANONYMOUS"));
+        return Set.of(new Role(ROLE_ANONYMOUS));
     }
 
     @Override

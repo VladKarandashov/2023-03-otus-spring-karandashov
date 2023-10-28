@@ -29,17 +29,16 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/anonymous/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")).hasRole("ADMIN")
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/client/**")).hasRole("CLIENT")
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/anonymous/**")).anonymous()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/**")).authenticated()
-                        .anyRequest().denyAll()
+                        .anyRequest().permitAll()
                 )
                 .anonymous(customizer -> customizer
                         .principal(new AnonymousUser())
                 )
                 .formLogin(customizer -> customizer
-                        //.loginPage("/login")
                         .defaultSuccessUrl("/")
                         .permitAll()
                 )
@@ -71,7 +70,7 @@ public class SecurityConfiguration {
     @Bean
     public RoleHierarchyImpl roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_CLIENT");
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_CLIENT > ROLE_ANONYMOUS");
         return roleHierarchy;
     }
 }
