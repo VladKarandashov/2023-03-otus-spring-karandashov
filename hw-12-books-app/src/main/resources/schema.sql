@@ -27,3 +27,24 @@ CREATE TABLE note(
     CONSTRAINT note_pk PRIMARY KEY (id)
 );
 ALTER TABLE note ADD CONSTRAINT book_note_fk_01 FOREIGN KEY (book_id) REFERENCES book (id) ON DELETE CASCADE;
+
+CREATE TABLE security_role (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(255),
+    CONSTRAINT role_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE security_user (
+    id BIGINT PRIMARY KEY,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    password_confirm BOOLEAN,
+    CONSTRAINT user_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE user_role (
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+);
+ALTER TABLE user_role ADD CONSTRAINT user_fk_01 FOREIGN KEY (user_id) REFERENCES security_user(id);
+ALTER TABLE user_role ADD CONSTRAINT role_fk_02 FOREIGN KEY (role_id) REFERENCES security_role(id);

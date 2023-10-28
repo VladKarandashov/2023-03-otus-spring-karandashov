@@ -10,19 +10,14 @@ import ru.otus.hw12booksapp.service.BookService;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/library")
-public class PagesController {
+@RequestMapping("/admin")
+public class AdminController {
 
     private final BookService bookService;
 
-    @GetMapping
-    public String listBooks() {
-        return "books";
-    }
-
-    @GetMapping("/{id}")
+    @GetMapping("/library/{id}")
     public String editBook(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("book", bookService.getById(id));
-        return "book";
+        return "adminArea/editBook";
     }
 }

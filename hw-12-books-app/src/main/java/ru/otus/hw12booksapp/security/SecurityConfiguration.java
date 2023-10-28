@@ -3,6 +3,7 @@ package ru.otus.hw12booksapp.security;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,10 +30,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")).hasRole("ADMIN")
-
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/client/**")).hasRole("CLIENT")
-
-                        .anyRequest().permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/anonymous/**")).anonymous()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/**")).authenticated()
+                        .anyRequest().denyAll()
                 )
                 .anonymous(customizer -> customizer
                         .principal(new AnonymousUser())
@@ -67,5 +68,10 @@ public class SecurityConfiguration {
         return authProvider;
     }
 
-
+    @Bean
+    public RoleHierarchyImpl roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_CLIENT");
+        return roleHierarchy;
+    }
 }

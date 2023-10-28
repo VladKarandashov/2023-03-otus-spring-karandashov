@@ -1,4 +1,4 @@
-package ru.otus.hw12booksapp.controller;
+package ru.otus.hw12booksapp.restcontroller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

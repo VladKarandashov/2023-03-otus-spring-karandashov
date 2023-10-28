@@ -1,4 +1,4 @@
-package ru.otus.hw12booksapp.controller;
+package ru.otus.hw12booksapp.restcontroller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

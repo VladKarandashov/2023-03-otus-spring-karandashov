@@ -2,6 +2,7 @@ package ru.otus.hw12booksapp.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.otus.hw12booksapp.entity.Role;
 
 import java.util.Collection;
 import java.util.Set;
@@ -9,7 +10,7 @@ import java.util.Set;
 public class AnonymousUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of();
+        return Set.of(new Role("ANONYMOUS"));
     }
 
     @Override

@@ -50,3 +50,16 @@ INSERT INTO note(id, book_id, note) VALUES (25, 10, 'Note-10.2 - Отель');
 INSERT INTO note(id, book_id, note) VALUES (26, 10, 'Note-10.3 - Отель');
 INSERT INTO note(id, book_id, note) VALUES (27, 10, 'Note-10.4 - Отель');
 ALTER TABLE NOTE ALTER COLUMN ID RESTART WITH 28;
+
+INSERT INTO security_role(id, name) VALUES (1, 'ADMIN');
+INSERT INTO security_role(id, name) VALUES (2, 'CLIENT');
+ALTER TABLE security_role ALTER COLUMN ID RESTART WITH 3;
+
+INSERT INTO security_user(id, username, password, password_confirm) VALUES (1, 'admin', 'admin', true);
+INSERT INTO security_user(id, username, password, password_confirm) VALUES (2, 'client', 'client', true);
+INSERT INTO security_user(id, username, password, password_confirm) VALUES (3, 'client2', 'client2', false);
+ALTER TABLE security_user ALTER COLUMN ID RESTART WITH 4;
+
+INSERT INTO user_role(user_id, role_id) VALUES (1, 1);
+INSERT INTO user_role(user_id, role_id) VALUES (2, 2);
+INSERT INTO user_role(user_id, role_id) VALUES (3, 2);
