@@ -10,10 +10,10 @@ import ru.otus.hw14booksapp.entity.Author;
 import ru.otus.hw14booksapp.entity.Book;
 import ru.otus.hw14booksapp.entity.Genre;
 import ru.otus.hw14booksapp.entity.Note;
-import ru.otus.hw14booksapp.service.AuthorService;
-import ru.otus.hw14booksapp.service.BookService;
-import ru.otus.hw14booksapp.service.GenreService;
-import ru.otus.hw14booksapp.service.NoteService;
+import ru.otus.hw14booksapp.service.jpa.AuthorServiceJpa;
+import ru.otus.hw14booksapp.service.jpa.BookServiceJpa;
+import ru.otus.hw14booksapp.service.jpa.GenreServiceJpa;
+import ru.otus.hw14booksapp.service.jpa.NoteServiceJpa;
 import ru.otus.hw14booksapp.view.EntityFormatter;
 
 import java.util.Map;
@@ -22,13 +22,13 @@ import java.util.Map;
 @ShellComponent
 @RequiredArgsConstructor
 public class GetCommands {
-    private final AuthorService authorService;
+    private final AuthorServiceJpa authorService;
 
-    private final GenreService genreService;
+    private final GenreServiceJpa genreService;
 
-    private final BookService bookService;
+    private final BookServiceJpa bookService;
 
-    private final NoteService notesService;
+    private final NoteServiceJpa notesService;
 
     // решение показалось очень красивым ;)
     private final Map<String, EntityFormatter<?>> formatters;

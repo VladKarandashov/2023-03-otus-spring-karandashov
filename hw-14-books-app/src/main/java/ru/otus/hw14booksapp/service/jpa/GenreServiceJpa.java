@@ -1,10 +1,10 @@
-package ru.otus.hw14booksapp.service;
+package ru.otus.hw14booksapp.service.jpa;
 
 import ru.otus.hw14booksapp.entity.Genre;
 
 import java.util.List;
 
-public interface GenreService {
+public interface GenreServiceJpa {
 
 
     List<Genre> getAll();

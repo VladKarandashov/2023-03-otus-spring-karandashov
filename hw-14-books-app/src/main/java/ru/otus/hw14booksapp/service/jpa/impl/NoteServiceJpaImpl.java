@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.service.jpaimpl;
+package ru.otus.hw14booksapp.service.jpa.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -7,14 +7,14 @@ import ru.otus.hw14booksapp.entity.Note;
 import ru.otus.hw14booksapp.entity.jpa.NoteJpa;
 import ru.otus.hw14booksapp.exception.NotFoundException;
 import ru.otus.hw14booksapp.repository.jpa.NoteRepository;
-import ru.otus.hw14booksapp.service.NoteService;
+import ru.otus.hw14booksapp.service.jpa.NoteServiceJpa;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class NoteServiceImpl implements NoteService {
+public class NoteServiceJpaImpl implements NoteServiceJpa {
 
     private static final String NOTE_NOT_EXIST = "Wasn't able to find note with this ID.";
 

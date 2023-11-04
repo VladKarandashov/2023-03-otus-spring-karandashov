@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.service.jpaimpl;
+package ru.otus.hw14booksapp.service.jpa.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,14 +7,14 @@ import ru.otus.hw14booksapp.entity.Book;
 import ru.otus.hw14booksapp.entity.jpa.BookJpa;
 import ru.otus.hw14booksapp.exception.NotFoundException;
 import ru.otus.hw14booksapp.repository.jpa.BookRepository;
-import ru.otus.hw14booksapp.service.BookService;
+import ru.otus.hw14booksapp.service.jpa.BookServiceJpa;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class BookServiceImpl implements BookService {
+public class BookServiceJpaImpl implements BookServiceJpa {
 
     private static final String BOOK_NOT_EXIST = "Book with this ID doesn't exist.";
 

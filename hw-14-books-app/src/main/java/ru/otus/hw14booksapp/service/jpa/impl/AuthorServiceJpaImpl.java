@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.service.jpaimpl;
+package ru.otus.hw14booksapp.service.jpa.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -6,14 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw14booksapp.entity.Author;
 import ru.otus.hw14booksapp.exception.NotFoundException;
 import ru.otus.hw14booksapp.repository.jpa.AuthorRepository;
-import ru.otus.hw14booksapp.service.AuthorService;
+import ru.otus.hw14booksapp.service.jpa.AuthorServiceJpa;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class AuthorServiceImpl implements AuthorService {
+public class AuthorServiceJpaImpl implements AuthorServiceJpa {
 
     private static final String AUTHOR_NOT_EXIST = "no author found by id";
 
