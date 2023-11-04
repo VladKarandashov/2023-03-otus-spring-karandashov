@@ -24,13 +24,6 @@ spring:
         trace: true
         web-allow-others: true
       enabled: true
-#  mongodb:
-#    host: 80.90.186.24
   data:
     mongodb:
-      host: 80.90.186.24
-      port: 27017
-      database: default_db
-      username: gen_user
-      password: A7[j3[6Nle?!_j
-      authentication-database: admin
+      uri: mongodb://gen_user:OfHcy0v9O5Rg@94.228.114.148:27017/default_db?authSource=admin&directConnection=true
