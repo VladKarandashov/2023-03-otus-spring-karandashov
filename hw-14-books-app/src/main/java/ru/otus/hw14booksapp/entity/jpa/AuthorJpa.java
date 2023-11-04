@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.otus.hw14booksapp.entity.Author;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "Author")
 @Table(name = "author")
-public class Author {
+public class AuthorJpa implements Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

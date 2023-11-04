@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.otus.hw14booksapp.entity.Genre;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "Genre")
 @Table(name = "genre")
-public class Genre {
+public class GenreJpa implements Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

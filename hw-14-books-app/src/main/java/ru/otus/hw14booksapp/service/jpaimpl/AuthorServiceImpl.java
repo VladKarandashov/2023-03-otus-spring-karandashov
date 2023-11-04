@@ -3,12 +3,13 @@ package ru.otus.hw14booksapp.service.jpaimpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.otus.hw14booksapp.entity.jpa.Author;
+import ru.otus.hw14booksapp.entity.Author;
 import ru.otus.hw14booksapp.exception.NotFoundException;
 import ru.otus.hw14booksapp.repository.jpa.AuthorRepository;
 import ru.otus.hw14booksapp.service.AuthorService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +29,9 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     @Override
     public List<Author> getAll() {
-        return authorRepository.findAllBy();
+        return authorRepository.findAllBy().stream()
+                .map(authorJpa -> (Author) authorJpa)
+                .collect(Collectors.toList());
     }
 
 }

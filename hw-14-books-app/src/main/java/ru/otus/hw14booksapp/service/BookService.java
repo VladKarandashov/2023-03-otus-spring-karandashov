@@ -1,6 +1,6 @@
 package ru.otus.hw14booksapp.service;
 
-import ru.otus.hw14booksapp.entity.jpa.Book;
+import ru.otus.hw14booksapp.entity.Book;
 
 import java.util.List;
 

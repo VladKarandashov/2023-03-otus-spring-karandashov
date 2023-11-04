@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.otus.hw14booksapp.entity.Note;
 
 @Getter
 @Setter
@@ -13,16 +14,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "Note")
 @Table(name = "Note")
-public class Note {
+public class NoteJpa implements Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = BookJpa.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false, referencedColumnName = "id")
-    private Book book;
+    private BookJpa book;
 
     @NotBlank
     @Column(name = "note")
