@@ -1,7 +1,7 @@
 package ru.otus.hw14booksapp.view.impl;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw14booksapp.entity.Genre;
+import ru.otus.hw14booksapp.entity.jpa.Genre;
 import ru.otus.hw14booksapp.view.EntityFormatter;
 
 @Service

@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.entity;
+package ru.otus.hw14booksapp.entity.jpa;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.entity;
+package ru.otus.hw14booksapp.entity.jpa;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "Genre")
-@Table(name = "genre")
-public class Genre {
+@Entity(name = "Author")
+@Table(name = "author")
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Genre {
 
     @Override
     public String toString() {
-        return "Genre{" +
+        return "Author{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
