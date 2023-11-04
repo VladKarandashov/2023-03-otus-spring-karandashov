@@ -22,5 +22,6 @@
         <module>hw-09-books-app</module>
         <module>hw-10-books-app</module>
         <module>hw-12-books-app</module>
+        <module>hw-14-books-app</module>
     </modules>
 </project>
