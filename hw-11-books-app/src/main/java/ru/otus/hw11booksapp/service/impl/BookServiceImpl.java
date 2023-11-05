@@ -32,44 +32,45 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Mono<BookDto> getById(long id) {
-        return bookRepository.findById(id)
-                .flatMap(dtoConverter::getBookDto);
+        return bookRepository.findById(id).flatMap(dtoConverter::getBookDto);
     }
 
     @Override
     public Flux<BookDto> getAll() {
-        return bookRepository.findAll()
-                .flatMap(dtoConverter::getBookDto);
+        return bookRepository.findAll().flatMap(dtoConverter::getBookDto);
     }
 
 
     @Override
-    public void deleteById(long id) {
+    public Mono<Void> deleteById(long id) {
         // удаляем комментарии к книге
         noteRepository.deleteAllByBookId(id).subscribe();
         // удаляем саму книгу
         bookRepository.deleteById(id).subscribe();
+        return Mono.empty().then();
     }
 
 
     @Override
-    public Mono<BookDto> create(BookDto bookDto) {
+    public Mono<Void> create(BookDto bookDto) {
         var author = authorRepository.findByName(bookDto.getAuthor());
         var genre = genreRepository.findByName(bookDto.getGenre());
-        return Mono.zip(author, genre)
+        Mono.zip(author, genre)
                 .map(t -> dtoConverter.getBook(bookDto.getTitle(), t.getT1(), t.getT2()))
                 .flatMap(bookRepository::save)
-                .flatMap(dtoConverter::getBookDto);
+                .flatMap(dtoConverter::getBookDto).subscribe();
+        return Mono.empty().then();
     }
 
 
     @Override
-    public Mono<BookDto> update(UpdateRequest request) {
+    public Mono<Void> update(UpdateRequest request) {
         var authorId = authorRepository.findByName(request.getAuthor()).map(Author::getId);
         var genreId = genreRepository.findByName(request.getGenre()).map(Genre::getId);
-        return Mono.zip(authorId, genreId)
+        Mono.zip(authorId, genreId)
                 .map(t -> new Book(request.getId(), t.getT1(), t.getT2(), request.getTitle()))
                 .flatMap(bookRepository::save)
-                .flatMap(dtoConverter::getBookDto);
+                .flatMap(dtoConverter::getBookDto).subscribe();
+        return Mono.empty().then();
     }
 }
