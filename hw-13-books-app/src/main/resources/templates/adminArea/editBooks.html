@@ -25,7 +25,7 @@
 <script>
     const table = document.getElementById('tableBooks');
 
-    fetch('/book')
+    fetch('/api/v1/book', {credentials: 'include'})
         .then(response => response.json())
         .then(data => {
             const tbody = table.querySelector('tbody');
@@ -69,7 +69,7 @@
 </form>
 
 <script>
-    fetch('/author')
+    fetch('/api/v1/author', {credentials: 'include'})
         .then(response => response.json())
         .then(data => {
             const authorSelect = document.getElementById('author');
@@ -84,7 +84,7 @@
 </script>
 
 <script>
-    fetch('/genre')
+    fetch('/api/v1/genre', {credentials: 'include'})
         .then(response => response.json())
         .then(data => {
             const genreSelect = document.getElementById('genre');
@@ -113,12 +113,13 @@
             genre
         };
 
-        fetch('/book', {
+        fetch('/api/v1/book', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            credentials: 'include'
         })
             .then(response => {
                 if (response.ok) {
@@ -142,8 +143,9 @@
 
 <script>
     function deleteBook(id) {
-        fetch('/book/' + id, {
-            method: 'DELETE'
+        fetch('/api/v1/book/' + id, {
+            method: 'DELETE',
+            credentials: 'include'
         })
             .then(response => {
                 if (response.ok) {

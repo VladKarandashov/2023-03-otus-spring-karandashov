@@ -33,7 +33,7 @@
 <button><a href="/admin/library">Админ панель</a></button>
 
 <script>
-    fetch('/author')
+    fetch('/api/v1/author', {credentials: 'include'})
         .then(response => response.json())
         .then(data => {
             const authorSelect = document.getElementById('author');
@@ -54,7 +54,7 @@
 </script>
 
 <script>
-    fetch('/genre')
+    fetch('/api/v1/genre', {credentials: 'include'})
         .then(response => response.json())
         .then(data => {
             const genreSelect = document.getElementById('genre');
@@ -91,12 +91,13 @@
             genre
         };
 
-        fetch('/book', {
+        fetch('/api/v1/book', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            credentials: 'include'
         })
             .then(response => {
                 if (response.ok) {
