@@ -15,7 +15,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 import static org.springframework.web.reactive.function.server.ServerResponse.*;
 
 @Configuration
-public class FunctionalEndpointsConfig {
+public class BookController {
     @Bean
     public RouterFunction<ServerResponse> composedRoutes(BookService bookService) {
         return route()
