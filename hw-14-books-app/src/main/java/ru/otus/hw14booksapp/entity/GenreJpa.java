@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Entity
 @Table(name = "GENRES")
-public class Genre {
+public class GenreJpa {
 
 	@Id
 	@Column(name = "GENRE_ID")

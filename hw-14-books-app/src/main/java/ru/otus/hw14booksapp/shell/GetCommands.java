@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.hw14booksapp.entity.Author;
-import ru.otus.hw14booksapp.entity.Book;
-import ru.otus.hw14booksapp.entity.Genre;
+import ru.otus.hw14booksapp.entity.AuthorJpa;
+import ru.otus.hw14booksapp.entity.BookJpa;
+import ru.otus.hw14booksapp.entity.GenreJpa;
 import ru.otus.hw14booksapp.repository.AuthorRepository;
 import ru.otus.hw14booksapp.repository.BookRepository;
 import ru.otus.hw14booksapp.repository.GenreRepository;
@@ -26,42 +26,42 @@ public class GetCommands {
     @ShellMethod(value = "get author by id", key = {"getA"})
     public String getAuthorById(@ShellOption Integer id) {
         return authorRepository.findById(id)
-                .map(Author::toString)
+                .map(AuthorJpa::toString)
                 .orElse("not found");
     }
 
     @ShellMethod(value = "get all Authors", key = {"getAs"})
     public String getAuthors() {
         return authorRepository.findAll().stream()
-                .map(Author::toString)
+                .map(AuthorJpa::toString)
                 .collect(Collectors.joining("\n"));
     }
 
     @ShellMethod(value = "get genre by id", key = {"getG"})
     public String getGenreById(@ShellOption Integer id) {
         return genreRepository.findById(id)
-                .map(Genre::toString)
+                .map(GenreJpa::toString)
                 .orElse("not found");
     }
 
     @ShellMethod(value = "get all Genres", key = {"getGs"})
     public String getGenres() {
         return genreRepository.findAll().stream()
-                .map(Genre::toString)
+                .map(GenreJpa::toString)
                 .collect(Collectors.joining("\n"));
     }
 
     @ShellMethod(value = "get book by id", key = {"getB"})
     public String getBookById(@ShellOption Integer id) {
         return bookRepository.findById(id)
-                .map(Book::toString)
+                .map(BookJpa::toString)
                 .orElse("not found");
     }
 
     @ShellMethod(value = "get all Books", key = {"getBs"})
     public String getBooks() {
         return bookRepository.findAll().stream()
-                .map(Book::toString)
+                .map(BookJpa::toString)
                 .collect(Collectors.joining("\n"));
     }
 }

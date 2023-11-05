@@ -1,3 +1,7 @@
+DROP TABLE books;
+DROP TABLE genres;
+DROP TABLE authors;
+
 CREATE TABLE IF NOT EXISTS authors (
     author_id   SERIAL,
     firstname   VARCHAR(255) NOT NULL,

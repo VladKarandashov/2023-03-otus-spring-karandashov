@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 		@NamedAttributeNode("author")
 	}
 )
-public class Book {
+public class BookJpa {
 
 	@Id
 	@Column(name = "BOOK_ID")
@@ -31,11 +31,11 @@ public class Book {
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "GENRE_ID")
-	private Genre genre;
+	private GenreJpa genre;
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "AUTHOR_ID")
-	private Author author;
+	private AuthorJpa author;
 
 	@Override
 	public String toString() {
