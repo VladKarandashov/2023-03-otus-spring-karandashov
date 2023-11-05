@@ -1,5 +1,5 @@
 INSERT INTO author(id, name) VALUES (1, 'Михаил Булгаков');
-INSERT INTO author(id, name) VALUES (2, 'Антуан де Сент-Экзюпери');
+INSERT INTO author(id, name) VALUES (2, 'Антуан де Сент Экзюпери');
 INSERT INTO author(id, name) VALUES (3, 'Александр Дюма');
 INSERT INTO author(id, name) VALUES (4, 'Аркадий и Борис Стругацкие');
 ALTER TABLE AUTHOR ALTER COLUMN ID RESTART WITH 5;

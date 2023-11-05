@@ -23,9 +23,4 @@ public class NoteServiceImpl implements NoteService {
                 .flatMap(noteRepository::save)
                 .map(Note::getId);
     }
-
-    @Override
-    public Mono<Note> getNoteById(long id) {
-        return noteRepository.findById(id);
-    }
 }
