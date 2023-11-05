@@ -38,7 +38,7 @@ public class GenreControllerTest {
         List<Genre> genreList = List.of(new Genre(1L, "genre1"), new Genre(2L, "genre2"));
         given(genreService.getAll()).willReturn(genreList);
 
-        mvc.perform(get("/genre"))
+        mvc.perform(get("/api/v1/genre"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(genreList)));
     }

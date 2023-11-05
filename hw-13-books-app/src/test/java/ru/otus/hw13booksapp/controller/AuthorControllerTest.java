@@ -39,7 +39,7 @@ public class AuthorControllerTest {
         List<Author> authorList = List.of(new Author(1L, "Person1"), new Author(2L, "Person2"));
         given(authorService.getAll()).willReturn(authorList);
 
-        mvc.perform(get("/author"))
+        mvc.perform(get("/api/v1/author"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(authorList)));
     }

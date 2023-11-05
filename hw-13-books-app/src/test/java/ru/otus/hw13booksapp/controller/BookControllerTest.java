@@ -46,7 +46,7 @@ public class BookControllerTest {
     void shouldReturnCorrectBookList() throws Exception {
         List<BookDto> bookList = List.of(bookDto);
         given(bookService.getAll()).willReturn(bookList);
-        mvc.perform(get("/book"))
+        mvc.perform(get("/api/v1/book"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(List.of(bookDto))));
     }
@@ -54,7 +54,7 @@ public class BookControllerTest {
     @Test
     void shouldReturnCorrectBook() throws Exception {
         given(bookService.getById(1)).willReturn(bookDto);
-        mvc.perform(get("/book/1"))
+        mvc.perform(get("/api/v1/book/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(bookDto)));
     }
