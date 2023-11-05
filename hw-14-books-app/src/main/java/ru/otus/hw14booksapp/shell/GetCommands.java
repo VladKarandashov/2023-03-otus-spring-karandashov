@@ -30,7 +30,6 @@ public class GetCommands {
                 .orElse("not found");
     }
 
-
     @ShellMethod(value = "get all Authors", key = {"getAs"})
     public String getAuthors() {
         return authorRepository.findAll().stream()
@@ -45,7 +44,6 @@ public class GetCommands {
                 .orElse("not found");
     }
 
-
     @ShellMethod(value = "get all Genres", key = {"getGs"})
     public String getGenres() {
         return genreRepository.findAll().stream()
@@ -59,7 +57,6 @@ public class GetCommands {
                 .map(Book::toString)
                 .orElse("not found");
     }
-
 
     @ShellMethod(value = "get all Books", key = {"getBs"})
     public String getBooks() {
