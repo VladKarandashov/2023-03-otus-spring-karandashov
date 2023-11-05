@@ -13,9 +13,9 @@ public class BookDto {
     @NotBlank
     private String title;
 
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я\\s]{0,256}$")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я -]{0,256}$")
     private String author;
 
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я\\s]{0,256}$")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я -]{0,256}$")
     private String genre;
 }
