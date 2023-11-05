@@ -22,6 +22,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')")
     public List<BookDto> bookList() {
         return bookService.getAll();
     }
