@@ -15,7 +15,7 @@ public class BatchCommands {
 
     private final JobLauncher jobLauncher;
 
-    @ShellMethod(value = "startMigrationJob", key = "sm")
+    @ShellMethod(value = "startMigrationJob", key = "migrate")
     public void startMigrationJobWithJobLauncher() throws Exception {
         jobLauncher.run(migrationJob, new JobParameters());
     }

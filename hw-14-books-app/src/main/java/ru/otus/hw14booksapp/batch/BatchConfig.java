@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.configuration;
+package ru.otus.hw14booksapp.batch;
 
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor;

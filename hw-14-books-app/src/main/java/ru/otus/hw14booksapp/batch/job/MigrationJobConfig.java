@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.job;
+package ru.otus.hw14booksapp.batch.job;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

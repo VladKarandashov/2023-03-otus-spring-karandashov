@@ -1,4 +1,4 @@
-package ru.otus.hw14booksapp.step;
+package ru.otus.hw14booksapp.batch.step;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
