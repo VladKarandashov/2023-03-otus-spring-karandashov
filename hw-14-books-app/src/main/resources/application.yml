@@ -26,4 +26,19 @@ spring:
       enabled: true
   data:
     mongodb:
-      uri: mongodb://gen_user:OfHcy0v9O5Rg@94.228.114.148:27017/default_db?authSource=admin&directConnection=true
+      host: localhost
+      database: test
+      port: 27018
+  shell:
+    interactive:
+      enabled: true
+    noninteractive:
+      enabled: false
+    command:
+      version:
+        enabled: false
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
