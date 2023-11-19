@@ -10,7 +10,6 @@ import ru.otus.hw13booksapp.exception.NotFoundException;
 import ru.otus.hw13booksapp.repository.AuthorRepository;
 import ru.otus.hw13booksapp.repository.BookRepository;
 import ru.otus.hw13booksapp.repository.GenreRepository;
-import ru.otus.hw13booksapp.repository.NoteRepository;
 import ru.otus.hw13booksapp.service.BookService;
 import ru.otus.hw13booksapp.utils.DtoConverter;
 
@@ -27,8 +26,6 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
 
     private final GenreRepository genreRepository;
-
-    private final NoteRepository noteRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -55,9 +52,6 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void deleteById(long id) {
-        // удаляем комментарии к книге
-        noteRepository.deleteAllByBook_Id(id);
-        // удаляем саму книгу
         bookRepository.deleteById(id);
     }
 
