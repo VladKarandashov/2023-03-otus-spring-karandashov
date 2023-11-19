@@ -4,21 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 import ru.otus.hw11booksapp.entity.Genre;
-import ru.otus.hw11booksapp.service.GenreService;
-
-import java.util.List;
+import ru.otus.hw11booksapp.repository.GenreRepository;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/genre")
 public class GenreController {
 
-    private final GenreService genreService;
+    private final GenreRepository genreRepository;
 
     @GetMapping
-    public Mono<List<Genre>> genreList() {
-        return genreService.getAll().collectList();
+    public Flux<Genre> genreList() {
+        return genreRepository.findAll();
     }
 }
