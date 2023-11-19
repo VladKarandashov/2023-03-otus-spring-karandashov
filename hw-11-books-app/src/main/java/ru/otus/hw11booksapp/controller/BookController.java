@@ -69,8 +69,12 @@ public class BookController {
                                 .flatMap(updateRequest -> Mono.zip(
                                         Mono.just(updateRequest.getId()),
                                         Mono.just(updateRequest.getTitle()),
-                                        authorRepository.findByName(updateRequest.getAuthor()).map(Author::getId),
-                                        genreRepository.findByName(updateRequest.getGenre()).map(Genre::getId)
+                                        authorRepository.findByName(updateRequest.getAuthor())
+                                                .map(Author::getId)
+                                                .switchIfEmpty(Mono.error(new InternalError("Не найден автор для создания книги"))),
+                                        genreRepository.findByName(updateRequest.getGenre())
+                                                .map(Genre::getId)
+                                                .switchIfEmpty(Mono.error(new InternalError("Не найден жанр для создания книги")))
                                 ))
                                 .map(t -> new Book(t.getT1(), t.getT3(), t.getT4(), t.getT2()))
                                 .flatMap(bookRepository::save)
