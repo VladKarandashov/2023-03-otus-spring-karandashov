@@ -31,11 +31,6 @@ public class BookServiceImpl implements BookService {
     private final DtoConverter dtoConverter;
 
     @Override
-    public Mono<BookDto> getById(long id) {
-        return bookRepository.findById(id).flatMap(dtoConverter::getBookDto);
-    }
-
-    @Override
     public Flux<BookDto> getAll() {
         return bookRepository.findAll().flatMap(dtoConverter::getBookDto);
     }
@@ -52,14 +47,16 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public Mono<Void> create(BookDto bookDto) {
-        var author = authorRepository.findByName(bookDto.getAuthor());
-        var genre = genreRepository.findByName(bookDto.getGenre());
-        Mono.zip(author, genre)
+    public Mono<BookDto> create(BookDto bookDto) {
+        return Mono.zip(
+            authorRepository.findByName(bookDto.getAuthor())
+                    .switchIfEmpty(Mono.error(new InternalError("Не найден автор для создания книги"))),
+            genreRepository.findByName(bookDto.getGenre())
+                    .switchIfEmpty(Mono.error(new InternalError("Не найден жанр для создания книги")))
+        )
                 .map(t -> dtoConverter.getBook(bookDto.getTitle(), t.getT1(), t.getT2()))
                 .flatMap(bookRepository::save)
-                .flatMap(dtoConverter::getBookDto).subscribe();
-        return Mono.empty().then();
+                .flatMap(dtoConverter::getBookDto);
     }
 
 

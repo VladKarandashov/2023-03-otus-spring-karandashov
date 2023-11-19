@@ -6,13 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Mono;
-import ru.otus.hw11booksapp.service.BookService;
+import ru.otus.hw11booksapp.repository.BookRepository;
+import ru.otus.hw11booksapp.utils.DtoConverter;
 
 @RequiredArgsConstructor
 @Controller
 public class PagesController {
 
-    private final BookService bookService;
+    private final BookRepository bookRepository;
+    private final DtoConverter dtoConverter;
 
     @GetMapping({"/"})
     public String listBooks() {
@@ -21,7 +23,8 @@ public class PagesController {
 
     @GetMapping("/{id}")
     public Mono<String> editBook(@PathVariable(value = "id") long id, Model model) {
-        return bookService.getById(id)
+        return bookRepository.findById(id)
+                .flatMap(dtoConverter::getBookDto)
                 .map(book -> model.addAttribute("book", book))
                 .map(updModel -> "book");
     }

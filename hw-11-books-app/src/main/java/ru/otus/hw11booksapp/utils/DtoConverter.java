@@ -8,7 +8,6 @@ import ru.otus.hw11booksapp.dto.*;
 import ru.otus.hw11booksapp.entity.Author;
 import ru.otus.hw11booksapp.entity.Book;
 import ru.otus.hw11booksapp.entity.Genre;
-import ru.otus.hw11booksapp.entity.Note;
 import ru.otus.hw11booksapp.repository.AuthorRepository;
 import ru.otus.hw11booksapp.repository.GenreRepository;
 
@@ -25,12 +24,6 @@ public class DtoConverter {
         return Mono.zip(authorName, genreName).map(t -> new BookDto(book.getId(), book.getTitle(), t.getT1(), t.getT2()));
     }
 
-    public Mono<BookCompleteDto> getCompleteBookDto(Book book) {
-        var author = authorRepository.findById(book.getAuthorId());
-        var genre = genreRepository.findById(book.getGenreId());
-        return Mono.zip(author, genre).map(t -> new BookCompleteDto(book.getId(), book.getTitle(), getAuthorDto(t.getT1()), getGenreDto(t.getT2())));
-    }
-
     public Book getBook(String title, Author author, Genre genre) {
         return new Book(null, author.getId(), genre.getId(), title);
     }
@@ -43,9 +36,5 @@ public class DtoConverter {
     public GenreDto getGenreDto(@Nullable Genre genre) {
         if (genre == null) return null;
         return new GenreDto(genre.getId(), genre.getName());
-    }
-
-    public NoteDto getNoteDto(Note note) {
-        return new NoteDto(note.getId(), note.getNote());
     }
 }
