@@ -28,7 +28,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')")
     public BookDto book(@PathVariable("id") Long id) {
         return bookService.getById(id);
     }

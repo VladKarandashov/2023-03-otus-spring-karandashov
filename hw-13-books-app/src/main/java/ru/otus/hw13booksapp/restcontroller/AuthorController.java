@@ -18,7 +18,7 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')")
     public List<Author> authorList() {
         return authorService.getAll();
     }

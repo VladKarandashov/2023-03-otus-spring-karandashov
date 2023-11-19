@@ -18,7 +18,7 @@ public class GenreController {
     private final GenreService genreService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')")
     public List<Genre> genreList() {
         return genreService.getAll();
     }
