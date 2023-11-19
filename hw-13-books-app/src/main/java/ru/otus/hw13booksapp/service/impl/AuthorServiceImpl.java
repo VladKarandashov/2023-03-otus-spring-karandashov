@@ -20,30 +20,15 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public long create(String fullName) {
+    public Author create(String fullName) {
         Author author = new Author(null, fullName);
-        return authorRepository.save(author).getId();
-    }
-
-    @Transactional
-    @Override
-    public void update(long id, String fullName) {
-        Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(AUTHOR_NOT_EXIST));
-        author.setName(fullName);
-        authorRepository.save(author);
+        return authorRepository.save(author);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Author getById(long id) {
         return authorRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(AUTHOR_NOT_EXIST));
-    }
-
-    @Override
-    public Author getByName(String name) {
-        return authorRepository.findByName(name)
                 .orElseThrow(() -> new NotFoundException(AUTHOR_NOT_EXIST));
     }
 

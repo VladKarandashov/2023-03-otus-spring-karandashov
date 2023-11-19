@@ -3,7 +3,6 @@ package ru.otus.hw13booksapp.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.otus.hw13booksapp.dto.BookCompleteDto;
 import ru.otus.hw13booksapp.dto.BookDto;
 import ru.otus.hw13booksapp.dto.request.UpdateRequest;
 import ru.otus.hw13booksapp.entity.Book;
@@ -37,13 +36,6 @@ public class BookServiceImpl implements BookService {
         var book = bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
         return DtoConverter.getBookDto(book);
-    }
-
-    @Override
-    public BookCompleteDto getCompleteById(long id) {
-        var book = bookRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
-        return DtoConverter.getCompleteBookDto(book);
     }
 
     @Transactional(readOnly = true)
@@ -85,16 +77,6 @@ public class BookServiceImpl implements BookService {
         var author = authorRepository.findByName(request.getAuthor()).orElse(null);
         var genre = genreRepository.findByName(request.getGenre()).orElse(null);
         Book book = new Book(request.getId(), author, genre, request.getTitle());
-        var saveBook = bookRepository.save(book);
-        return DtoConverter.getBookDto(saveBook);
-    }
-
-    @Transactional
-    @Override
-    public BookDto update(BookCompleteDto bookDto) {
-        var author = authorRepository.findById(bookDto.getAuthor().getId()).orElse(null);
-        var genre = genreRepository.findById(bookDto.getGenre().getId()).orElse(null);
-        Book book = new Book(bookDto.getId(), author, genre, bookDto.getTitle());
         var saveBook = bookRepository.save(book);
         return DtoConverter.getBookDto(saveBook);
     }

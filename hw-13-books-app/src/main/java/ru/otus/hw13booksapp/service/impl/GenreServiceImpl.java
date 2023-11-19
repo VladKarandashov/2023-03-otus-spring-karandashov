@@ -19,9 +19,9 @@ public class GenreServiceImpl implements GenreService {
 
     @Transactional
     @Override
-    public long create(String name) {
+    public Genre create(String name) {
         Genre genre = new Genre(null, name);
-        return genreRepository.save(genre).getId();
+        return genreRepository.save(genre);
     }
 
     @Transactional(readOnly = true)
@@ -35,21 +35,6 @@ public class GenreServiceImpl implements GenreService {
     public Genre getById(long id) {
         return genreRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(GENRE_NOT_EXIST));
-    }
-
-    @Override
-    public Genre getByName(String name) {
-        return genreRepository.findByName(name)
-                .orElseThrow(() -> new NotFoundException(GENRE_NOT_EXIST));
-    }
-
-    @Transactional
-    @Override
-    public void update(long id, String name) {
-        Genre genre = genreRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(GENRE_NOT_EXIST));
-        genre.setName(name);
-        genreRepository.save(genre);
     }
 
     @Transactional
