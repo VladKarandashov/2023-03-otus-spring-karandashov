@@ -24,8 +24,14 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note create(Long bookId, String noteStr) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
-        Note note = new Note(null, book, noteStr);
-        return noteRepository.save(note);
+        return create(new Note(null, book, noteStr));
+    }
+
+    @Transactional
+    @Override
+    public Note create(Note note) {
+        Note newNote = new Note(null, note.getBook(), note.getNote());
+        return noteRepository.save(newNote);
     }
 
     @Transactional
