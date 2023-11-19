@@ -18,10 +18,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WithMockUser(
-        username = "admin",
-        authorities = {"ROLE_ADMIN"}
-)
 @WebMvcTest(AuthorController.class)
 public class AuthorControllerTest {
 
@@ -35,6 +31,10 @@ public class AuthorControllerTest {
     private AuthorService authorService;
 
     @Test
+    @WithMockUser(
+            username = "admin",
+            authorities = {"ROLE_ADMIN"}
+    )
     void shouldReturnCorrectAuthorList() throws Exception {
         List<Author> authorList = List.of(new Author(1L, "Person1"), new Author(2L, "Person2"));
         given(authorService.getAll()).willReturn(authorList);
@@ -42,5 +42,14 @@ public class AuthorControllerTest {
         mvc.perform(get("/api/v1/author"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(authorList)));
+    }
+
+    @Test
+    void forbiddenAuthorList() throws Exception {
+        List<Author> authorList = List.of(new Author(1L, "Person1"), new Author(2L, "Person2"));
+        given(authorService.getAll()).willReturn(authorList);
+
+        mvc.perform(get("/api/v1/author"))
+                .andExpect(status().isUnauthorized());
     }
 }

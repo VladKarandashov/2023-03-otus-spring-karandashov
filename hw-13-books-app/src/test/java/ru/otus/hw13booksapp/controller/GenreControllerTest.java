@@ -18,10 +18,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WithMockUser(
-        username = "admin",
-        authorities = {"ROLE_ADMIN"}
-)
 @WebMvcTest(GenreController.class)
 public class GenreControllerTest {
     @Autowired
@@ -33,6 +29,10 @@ public class GenreControllerTest {
     @MockBean
     private GenreService genreService;
 
+    @WithMockUser(
+            username = "admin",
+            authorities = {"ROLE_ADMIN"}
+    )
     @Test
     void shouldReturnCorrectGenreList() throws Exception {
         List<Genre> genreList = List.of(new Genre(1L, "genre1"), new Genre(2L, "genre2"));
@@ -41,5 +41,14 @@ public class GenreControllerTest {
         mvc.perform(get("/api/v1/genre"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(genreList)));
+    }
+
+    @Test
+    void forbiddenGenreList() throws Exception {
+        List<Genre> genreList = List.of(new Genre(1L, "genre1"), new Genre(2L, "genre2"));
+        given(genreService.getAll()).willReturn(genreList);
+
+        mvc.perform(get("/api/v1/genre"))
+                .andExpect(status().isUnauthorized());
     }
 }

@@ -34,6 +34,12 @@ public class SecurityTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testForbiddenOnAdmin() throws Exception {
+        mockMvc.perform(get("/admin/library"))
+                .andExpect(status().isUnauthorized());
+    }
+
     @WithMockUser(
             username = "client",
             authorities = {"ROLE_CLIENT"}
@@ -42,5 +48,11 @@ public class SecurityTest {
     public void testAuthenticatedOnClient() throws Exception {
         mockMvc.perform(get("/client/library"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testForbiddenOnClient() throws Exception {
+        mockMvc.perform(get("/client/library"))
+                .andExpect(status().isUnauthorized());
     }
 }

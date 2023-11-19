@@ -21,10 +21,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WithMockUser(
-        username = "admin",
-        authorities = {"ROLE_ADMIN"}
-)
 @WebMvcTest(BookController.class)
 public class BookControllerTest {
 
@@ -42,6 +38,10 @@ public class BookControllerTest {
     @MockBean
     private BookService bookService;
 
+    @WithMockUser(
+            username = "admin",
+            authorities = {"ROLE_ADMIN"}
+    )
     @Test
     void shouldReturnCorrectBookList() throws Exception {
         List<BookDto> bookList = List.of(bookDto);
@@ -52,10 +52,29 @@ public class BookControllerTest {
     }
 
     @Test
+    void forbiddenBookList() throws Exception {
+        List<BookDto> bookList = List.of(bookDto);
+        given(bookService.getAll()).willReturn(bookList);
+        mvc.perform(get("/api/v1/book"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @WithMockUser(
+            username = "admin",
+            authorities = {"ROLE_ADMIN"}
+    )
+    @Test
     void shouldReturnCorrectBook() throws Exception {
         given(bookService.getById(1)).willReturn(bookDto);
         mvc.perform(get("/api/v1/book/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(bookDto)));
+    }
+
+    @Test
+    void forbiddenCorrectBook() throws Exception {
+        given(bookService.getById(1)).willReturn(bookDto);
+        mvc.perform(get("/api/v1/book/1"))
+                .andExpect(status().isUnauthorized());
     }
 }
