@@ -58,8 +58,10 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public BookDto create(BookDto bookDto) {
-        var author = authorRepository.findByName(bookDto.getAuthor()).orElse(null);
-        var genre = genreRepository.findByName(bookDto.getGenre()).orElse(null);
+        var author = authorRepository.findByName(bookDto.getAuthor())
+                .orElseThrow(() -> new NotFoundException("Author not exist"));
+        var genre = genreRepository.findByName(bookDto.getGenre())
+                .orElseThrow(() -> new NotFoundException("Genre not exist"));
         Book book = DtoConverter.getBook(bookDto.getTitle(), author, genre);
         var updateBook = bookRepository.save(book);
         return DtoConverter.getBookDto(updateBook);
@@ -68,9 +70,15 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public BookDto update(UpdateRequest request) {
-        var author = authorRepository.findByName(request.getAuthor()).orElse(null);
-        var genre = genreRepository.findByName(request.getGenre()).orElse(null);
-        Book book = new Book(request.getId(), author, genre, request.getTitle());
+        var book = bookRepository.findById(request.getId())
+                .orElseThrow(() -> new NotFoundException("Book not exist"));
+        var author = authorRepository.findByName(request.getAuthor())
+                .orElseThrow(() -> new NotFoundException("Author not exist"));
+        var genre = genreRepository.findByName(request.getGenre())
+                .orElseThrow(() -> new NotFoundException("Genre not exist"));
+        book.setAuthor(author);
+        book.setGenre(genre);
+        book.setTitle(request.getTitle());
         var saveBook = bookRepository.save(book);
         return DtoConverter.getBookDto(saveBook);
     }
