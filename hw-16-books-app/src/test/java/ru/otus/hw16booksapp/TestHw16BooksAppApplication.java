@@ -13,7 +13,7 @@ public class TestHw16BooksAppApplication {
 	@Bean
 	@ServiceConnection
 	PostgreSQLContainer<?> postgresContainer() {
-		return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"));
+		return new PostgreSQLContainer<>(DockerImageName.parse("postgres:13"));
 	}
 
 	public static void main(String[] args) {
