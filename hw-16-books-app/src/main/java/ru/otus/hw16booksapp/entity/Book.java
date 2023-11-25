@@ -14,7 +14,7 @@ import lombok.Setter;
 @NamedEntityGraph(name = "book-author-genre",
         attributeNodes = {@NamedAttributeNode("author"),
                           @NamedAttributeNode("genre")})
-@Table(name = "book")
+@Table(name = "books")
 public class Book {
 
     @Id

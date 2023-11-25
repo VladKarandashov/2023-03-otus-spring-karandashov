@@ -10,9 +10,15 @@
         <tagDatabase tag="init"/>
     </changeSet>
 
-    <include file="ddl/2023-09-13--user.xml" relativeToChangelogFile="true"/>
-    <include file="ddl/2023-09-13--order.xml" relativeToChangelogFile="true"/>
-    <include file="dml/2023-09-13-add-admin-user.xml" relativeToChangelogFile="true"/>
-    <include file="ddl/2023-11-22--last_prices.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/2023-11-25--author.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/2023-11-25--genre.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/2023-11-25--book.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/2023-11-25--note.xml" relativeToChangelogFile="true"/>
+
+    <include file="dml/2023-11-25-add-authors.xml" relativeToChangelogFile="true"/>
+    <include file="dml/2023-11-25-add-genres.xml" relativeToChangelogFile="true"/>
+    <include file="dml/2023-11-25-add-books.xml" relativeToChangelogFile="true"/>
+    <include file="dml/2023-11-25-add-notes.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
