@@ -85,6 +85,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>hw16</finalName>
 	</build>
 
 </project>
