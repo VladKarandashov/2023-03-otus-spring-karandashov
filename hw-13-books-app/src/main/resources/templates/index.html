@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Главная</title>
+</head>
+<body>
+
+<h1>Эта страница доступна всем пользователям!</h1>
+<br>
+<br>
+<button><a href="/login">Вход</a></button>
+<br>
+<br>
+<form action="/logout" method="get">
+    <button type="submit">Выйти</button>
+</form>
+<br>
+<hr>
+<br>
+<form action="/anonymous" method="get">
+    <button type="submit">Посмотреть гостевую страницу</button>
+</form>
+<br>
+<form action="/client/library" method="get">
+    <button type="submit">Посмотреть список книг</button>
+</form>
+<br>
+<form action="/admin/library" method="get">
+    <button type="submit">Войти в админ-панель</button>
+</form>
+
+</body>
+</html>

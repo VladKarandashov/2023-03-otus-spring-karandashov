@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>List of Books</title>
+</head>
+<body>
+<button><a href="/">Главное меню</a></button>
+<br>
+
+<h1>List of Books</h1>
+<table BORDER="LTR" id="tableBooks">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+    const table = document.getElementById('tableBooks');
+
+    fetch('/api/v1/book', {credentials: 'include'})
+        .then(response => response.json())
+        .then(data => {
+            const tbody = table.querySelector('tbody');
+            data.forEach(book => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+        <td>${book.id}</td>
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.genre}</td>
+        <td>
+            <button><a href="/admin/library/${book.id}">View</a></button>
+            <button id="deleteButton" onclick="deleteBook(${book.id})">Delete Book</button>
+        </td>
+      `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(error => console.error(error));
+</script>
+
+<h1>Create Book</h1>
+<form id="createForm" th:method="post" th:action="@{/book}">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"/>
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <select id="author" name="author">
+        </select>
+    </div>
+    <div>
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre">
+        </select>
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+
+<script>
+    fetch('/api/v1/author', {credentials: 'include'})
+        .then(response => response.json())
+        .then(data => {
+            const authorSelect = document.getElementById('author');
+            data.forEach(author => {
+                const option = document.createElement('option');
+                option.value = author.name;
+                option.textContent = author.name;
+                authorSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+</script>
+
+<script>
+    fetch('/api/v1/genre', {credentials: 'include'})
+        .then(response => response.json())
+        .then(data => {
+            const genreSelect = document.getElementById('genre');
+            data.forEach(genre => {
+                const option = document.createElement('option');
+                option.value = genre.name;
+                option.textContent = genre.name;
+                genreSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+</script>
+
+<script>
+    const form = document.getElementById('createForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // предотвращаем перезагрузку по умолчанию
+
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const genre = document.getElementById('genre').value;
+
+        const data = {
+            title,
+            author,
+            genre
+        };
+
+        fetch('/api/v1/book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Book added');
+                    location.reload(); // перезагрузка страницы
+                } else {
+                    throw new Error(response.status);
+                }
+            })
+            .catch(
+                error => {
+                    if (error.message === '400') {
+                        alert('Wrong title');
+                    } else {
+                        console.error('Error adding book:', error);
+                    }
+                }
+            );
+    });
+</script>
+
+<script>
+    function deleteBook(id) {
+        fetch('/api/v1/book/' + id, {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Book deleted');
+                    location.reload(); // перезагрузка страницы
+                } else {
+                    console.error('Error deleting book');
+                }
+            })
+            .catch(error => console.error(error));
+    }
+</script>
+
+</body>
+</html>
