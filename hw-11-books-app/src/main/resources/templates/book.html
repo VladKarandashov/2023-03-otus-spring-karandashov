@@ -18,61 +18,17 @@
     </div>
     <div>
         <label for="author">Author:</label>
-        <select id="author">
-        </select>
+        <input type="text" id="author" name="author" th:field="*{author}"/>
     </div>
     <div>
         <label for="genre">Genre:</label>
-        <select id="genre">
-        </select>
+        <input type="text" id="genre" name="genre" th:field="*{genre}"/>
     </div>
     <div>
         <button type="submit">Save</button>
     </div>
 </form>
 <button><a href="/">Books</a></button>
-
-<script>
-    fetch('/author')
-        .then(response => response.json())
-        .then(data => {
-            const authorSelect = document.getElementById('author');
-            const authorId = document.getElementById('authorId').value;
-            console.log("authorId=" + authorId)
-            data.forEach(author => {
-                const option = document.createElement('option');
-                option.value = author.name;
-                option.textContent = author.name;
-                console.log("author" + author.id + " " + author.name)
-                if (author.name === authorId) { // выбираем соответствующий элемент
-                    option.selected = true;
-                }
-                authorSelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error(error));
-</script>
-
-<script>
-    fetch('/genre')
-        .then(response => response.json())
-        .then(data => {
-            const genreSelect = document.getElementById('genre');
-            const genreId = document.getElementById('genreId').value;
-            console.log("genreId=" + genreId)
-            data.forEach(genre => {
-                const option = document.createElement('option');
-                option.value = genre.name;
-                option.textContent = genre.name;
-                console.log("genre" + genre.id + " " + genre.name)
-                if (genre.name === genreId) { // выбираем соответствующий элемент
-                    option.selected = true;
-                }
-                genreSelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error(error));
-</script>
 
 <script>
     const form = document.getElementById('editForm');

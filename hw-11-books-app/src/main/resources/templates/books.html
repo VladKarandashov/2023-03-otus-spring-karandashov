@@ -37,7 +37,7 @@
         <td>${book.genre}</td>
         <td>
             <button><a href="/${book.id}">View</a></button>
-            <button id="deleteButton" onclick="deleteBook(${book.id})">Delete Book</button>
+            <button id="deleteButton" onclick="deleteBook('${book.id}')">Delete Book</button>
         </td>
       `;
                 tbody.appendChild(tr);
@@ -54,48 +54,16 @@
     </div>
     <div>
         <label for="author">Author:</label>
-        <select id="author" name="author">
-        </select>
+        <input type="text" id="author" name="author"/>
     </div>
     <div>
         <label for="genre">Genre:</label>
-        <select id="genre" name="genre">
-        </select>
+        <input type="text" id="genre" name="genre"/>
     </div>
     <div>
         <button type="submit">Create</button>
     </div>
 </form>
-
-<script>
-    fetch('/author')
-        .then(response => response.json())
-        .then(data => {
-            const authorSelect = document.getElementById('author');
-            data.forEach(author => {
-                const option = document.createElement('option');
-                option.value = author.name;
-                option.textContent = author.name;
-                authorSelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error(error));
-</script>
-
-<script>
-    fetch('/genre')
-        .then(response => response.json())
-        .then(data => {
-            const genreSelect = document.getElementById('genre');
-            data.forEach(genre => {
-                const option = document.createElement('option');
-                option.value = genre.name;
-                option.textContent = genre.name;
-                genreSelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error(error));
-</script>
 
 <script>
     const form = document.getElementById('createForm');

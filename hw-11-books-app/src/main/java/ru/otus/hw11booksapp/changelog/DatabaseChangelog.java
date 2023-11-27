@@ -26,13 +26,13 @@ public class DatabaseChangelog {
 
     public void insertRecords() {
 
-        var book1 = bookRepository.save(new Book("1", new Author("Михаил Булгаков"), new Genre("Роман"), "Мастер и Маргарита")).subscribe();
-        var book2 = bookRepository.save(new Book("2", new Author("Михаил Булгаков"), new Genre("Повесть"), "Собачье сердце")).subscribe();
-        var book3 = bookRepository.save(new Book("3", new Author("Антуан де Сент-Экзюпери"), new Genre("Сказка"), "Маленький принц")).subscribe();
-        var book4 = bookRepository.save(new Book("4", new Author("Антуан де Сент-Экзюпери"), new Genre("Сборник"), "Планета людей")).subscribe();
-        var book5 = bookRepository.save(new Book("5", new Author("Александр Дюма"), new Genre("Роман"), "Граф Монте-Кристо")).subscribe();
-        var book6 = bookRepository.save(new Book("6", new Author("Александр Дюма"), new Genre("Роман"), "Три мушкетёра")).subscribe();
-        var book7 = bookRepository.save(new Book("7", new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"), "Трудно быть богом")).subscribe();
-        var book8 = bookRepository.save(new Book("8", new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"), "Понедельник начинается в субботу")).subscribe();
+        var book1 = bookRepository.save(new Book(new Author("Михаил Булгаков"), new Genre("Роман"), "Мастер и Маргарита")).subscribe();
+        var book2 = bookRepository.save(new Book(new Author("Михаил Булгаков"), new Genre("Повесть"), "Собачье сердце")).subscribe();
+        var book3 = bookRepository.save(new Book(new Author("Антуан де Сент-Экзюпери"), new Genre("Сказка"), "Маленький принц")).subscribe();
+        var book4 = bookRepository.save(new Book(new Author("Антуан де Сент-Экзюпери"), new Genre("Сборник"), "Планета людей")).subscribe();
+        var book5 = bookRepository.save(new Book(new Author("Александр Дюма"), new Genre("Роман"), "Граф Монте-Кристо")).subscribe();
+        var book6 = bookRepository.save(new Book(new Author("Александр Дюма"), new Genre("Роман"), "Три мушкетёра")).subscribe();
+        var book7 = bookRepository.save(new Book(new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"), "Трудно быть богом")).subscribe();
+        var book8 = bookRepository.save(new Book(new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"), "Понедельник начинается в субботу")).subscribe();
     }
 }

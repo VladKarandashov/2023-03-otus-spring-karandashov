@@ -24,6 +24,12 @@ public class Book {
     @Field(name = "title")
     private String title;
 
+    public Book(Author author, Genre genre, String title) {
+        this.author = author;
+        this.genre = genre;
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
