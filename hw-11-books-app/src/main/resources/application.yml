@@ -1,26 +1,21 @@
 spring:
-  main:
-    allow-circular-references: true
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
-  jpa:
-    generate-ddl: false
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: false
-  sql:
-    init:
-      mode: always
-  h2:
-    console:
-      path: /h2-console
-      settings:
-        trace: true
-        web-allow-others: true
-      enabled: true
+  mongodb:
+    host: 188.225.36.19
+  data:
+    mongodb:
+      host: 188.225.36.19
+      port: 27017
+      database: default_db
+      username: gen_user
+      password: tlu|AEj5OpxX
+      authentication-database: admin
+
+mongock:
+  #  runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.otus.hw11booksapp.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local

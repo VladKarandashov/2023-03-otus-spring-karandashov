@@ -11,10 +11,7 @@ import ru.otus.hw11booksapp.dto.request.UpdateRequest;
 import ru.otus.hw11booksapp.entity.Author;
 import ru.otus.hw11booksapp.entity.Book;
 import ru.otus.hw11booksapp.entity.Genre;
-import ru.otus.hw11booksapp.repository.AuthorRepository;
 import ru.otus.hw11booksapp.repository.BookRepository;
-import ru.otus.hw11booksapp.repository.GenreRepository;
-import ru.otus.hw11booksapp.repository.NoteRepository;
 import ru.otus.hw11booksapp.utils.DtoConverter;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -28,16 +25,13 @@ import static org.springframework.web.reactive.function.server.ServerResponse.*;
 public class BookController {
 
     private final BookRepository bookRepository;
-    private final NoteRepository noteRepository;
-    private final AuthorRepository authorRepository;
-    private final GenreRepository genreRepository;
     private final DtoConverter dtoConverter;
 
     @Bean
     public RouterFunction<ServerResponse> composedRoutes() {
         return route()
                 .GET("/book/{id}",
-                        request -> bookRepository.findById(Long.parseLong(request.pathVariable("id")))
+                        request -> bookRepository.findById(request.pathVariable("id"))
                                 .flatMap(dtoConverter::getBookDto)
                                 .flatMap(bookDto -> ok().contentType(APPLICATION_JSON).body(fromValue(bookDto)))
                                 .switchIfEmpty(notFound().build())
@@ -51,14 +45,7 @@ public class BookController {
                 )
                 .POST("/book", accept(APPLICATION_JSON),
                         request -> request.bodyToMono(BookDto.class)
-                                .flatMap(bookDto -> Mono.zip(
-                                        Mono.just(bookDto.getTitle()),
-                                        authorRepository.findByName(bookDto.getAuthor())
-                                                .switchIfEmpty(Mono.error(new InternalError("Не найден автор для создания книги"))),
-                                        genreRepository.findByName(bookDto.getGenre())
-                                                .switchIfEmpty(Mono.error(new InternalError("Не найден жанр для создания книги")))
-                                ))
-                                .map(t -> dtoConverter.getBook(t.getT1(), t.getT2(), t.getT3()))
+                                .map(bookDto -> dtoConverter.getBook(bookDto.getTitle(), new Author(bookDto.getAuthor()), new Genre(bookDto.getGenre())))
                                 .flatMap(bookRepository::save)
                                 .flatMap(dtoConverter::getBookDto)
                                 .flatMap(bookDto -> created(request.uri()).contentType(APPLICATION_JSON).body(fromValue(bookDto)))
@@ -66,25 +53,15 @@ public class BookController {
                 )
                 .PUT("/book", accept(APPLICATION_JSON),
                         request -> request.bodyToMono(UpdateRequest.class)
-                                .flatMap(updateRequest -> Mono.zip(
-                                        Mono.just(updateRequest.getId()),
-                                        Mono.just(updateRequest.getTitle()),
-                                        authorRepository.findByName(updateRequest.getAuthor())
-                                                .map(Author::getId)
-                                                .switchIfEmpty(Mono.error(new InternalError("Не найден автор для создания книги"))),
-                                        genreRepository.findByName(updateRequest.getGenre())
-                                                .map(Genre::getId)
-                                                .switchIfEmpty(Mono.error(new InternalError("Не найден жанр для создания книги")))
-                                ))
-                                .map(t -> new Book(t.getT1(), t.getT3(), t.getT4(), t.getT2()))
+                                .map(updateRequest -> new Book(updateRequest.getId(), new Author(updateRequest.getAuthor()), new Genre(updateRequest.getGenre()), updateRequest.getTitle()))
                                 .flatMap(bookRepository::save)
                                 .flatMap(dtoConverter::getBookDto)
                                 .flatMap(bookDto -> ok().contentType(APPLICATION_JSON).body(fromValue(bookDto)))
                                 .switchIfEmpty(badRequest().build())
                 )
                 .DELETE("/book/{id}",
-                        request -> Mono.just(Long.parseLong(request.pathVariable("id")))
-                                .flatMap(id -> noteRepository.deleteAllByBookId(id).then(bookRepository.deleteById(id)))
+                        request -> Mono.just(request.pathVariable("id"))
+                                .flatMap(bookRepository::deleteById)
                                 .then(ok().build())
                 )
                 .build();

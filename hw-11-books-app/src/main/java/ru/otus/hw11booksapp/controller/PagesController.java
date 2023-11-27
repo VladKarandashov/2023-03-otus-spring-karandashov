@@ -22,7 +22,7 @@ public class PagesController {
     }
 
     @GetMapping("/{id}")
-    public Mono<String> editBook(@PathVariable(value = "id") long id, Model model) {
+    public Mono<String> editBook(@PathVariable(value = "id") String id, Model model) {
         return bookRepository.findById(id)
                 .flatMap(dtoConverter::getBookDto)
                 .map(book -> model.addAttribute("book", book))

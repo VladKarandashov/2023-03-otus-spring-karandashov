@@ -2,26 +2,26 @@ package ru.otus.hw11booksapp.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Data
+@Getter
+@Setter
+@Document(collection = "Book")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table("book")
 public class Book {
 
     @Id
-    @Column("id")
-    private Long id;
+    private String id;
 
-    @Column("author_id")
-    private Long authorId;
+    @Field(name = "author")
+    private Author author;
 
-    @Column("genre_id")
-    private Long genreId;
+    @Field(name = "genre")
+    private Genre genre;
 
-    @Column("title")
+    @Field(name = "title")
     private String title;
 
     @Override

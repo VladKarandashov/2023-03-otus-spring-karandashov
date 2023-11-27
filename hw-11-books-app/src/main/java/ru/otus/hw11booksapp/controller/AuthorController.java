@@ -6,17 +6,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import ru.otus.hw11booksapp.entity.Author;
-import ru.otus.hw11booksapp.repository.AuthorRepository;
+import ru.otus.hw11booksapp.entity.Book;
+import ru.otus.hw11booksapp.repository.BookRepository;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/author")
 public class AuthorController {
 
-    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
 
     @GetMapping
     public Flux<Author> authorList() {
-        return authorRepository.findAll();
+        return bookRepository.findAll().map(Book::getAuthor);
     }
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class UpdateRequest {
 
     @NotNull
-    private Long id;
+    private String id;
 
     @NotBlank
     private String title;
