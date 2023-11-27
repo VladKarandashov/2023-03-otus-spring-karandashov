@@ -13,9 +13,7 @@ import ru.otus.hw11booksapp.entity.Genre;
 public class DtoConverter {
 
     public Mono<BookDto> getBookDto(Book book) {
-        var authorName = Mono.just(book.getAuthor().getName());
-        var genreName = Mono.just(book.getGenre().getName());
-        return Mono.zip(authorName, genreName).map(t -> new BookDto(book.getId(), book.getTitle(), t.getT1(), t.getT2()));
+        return Mono.just(new BookDto(book.getId(), book.getTitle(), book.getAuthor().getName(), book.getGenre().getName()));
     }
 
     public Book getBook(String title, Author author, Genre genre) {
