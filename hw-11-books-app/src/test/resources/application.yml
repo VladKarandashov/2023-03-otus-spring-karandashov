@@ -1,21 +1,10 @@
 spring:
-  mongodb:
-    host: 188.225.36.19
   data:
     mongodb:
-      host: 188.225.36.19
-      port: 27017
-      database: default_db
-      username: gen_user
-      password: tlu|AEj5OpxX
-      authentication-database: admin
-
-mongock:
-  #  runner-type: "ApplicationRunner" # default
-  runner-type: "InitializingBean"
-  change-logs-scan-package:
-    - ru.otus.hw11booksapp.changelog
-  mongo-db:
-    write-concern:
-      journal: false
-    read-concern: local
+      database: company
+      port: 0
+  de:
+    flapdoodle:
+      mongodb:
+        embedded:
+          version: 4.0.2

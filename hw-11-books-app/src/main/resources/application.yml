@@ -9,13 +9,3 @@ spring:
       username: gen_user
       password: tlu|AEj5OpxX
       authentication-database: admin
-
-mongock:
-  #  runner-type: "ApplicationRunner" # default
-  runner-type: "InitializingBean"
-  change-logs-scan-package:
-    - ru.otus.hw11booksapp.changelog
-  mongo-db:
-    write-concern:
-      journal: false
-    read-concern: local
