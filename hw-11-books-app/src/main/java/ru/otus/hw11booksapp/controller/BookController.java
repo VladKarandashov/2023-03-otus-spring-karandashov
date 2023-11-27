@@ -53,7 +53,7 @@ public class BookController {
                 )
                 .PUT("/book", accept(APPLICATION_JSON),
                         request -> request.bodyToMono(UpdateRequest.class)
-                                .map(updateRequest -> new Book(updateRequest.getId(), new Author(updateRequest.getAuthor()), new Genre(updateRequest.getGenre()), updateRequest.getTitle()))
+                                .map(updateRequest -> new Book(updateRequest.getId(), updateRequest.getTitle(), new Author(updateRequest.getAuthor()), new Genre(updateRequest.getGenre())))
                                 .flatMap(bookRepository::save)
                                 .flatMap(dtoConverter::getBookDto)
                                 .flatMap(bookDto -> ok().contentType(APPLICATION_JSON).body(fromValue(bookDto)))

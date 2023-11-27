@@ -26,13 +26,13 @@ public class DatabaseChangelog {
 
     public void insertRecords() {
 
-        var book1 = bookRepository.save(new Book(new Author("Михаил Булгаков"), new Genre("Роман"), "Мастер и Маргарита")).subscribe();
-        var book2 = bookRepository.save(new Book(new Author("Михаил Булгаков"), new Genre("Повесть"), "Собачье сердце")).subscribe();
-        var book3 = bookRepository.save(new Book(new Author("Антуан де Сент-Экзюпери"), new Genre("Сказка"), "Маленький принц")).subscribe();
-        var book4 = bookRepository.save(new Book(new Author("Антуан де Сент-Экзюпери"), new Genre("Сборник"), "Планета людей")).subscribe();
-        var book5 = bookRepository.save(new Book(new Author("Александр Дюма"), new Genre("Роман"), "Граф Монте-Кристо")).subscribe();
-        var book6 = bookRepository.save(new Book(new Author("Александр Дюма"), new Genre("Роман"), "Три мушкетёра")).subscribe();
-        var book7 = bookRepository.save(new Book(new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"), "Трудно быть богом")).subscribe();
-        var book8 = bookRepository.save(new Book(new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"), "Понедельник начинается в субботу")).subscribe();
+        var book1 = bookRepository.save(new Book("Мастер и Маргарита", new Author("Михаил Булгаков"), new Genre("Роман"))).subscribe();
+        var book2 = bookRepository.save(new Book("Собачье сердце", new Author("Михаил Булгаков"), new Genre("Повесть"))).subscribe();
+        var book3 = bookRepository.save(new Book("Маленький принц", new Author("Антуан де Сент-Экзюпери"), new Genre("Сказка"))).subscribe();
+        var book4 = bookRepository.save(new Book("Планета людей", new Author("Антуан де Сент-Экзюпери"), new Genre("Сборник"))).subscribe();
+        var book5 = bookRepository.save(new Book("Граф Монте-Кристо", new Author("Александр Дюма"), new Genre("Роман"))).subscribe();
+        var book6 = bookRepository.save(new Book("Три мушкетёра", new Author("Александр Дюма"), new Genre("Роман"))).subscribe();
+        var book7 = bookRepository.save(new Book("Трудно быть богом", new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"))).subscribe();
+        var book8 = bookRepository.save(new Book("Понедельник начинается в субботу", new Author("Аркадий и Борис Стругацкие"), new Genre("Фантастика"))).subscribe();
     }
 }

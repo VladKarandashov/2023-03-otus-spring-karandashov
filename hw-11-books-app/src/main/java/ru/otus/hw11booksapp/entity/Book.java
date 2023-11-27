@@ -15,16 +15,16 @@ public class Book {
     @Id
     private String id;
 
+    @Field(name = "title")
+    private String title;
+
     @Field(name = "author")
     private Author author;
 
     @Field(name = "genre")
     private Genre genre;
 
-    @Field(name = "title")
-    private String title;
-
-    public Book(Author author, Genre genre, String title) {
+    public Book(String title, Author author, Genre genre) {
         this.author = author;
         this.genre = genre;
         this.title = title;

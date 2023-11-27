@@ -19,6 +19,6 @@ public class DtoConverter {
     }
 
     public Book getBook(String title, Author author, Genre genre) {
-        return new Book(null, author, genre, title);
+        return new Book(null, title, author, genre);
     }
 }
