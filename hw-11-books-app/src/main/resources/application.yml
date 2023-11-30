@@ -1,0 +1,20 @@
+spring:
+  data:
+    mongodb:
+      database: company
+      port: 0
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
+
+mongock:
+  #  runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.otus.hw11booksapp
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
