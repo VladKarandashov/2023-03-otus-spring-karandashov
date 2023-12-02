@@ -14,9 +14,9 @@ public class ReportService {
     private static final Random random = new Random();
 
     public Report generateReport(Student student) throws InterruptedException {
-        log.info( "-> {} {} (studentID: {}) start the test", student.getFirstName(), student.getLastName(), student.getId());
+        log.info( "-> -> начал тест {}", student);
         Thread.sleep(3000);
-        log.info( "-> {} {} (studentID: {}) finished the test", student.getFirstName(), student.getLastName(), student.getId());
-        return new Report(student.getId(), random.nextInt(1, 100));
+        log.info( "-> -> закончил тест {}", student);
+        return new Report(student, random.nextInt(1, 100));
     }
 }

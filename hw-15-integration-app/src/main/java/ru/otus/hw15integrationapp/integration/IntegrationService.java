@@ -11,9 +11,8 @@ import ru.otus.hw15integrationapp.model.Student;
 
 import java.util.Collection;
 import java.util.Random;
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
@@ -25,23 +24,22 @@ public class IntegrationService {
 
     private final ReportGateway reportGateway;
 
+    private Long studentGroupCounter = 0L;
+
     @Async
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 20*1000)
     public void start() {
-        Collection<Student> students = generateInspections();
-        log.info("->New student: " + students.stream()
-                .map(Student::toString)
-                .collect(joining("\n")));
+        var groupNumber = ++studentGroupCounter;
+        log.info("Создаю {} группу студентов", groupNumber);
 
-        Collection<Report> reports = reportGateway.process(students);
-        log.info("->Result: " + reports.stream()
-                .map(Report::toString)
-                .collect(joining("\n")));
-    }
-
-    private static Collection<Student> generateInspections() {
-        return IntStream.range(0, random.nextInt(1, 5))
-                .mapToObj(i -> new Student(random.nextLong()))
+        Collection<Student> students = LongStream.range(1, random.nextInt(1, 5))
+                .mapToObj(i -> new Student(groupNumber, i))
+                .peek(student -> log.info("-> Новый студент {}", student))
                 .collect(toList());
+
+        log.info("Группа {} отправляется на обработку", groupNumber);
+        Collection<Report> reports = reportGateway.process(students);
+        log.info("Группа {} закончила обработку", groupNumber);
+        reports.forEach(report -> log.info("-> Получен результат: {}", report));
     }
 }
