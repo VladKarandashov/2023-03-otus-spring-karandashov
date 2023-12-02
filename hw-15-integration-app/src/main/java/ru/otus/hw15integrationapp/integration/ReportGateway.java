@@ -8,6 +8,6 @@ import ru.otus.hw15integrationapp.model.Student;
 @MessagingGateway
 public interface ReportGateway {
 
-    @Gateway(requestChannel = "examChannel", replyChannel = "reportChannel")
+    @Gateway(requestChannel = "studentChannel", replyChannel = "reportChannel")
     Report process(Student student);
 }

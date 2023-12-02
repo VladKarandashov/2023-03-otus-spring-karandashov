@@ -17,14 +17,20 @@ public class ReportService {
     private final ExamConfig examConfig;
     private static final Random random = new Random();
 
-    public Report generateReport(Student student) throws InterruptedException {
+    public Report generateReport(Student student) {
         log.info( "-> начал тест {}", student.getId());
 
         // оценка за экзамен прямо пропорциональна потраченному времени!
         var testResult = random.nextLong(1, 100);
-        Thread.sleep(examConfig.getMinimalDuration() + testResult * 100);
+        sleep(testResult);
 
         log.info( "-> закончил тест {}", student.getId());
         return new Report(student.getId(), testResult);
+    }
+
+    private void sleep(long testResult) {
+        try {
+            Thread.sleep(examConfig.getMinimalDuration() + testResult * 100);
+        } catch (Exception ignored) {}
     }
 }
