@@ -9,7 +9,7 @@ public class ExamProperties {
 
     private Integer studentChannelCapacity = 100;
 
-    private Integer concurrentStudentsNumber = 5;
+    private Integer concurrentStudentsNumber = 10;
 
     private Integer minimalDuration = 2*1000;
 }
