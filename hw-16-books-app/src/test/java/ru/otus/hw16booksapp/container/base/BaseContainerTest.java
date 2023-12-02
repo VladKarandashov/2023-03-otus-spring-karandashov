@@ -13,8 +13,8 @@ public abstract class BaseContainerTest {
 
     @DynamicPropertySource
     public static void properties(DynamicPropertyRegistry registry) {
-        registry.add("database.url", () -> POSTGRE_SQL_CONTAINER.getJdbcUrl() + "&stringtype=unspecified");
-        registry.add("database.user", POSTGRE_SQL_CONTAINER::getUsername);
-        registry.add("database.pwd", POSTGRE_SQL_CONTAINER::getPassword);
+        registry.add("spring.datasource.url", () -> POSTGRE_SQL_CONTAINER.getJdbcUrl() + "&stringtype=unspecified");
+        registry.add("spring.datasource.username", POSTGRE_SQL_CONTAINER::getUsername);
+        registry.add("spring.datasource.password", POSTGRE_SQL_CONTAINER::getPassword);
     }
 }
