@@ -1,1 +1,3 @@
-
+exam:
+  concurrentStudentsNumber: 25
+  minimalDuration: 1000
