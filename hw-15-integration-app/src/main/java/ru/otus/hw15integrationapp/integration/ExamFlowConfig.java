@@ -1,4 +1,4 @@
-package ru.otus.hw15integrationapp.config;
+package ru.otus.hw15integrationapp.integration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -7,22 +7,17 @@ import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.MessageChannels;
-import org.springframework.integration.dsl.Pollers;
-import org.springframework.integration.scheduling.PollerMetadata;
 import ru.otus.hw15integrationapp.service.ReportService;
 
-import static org.springframework.integration.scheduling.PollerMetadata.DEFAULT_POLLER;
-
-
-@RequiredArgsConstructor
 @Configuration
-public class IntegrationConfig {
+@RequiredArgsConstructor
+public class ExamFlowConfig {
 
     private final ReportService reportService;
 
     @Bean
     public QueueChannel examChannel() {
-        return MessageChannels.queue(10).getObject();
+        return MessageChannels.queue(5).getObject();
     }
 
     @Bean
@@ -30,17 +25,10 @@ public class IntegrationConfig {
         return MessageChannels.publishSubscribe().getObject();
     }
 
-    @Bean(name = DEFAULT_POLLER)
-    public PollerMetadata poller() {
-        return Pollers.fixedRate(100).maxMessagesPerPoll(2).getObject();
-    }
-
     @Bean
     public IntegrationFlow examFlow() {
         return IntegrationFlow.from(examChannel())
-                .split()
                 .handle(reportService, "generateReport")
-                .aggregate()
                 .channel(reportChannel())
                 .get();
     }

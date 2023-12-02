@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class Report {
 
-    private Long studentId;
-    private int testResult;
+    private int studentId;
+    private Long testResult;
 }

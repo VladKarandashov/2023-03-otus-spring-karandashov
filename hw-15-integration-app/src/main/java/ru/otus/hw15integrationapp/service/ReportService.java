@@ -14,9 +14,13 @@ public class ReportService {
     private static final Random random = new Random();
 
     public Report generateReport(Student student) throws InterruptedException {
-        log.info( "-> {} {} (studentID: {}) start the test", student.getFirstName(), student.getLastName(), student.getId());
-        Thread.sleep(3000);
-        log.info( "-> {} {} (studentID: {}) finished the test", student.getFirstName(), student.getLastName(), student.getId());
-        return new Report(student.getId(), random.nextInt(1, 100));
+        log.info( "-> начал тест {}", student.getId());
+
+        // оценка за экзамен прямо пропорциональна потраченному времени!
+        var testResult = random.nextLong(1, 100);
+        Thread.sleep(1000 + testResult * 100);
+
+        log.info( "-> закончил тест {}", student.getId());
+        return new Report(student.getId(), testResult);
     }
 }
