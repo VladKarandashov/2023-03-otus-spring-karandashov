@@ -6,7 +6,7 @@ import ru.otus.hw15integrationapp.model.Report;
 import ru.otus.hw15integrationapp.model.Student;
 
 @MessagingGateway
-public interface ReportGateway {
+public interface ExamGateway {
 
     @Gateway(requestChannel = "studentChannel", replyChannel = "reportChannel")
     Report process(Student student);

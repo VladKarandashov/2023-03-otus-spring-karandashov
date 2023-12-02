@@ -7,7 +7,7 @@ import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.MessageChannels;
 import org.springframework.messaging.MessageChannel;
-import ru.otus.hw15integrationapp.config.ExamConfig;
+import ru.otus.hw15integrationapp.config.ExamProperties;
 import ru.otus.hw15integrationapp.service.ReportService;
 
 import java.util.concurrent.Executors;
@@ -16,12 +16,12 @@ import java.util.concurrent.Executors;
 @RequiredArgsConstructor
 public class ExamFlowConfig {
 
-    private final ExamConfig examConfig;
+    private final ExamProperties examProperties;
     private final ReportService reportService;
 
     @Bean
     public MessageChannel studentChannel() {
-        return MessageChannels.queue(examConfig.getConcurrentStudentsNumber()).getObject();
+        return MessageChannels.queue(examProperties.getStudentChannelCapacity()).getObject();
     }
 
     @Bean
@@ -32,7 +32,7 @@ public class ExamFlowConfig {
     @Bean
     public IntegrationFlow examFlow() {
         return IntegrationFlow.from(studentChannel())
-                .channel(MessageChannels.executor(Executors.newFixedThreadPool(5)))
+                .channel(MessageChannels.executor(Executors.newFixedThreadPool(examProperties.getConcurrentStudentsNumber())))
                 .handle(reportService, "generateReport")
                 .channel(reportChannel())
                 .get();

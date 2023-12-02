@@ -5,9 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
 @ConfigurationProperties(prefix = "exam")
-public class ExamConfig {
+public class ExamProperties {
 
-    Integer concurrentStudentsNumber = 5;
+    private Integer studentChannelCapacity = 100;
 
-    Integer minimalDuration = 2*1000;
+    private Integer concurrentStudentsNumber = 5;
+
+    private Integer minimalDuration = 2*1000;
 }

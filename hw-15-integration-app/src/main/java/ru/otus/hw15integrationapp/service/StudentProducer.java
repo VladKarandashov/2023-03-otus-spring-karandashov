@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import ru.otus.hw15integrationapp.integration.ReportGateway;
+import ru.otus.hw15integrationapp.integration.ExamGateway;
 import ru.otus.hw15integrationapp.model.Report;
 import ru.otus.hw15integrationapp.model.Student;
 
@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequiredArgsConstructor
 public class StudentProducer {
 
-    private final ReportGateway reportGateway;
+    private final ExamGateway examGateway;
 
     private final AtomicInteger counter = new AtomicInteger(0);
 
@@ -27,7 +27,7 @@ public class StudentProducer {
         var student = new Student(counter.incrementAndGet());
 
         log.info("НОВЫЙ студент {} отправляется на экзамен", student.getId());
-        Report report = reportGateway.process(student);
+        Report report = examGateway.process(student);
         log.info("Студент {} получил {} за экзамен", student.getId(), report.getTestResult());
     }
 }
