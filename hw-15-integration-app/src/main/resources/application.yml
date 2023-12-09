@@ -1,0 +1,4 @@
+exam:
+  studentChannelCapacity: 30
+  concurrentStudentsNumber: 6
+  minimalDuration: 1000
