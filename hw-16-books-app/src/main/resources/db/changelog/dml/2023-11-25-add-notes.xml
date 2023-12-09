@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add-notes" author="karandashov">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="notes"/>
+        </preConditions>
+
+        <insert tableName="notes">
+            <column name="id" value="1"/>
+            <column name="book_id" value="1"/>
+            <column name="note" value="notes-01.1 - Мастер"/>
+        </insert>
+        <insert tableName="notes">
+            <column name="id" value="2"/>
+            <column name="book_id" value="1"/>
+            <column name="note" value="notes-01.2 - Мастер"/>
+        </insert>
+        <insert tableName="notes">
+            <column name="id" value="3"/>
+            <column name="book_id" value="2"/>
+            <column name="note" value="notes-02.1 - гвардия"/>
+        </insert>
+        <insert tableName="notes">
+            <column name="id" value="4"/>
+            <column name="book_id" value="2"/>
+            <column  name="note" value="notes-02.2 - гвардия"/>
+        </insert>
+        <insert tableName="notes">
+            <column name="id" value="5"/>
+            <column name="book_id" value="3"/>
+            <column name="note" value="notes-03.1 - сердце"/>
+        </insert>
+        <insert tableName="notes">
+            <column name="id" value="6"/>
+            <column name="book_id" value="3"/>
+            <column name="note" value="notes-03.2 - сердце"/>
+        </insert>
+        <insert tableName="notes">
+            <column name="id" value="7"/>
+            <column name="book_id" value="3"/>
+            <column name="note" value="notes-03.3 - сердце"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="notes"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
