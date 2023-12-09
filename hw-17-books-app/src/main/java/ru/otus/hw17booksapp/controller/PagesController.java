@@ -13,12 +13,12 @@ public class PagesController {
 
     private final BookService bookService;
 
-    @GetMapping({"/"})
+    @GetMapping({"/", "/page/book"})
     public String listBooks() {
         return "books";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping( "/page/book/{id}")
     public String editBook(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("book", bookService.getById(id));
         return "book";

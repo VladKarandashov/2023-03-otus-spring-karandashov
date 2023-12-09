@@ -28,7 +28,7 @@
         <button type="submit">Save</button>
     </div>
 </form>
-<button><a href="/">Books</a></button>
+<button><a href="/page/book">Books</a></button>
 
 <script>
     fetch('/author')
@@ -37,7 +37,7 @@
             const authorSelect = document.getElementById('author');
             const authorId = document.getElementById('authorId').value;
             console.log("authorId=" + authorId)
-            data.forEach(author => {
+            data._embedded.authors.forEach(author => {
                 const option = document.createElement('option');
                 option.value = author.name;
                 option.textContent = author.name;
@@ -58,7 +58,7 @@
             const genreSelect = document.getElementById('genre');
             const genreId = document.getElementById('genreId').value;
             console.log("genreId=" + genreId)
-            data.forEach(genre => {
+            data._embedded.genres.forEach(genre => {
                 const option = document.createElement('option');
                 option.value = genre.name;
                 option.textContent = genre.name;

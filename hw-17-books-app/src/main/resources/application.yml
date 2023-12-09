@@ -22,3 +22,15 @@ spring:
   liquibase:
     enabled: true
     changeLog: classpath:db/changelog/db.changelog-master.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true

@@ -36,7 +36,7 @@
         <td>${book.author}</td>
         <td>${book.genre}</td>
         <td>
-            <button><a href="/${book.id}">View</a></button>
+            <button><a href="/page/book/${book.id}">View</a></button>
             <button id="deleteButton" onclick="deleteBook(${book.id})">Delete Book</button>
         </td>
       `;
@@ -72,7 +72,7 @@
         .then(response => response.json())
         .then(data => {
             const authorSelect = document.getElementById('author');
-            data.forEach(author => {
+            data._embedded.authors.forEach(author => {
                 const option = document.createElement('option');
                 option.value = author.name;
                 option.textContent = author.name;
@@ -87,7 +87,7 @@
         .then(response => response.json())
         .then(data => {
             const genreSelect = document.getElementById('genre');
-            data.forEach(genre => {
+            data._embedded.genres.forEach(genre => {
                 const option = document.createElement('option');
                 option.value = genre.name;
                 option.textContent = genre.name;
