@@ -11,7 +11,7 @@ import ru.otus.hw17booksapp.repository.BookRepository;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class BookListHealthIndicator implements HealthIndicator {
+public class BookCountHealthIndicator implements HealthIndicator {
 
     private final BookRepository bookRepository;
 
