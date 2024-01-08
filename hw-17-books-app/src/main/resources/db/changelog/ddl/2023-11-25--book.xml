@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-table-books" author="karandashov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="books"/>
+            </not>
+        </preConditions>
+
+        <comment>Create table books</comment>
+
+        <createTable tableName="books">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="author_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="genre_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="books"
+                baseColumnNames="author_id"
+                constraintName="fk_book_author_id"
+                referencedTableName="authors"
+                referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="books"
+                baseColumnNames="genre_id"
+                constraintName="fk_book_genre_id"
+                referencedTableName="genres"
+                referencedColumnNames="id"/>
+
+        <rollback>
+            <dropTable tableName="books"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add-genres" author="karandashov">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="genres"/>
+        </preConditions>
+
+        <insert tableName="genres">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Роман"/>
+        </insert>
+        <insert tableName="genres">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Проза"/>
+        </insert>
+        <insert tableName="genres">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Фантастика"/>
+        </insert>
+        <insert tableName="genres">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Приключения"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="genres"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
