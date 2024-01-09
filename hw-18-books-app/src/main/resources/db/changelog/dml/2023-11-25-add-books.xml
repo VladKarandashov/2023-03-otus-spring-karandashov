@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add-books" author="karandashov">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="books"/>
+        </preConditions>
+
+        <insert tableName="books">
+            <column name="author_id" value="1"/>
+            <column name="genre_id" value="1"/>
+            <column name="title" value="Мастер и Маргарита"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="1"/>
+            <column name="genre_id" value="2"/>
+            <column name="title" value="Белая гвардия"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="1"/>
+            <column name="genre_id" value="3"/>
+            <column name="title" value="Собачье сердце"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="2"/>
+            <column name="genre_id" value="2"/>
+            <column name="title" value="Маленький принц"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="3"/>
+            <column name="genre_id" value="4"/>
+            <column name="title" value="Граф Монте-Кристо"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="4"/>
+            <column name="genre_id" value="3"/>
+            <column name="title" value="Трудно быть Богом"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="4"/>
+            <column name="genre_id" value="3"/>
+            <column name="title" value="Пикник на обочине"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="4"/>
+            <column name="genre_id" value="3"/>
+            <column name="title" value="Улитка на склоне"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="4"/>
+            <column name="genre_id" value="3"/>
+            <column name="title" value="Обитаемый остров"/>
+        </insert>
+        <insert tableName="books">
+            <column name="author_id" value="4"/>
+            <column name="genre_id" value="3"/>
+            <column name="title" value="Отель у погибшего альпениста"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="books"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

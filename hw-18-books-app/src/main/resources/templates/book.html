@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Edit Book</title>
+</head>
+<body>
+<h1>Edit Book</h1>
+<form id="editForm" th:object="${book}">
+    <label for="id"></label>
+    <input id="id" readonly="readonly" th:field="*{id}"/>
+    <label for="authorId"></label><input hidden="hidden" id="authorId" th:value="*{author}"/>
+    <label for="genreId"></label><input hidden="hidden" id="genreId" th:value="*{genre}"/>
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}"/>
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <select id="author">
+        </select>
+    </div>
+    <div>
+        <label for="genre">Genre:</label>
+        <select id="genre">
+        </select>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+<button><a href="/page/book">Books</a></button>
+
+<script>
+    fetch('/author')
+        .then(response => response.json())
+        .then(data => {
+            const authorSelect = document.getElementById('author');
+            const authorId = document.getElementById('authorId').value;
+            console.log("authorId=" + authorId)
+            data._embedded.authors.forEach(author => {
+                const option = document.createElement('option');
+                option.value = author.name;
+                option.textContent = author.name;
+                console.log("author" + author.id + " " + author.name)
+                if (author.name === authorId) { // выбираем соответствующий элемент
+                    option.selected = true;
+                }
+                authorSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+</script>
+
+<script>
+    fetch('/genre')
+        .then(response => response.json())
+        .then(data => {
+            const genreSelect = document.getElementById('genre');
+            const genreId = document.getElementById('genreId').value;
+            console.log("genreId=" + genreId)
+            data._embedded.genres.forEach(genre => {
+                const option = document.createElement('option');
+                option.value = genre.name;
+                option.textContent = genre.name;
+                console.log("genre" + genre.id + " " + genre.name)
+                if (genre.name === genreId) { // выбираем соответствующий элемент
+                    option.selected = true;
+                }
+                genreSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+</script>
+
+<script>
+    const form = document.getElementById('editForm');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // предотвращаем перезагрузку по умолчанию
+
+        const id = document.getElementById('id').value;
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const genre = document.getElementById('genre').value;
+
+        const data = {
+            id,
+            title,
+            author,
+            genre
+        };
+
+        fetch('/book', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Book updated');
+                    location.reload(); // перезагрузка страницы
+                } else {
+                    throw new Error(response.status);
+                }
+            })
+            .catch(
+                error => {
+                    if (error.message === '400') {
+                        alert('Wrong title');
+                    } else {
+                        console.error('Error updating book');
+                    }
+                }
+            );
+    });
+</script>
+
+</body>
+</html>

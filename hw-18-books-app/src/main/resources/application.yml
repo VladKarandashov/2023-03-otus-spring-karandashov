@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: "books-app"
+    instance_id: "pod-1"
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        trace: true
+        web-allow-others: true
+      enabled: true
+  liquibase:
+    enabled: true
+    changeLog: classpath:db/changelog/db.changelog-master.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+
+logging:
+  file:
+    name: "./logs/${spring.application.name}/${spring.application.instance_id}.log"
