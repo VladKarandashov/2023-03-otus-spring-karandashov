@@ -9,9 +9,9 @@ import ru.otus.hw18booksapp.dto.BookDto;
 import ru.otus.hw18booksapp.dto.request.UpdateRequest;
 import ru.otus.hw18booksapp.entity.Book;
 import ru.otus.hw18booksapp.exception.NotFoundException;
-import ru.otus.hw18booksapp.repository.AuthorRepository;
-import ru.otus.hw18booksapp.repository.BookRepository;
-import ru.otus.hw18booksapp.repository.GenreRepository;
+import ru.otus.hw18booksapp.dao.repository.AuthorRepository;
+import ru.otus.hw18booksapp.dao.BookDao;
+import ru.otus.hw18booksapp.dao.repository.GenreRepository;
 import ru.otus.hw18booksapp.service.BookService;
 import ru.otus.hw18booksapp.utils.DtoConverter;
 
@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
     public static final String BOOK_NOT_EXIST = "Book with this ID doesn't exist.";
 
-    private final BookRepository bookRepository;
+    private final BookDao bookDao;
 
     private final AuthorRepository authorRepository;
 
@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto getById(long id) {
         return cbFactory.create("getBookById").run(() -> {
-            var book = bookRepository.findById(id).orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
+            var book = bookDao.findById(id).orElseThrow(() -> new NotFoundException(BOOK_NOT_EXIST));
             return DtoConverter.getBookDto(book);
         }, this::fallbackUndefinedBook);
     }
@@ -44,8 +44,7 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public List<BookDto> getAll() {
-        return cbFactory.create("getAllBook").run(() ->
-                bookRepository
+        return cbFactory.create("getAllBook").run(() -> bookDao
                         .findAll()
                         .stream()
                         .map(DtoConverter::getBookDto)
@@ -56,7 +55,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void deleteById(long id) {
-        bookRepository.deleteById(id);
+        bookDao.deleteById(id);
     }
 
     @Transactional
@@ -66,7 +65,7 @@ public class BookServiceImpl implements BookService {
             var author = authorRepository.findByName(bookDto.getAuthor()).orElse(null);
             var genre = genreRepository.findByName(bookDto.getGenre()).orElse(null);
             Book book = DtoConverter.getBook(bookDto.getTitle(), author, genre);
-            var updateBook = bookRepository.save(book);
+            var updateBook = bookDao.save(book);
             return DtoConverter.getBookDto(updateBook);
         }, this::fallbackUndefinedBook);
     }
@@ -78,7 +77,7 @@ public class BookServiceImpl implements BookService {
             var author = authorRepository.findByName(request.getAuthor()).orElse(null);
             var genre = genreRepository.findByName(request.getGenre()).orElse(null);
             Book book = new Book(request.getId(), author, genre, request.getTitle());
-            var saveBook = bookRepository.save(book);
+            var saveBook = bookDao.save(book);
             return DtoConverter.getBookDto(saveBook);
         }, this::fallbackUndefinedBook);
     }

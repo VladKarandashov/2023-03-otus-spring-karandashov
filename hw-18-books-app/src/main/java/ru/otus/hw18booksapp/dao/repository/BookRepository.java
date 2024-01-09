@@ -1,4 +1,4 @@
-package ru.otus.hw18booksapp.repository;
+package ru.otus.hw18booksapp.dao.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;

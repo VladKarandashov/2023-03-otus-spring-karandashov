@@ -1,3 +1,6 @@
+#database:
+#  problems: true
+
 spring:
   application:
     name: "books-app"

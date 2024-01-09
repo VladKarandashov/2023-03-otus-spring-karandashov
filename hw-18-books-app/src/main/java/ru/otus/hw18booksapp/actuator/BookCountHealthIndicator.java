@@ -6,7 +6,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.stereotype.Component;
-import ru.otus.hw18booksapp.repository.BookRepository;
+import ru.otus.hw18booksapp.dao.repository.BookRepository;
 
 @Slf4j
 @Component
