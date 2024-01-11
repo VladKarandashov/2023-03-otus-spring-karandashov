@@ -2,6 +2,8 @@
 #  problems: true
 
 spring:
+  profiles:
+    active: res4j
   application:
     name: "books-app"
     instance_id: "pod-1"
