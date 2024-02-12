@@ -1,0 +1,31 @@
+resilience4j:
+  circuitbreaker:
+    metrics:
+      enabled: true
+    circuit-breaker-aspect-order: 1
+    configs:
+      default:
+        register-health-indicator: true # добавляем в актуатор
+        sliding-window-type: count-based # подсчитываем с помощью скользящего окна на основе кол-ве измерений (также можно основываться на времени)
+        sliding-window-size: 10 # размер массива для скользящего окна
+        slow-call-duration-threshold: 5s # настраивает порог продолжительности, при превышении которого вызовы считаются медленными, и увеличивает частоту медленных вызовов
+        slow-call-rate-threshold: 60 # считает вызов медленным, если продолжительность вызова превышает пороговое значение
+        failure-rate-threshold: 60 # настраивает порог частоты отказов в процентах
+        wait-duration-in-open-state: 3s # время, в течение которого CircuitBreaker должен ждать перед переходом из открытого состояния в полуоткрытое
+        permitted-number-of-calls-in-half-open-state: 10 # настраивает количество разрешенных вызовов, когда автоматический выключатель наполовину открыт
+
+    instances:
+      bookCrudApi:
+        baseConfig: default
+
+  ratelimiter:
+    metrics:
+      enabled: true
+    configs:
+      default:
+        limit-for-period: 1 # Количество разрешенных вызовов за период
+        limit-refresh-period: 1s # Период
+        timeout-duration: 0ms # Ожидание получения права на вызов
+    instances:
+      bookCrudApi:
+        baseConfig: default
